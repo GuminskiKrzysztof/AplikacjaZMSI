@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AplikacjaZMSI
-{
-    class Idea
-    {
-    }
-}
+﻿# Frontend
+## Instrukcja 
+## Okienko parametrów testu
+- algorytm
+- zakres
+- funkcja testowa
+## Główne okienko testów
+# Backend

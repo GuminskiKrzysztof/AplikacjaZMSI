@@ -51,9 +51,9 @@ namespace AplikacjaZMSI
  class ParamInfo
  {
      string Name { get; private set;}
- string Description { get; private set; }
- double UpperBoundary { get; set; }
- double LowerBoundary { get; set; }
+     string Description { get; private set; }
+     double UpperBoundary { get; set; }
+     double LowerBoundary { get; set; }
  }
 
  interface IOptimizationAlgorithm

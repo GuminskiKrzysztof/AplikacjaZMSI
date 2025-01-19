@@ -36,6 +36,7 @@
             this.panelAlgorithmParameters = new System.Windows.Forms.Panel();
             this.labelConfiguration = new System.Windows.Forms.Label();
             this.buttonBack = new System.Windows.Forms.Button();
+            this.comboBoxAlgorithms = new System.Windows.Forms.ComboBox();
             this.panelAlgorithmSelection.SuspendLayout();
             this.panelAlgorithmParameters.SuspendLayout();
             this.SuspendLayout();
@@ -76,12 +77,13 @@
             // 
             // panelAlgorithmSelection
             // 
+            this.panelAlgorithmSelection.Controls.Add(this.comboBoxAlgorithms);
             this.panelAlgorithmSelection.Controls.Add(this.labelSelectAlgorithm);
             this.panelAlgorithmSelection.Controls.Add(this.buttonAO);
             this.panelAlgorithmSelection.Controls.Add(this.buttonBOA);
             this.panelAlgorithmSelection.Location = new System.Drawing.Point(3, 3);
             this.panelAlgorithmSelection.Name = "panelAlgorithmSelection";
-            this.panelAlgorithmSelection.Size = new System.Drawing.Size(344, 101);
+            this.panelAlgorithmSelection.Size = new System.Drawing.Size(344, 177);
             this.panelAlgorithmSelection.TabIndex = 4;
             // 
             // labelSelectAlgorithm
@@ -98,9 +100,9 @@
             // 
             this.panelAlgorithmParameters.Controls.Add(this.labelConfiguration);
             this.panelAlgorithmParameters.Controls.Add(this.buttonBack);
-            this.panelAlgorithmParameters.Location = new System.Drawing.Point(288, 120);
+            this.panelAlgorithmParameters.Location = new System.Drawing.Point(362, 110);
             this.panelAlgorithmParameters.Name = "panelAlgorithmParameters";
-            this.panelAlgorithmParameters.Size = new System.Drawing.Size(507, 331);
+            this.panelAlgorithmParameters.Size = new System.Drawing.Size(747, 379);
             this.panelAlgorithmParameters.TabIndex = 5;
             this.panelAlgorithmParameters.Visible = false;
             // 
@@ -127,11 +129,23 @@
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
+            // comboBoxAlgorithms
+            // 
+            this.comboBoxAlgorithms.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxAlgorithms.FormattingEnabled = true;
+            this.comboBoxAlgorithms.Items.AddRange(new object[] {
+            "🦅 AO ",
+            "🦋 BOA"});
+            this.comboBoxAlgorithms.Location = new System.Drawing.Point(9, 107);
+            this.comboBoxAlgorithms.Name = "comboBoxAlgorithms";
+            this.comboBoxAlgorithms.Size = new System.Drawing.Size(315, 35);
+            this.comboBoxAlgorithms.TabIndex = 7;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1121, 501);
             this.Controls.Add(this.panelAlgorithmParameters);
             this.Controls.Add(this.panelAlgorithmSelection);
             this.Controls.Add(this.button1);
@@ -154,6 +168,7 @@
         private System.Windows.Forms.Button buttonBack;
         private System.Windows.Forms.Label labelSelectAlgorithm;
         private System.Windows.Forms.Label labelConfiguration;
+        private System.Windows.Forms.ComboBox comboBoxAlgorithms;
     }
 }
 

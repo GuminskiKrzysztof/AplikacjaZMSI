@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AplikacjaZMSI
 {
-    interface IStateWriter
+    public interface IStateWriter
     {
         // Metoda zapisuj ąca do pliku tekstowego stan algorytmu (w odpowiednim formacie).
         // Stan algorytmu : numer iteracji , liczba wywo łań funkcji celu ,
@@ -15,7 +15,7 @@ namespace AplikacjaZMSI
         void SaveToFileStateOfAlghoritm(string path);
     }
 
-    interface IStateReader
+    public interface IStateReader
     {
         // Metoda wczytuj ąca z pliku stan algorytmu (w odpowiednim formacie ).
         // Stan algorytmu : numer iteracji , liczba wywo łań funkcji celu ,
@@ -24,7 +24,7 @@ namespace AplikacjaZMSI
     }
 
 
-    interface IGeneratePDFReport
+    public interface IGeneratePDFReport
     {
         // Tworzy raport w okre ś lonym stylu w formacie PDF
         // w raporcie powinny znale źć się informacje o:
@@ -34,7 +34,7 @@ namespace AplikacjaZMSI
         void GenerateReport(string path);
     }
 
-    interface IGenerateTextReport
+    public interface IGenerateTextReport
     {
         // Tworzy raport w postaci łań cucha znak ów
         // w raporcie powinny znale źć się informacje o:
@@ -48,15 +48,15 @@ namespace AplikacjaZMSI
     public delegate double fitnessFunction(params double[] arg);
 
     // opis pojedynczego parametru algorytmu , warto ść jest zmienn ą typu double
-    class ParamInfo
+    public class ParamInfo
     {
-        string Name { get; set; }
-        string Description { get; set; }
-        double UpperBoundary { get; set; }
-        double LowerBoundary { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public double UpperBoundary { get; set; }
+        public double LowerBoundary { get; set; }
     }
 
-    interface IOptimizationAlgorithm
+    public interface IOptimizationAlgorithm
     {
         // Nazwa algorytmu
         string Name { get; set; }
@@ -68,7 +68,7 @@ namespace AplikacjaZMSI
         // list ę pozosta łych wymaganych parametr ów algorytmu ( tylko warto ści , w kolejności takiej jak w ParamsInfo ).
         // Po wykonaniu ustawia odpowiednie właś ciwo ści: XBest , Fbest ,
         //NumberOfEvaluationFitnessFunction
-        void Solve(fitnessFunction f, double[,] domain, params double[] parameters);
+        void Solve(Func<double[], double> f, double[,] domain, params double[] parameters);
 
         // Lista informacji o kolejnych parametrach algorytmu
         ParamInfo[] ParamsInfo { get; set; }
@@ -98,4 +98,6 @@ namespace AplikacjaZMSI
         // Właś ciwo ść zwracaj ąca liczb ę wywo łań funkcji dopasowania
         //  int NumberOfEvaluationFitnessFunction { get; set; }
     }
+
+
 }

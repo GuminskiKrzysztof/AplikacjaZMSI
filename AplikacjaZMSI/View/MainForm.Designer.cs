@@ -68,7 +68,7 @@
             // 
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button1.Location = new System.Drawing.Point(671, 24);
+            this.button1.Location = new System.Drawing.Point(1002, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(107, 39);
             this.button1.TabIndex = 3;
@@ -81,7 +81,7 @@
             this.panelAlgorithmSelection.Controls.Add(this.labelSelectAlgorithm);
             this.panelAlgorithmSelection.Controls.Add(this.buttonAO);
             this.panelAlgorithmSelection.Controls.Add(this.buttonBOA);
-            this.panelAlgorithmSelection.Location = new System.Drawing.Point(3, 3);
+            this.panelAlgorithmSelection.Location = new System.Drawing.Point(1, 12);
             this.panelAlgorithmSelection.Name = "panelAlgorithmSelection";
             this.panelAlgorithmSelection.Size = new System.Drawing.Size(344, 177);
             this.panelAlgorithmSelection.TabIndex = 4;
@@ -140,6 +140,7 @@
             this.comboBoxAlgorithms.Name = "comboBoxAlgorithms";
             this.comboBoxAlgorithms.Size = new System.Drawing.Size(315, 35);
             this.comboBoxAlgorithms.TabIndex = 7;
+            this.comboBoxAlgorithms.SelectedIndexChanged += new System.EventHandler(this.buttonAO_Click);
             // 
             // MainForm
             // 

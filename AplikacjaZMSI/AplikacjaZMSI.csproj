@@ -56,6 +56,7 @@
     <Compile Include="Model\BOAAlgorithm.cs" />
     <Compile Include="Model\GeneratePDFReport.cs" />
     <Compile Include="Model\StateWriter.cs" />
+    <Compile Include="Presenter\MainPresenter.cs" />
     <Compile Include="View\IMainView.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
@@ -93,8 +94,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Presenter\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

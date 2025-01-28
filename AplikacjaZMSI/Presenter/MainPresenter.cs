@@ -12,20 +12,41 @@ namespace AplikacjaZMSI.Presenter
     public class MainPresenter
     {
         private readonly MainForm view;
-        private readonly AquilaOptimizer optimizer;
+        private IOptimizationAlgorithm selectedAlgorithm;
 
         public MainPresenter(MainForm view)
         {
             this.view = view;
-            optimizer = new AquilaOptimizer();
+
+            view.OnAlgorithmSelected += UpdateSelectedAlgorithm;
 
             // Subskrybuj zdarzenie Solve z widoku
             view.OnSolve += RunAlgorithm;
         }
 
-        private void RunAlgorithm(double alpha, double delta, double beta)
+        private void UpdateSelectedAlgorithm(IOptimizationAlgorithm algorithm)
         {
-            Console.WriteLine($"Uruchamiam algorytm z parametrami: alpha={alpha}, delta={delta}, beta={beta}");
+            selectedAlgorithm = algorithm;
+
+            if (selectedAlgorithm != null)
+            {
+                view.UpdateParameterConfiguration(
+                    $"Konfiguracja parametrów dla {algorithm.Name}",
+                    algorithm.ParamsInfo
+                );
+            }
+        }
+
+        private void RunAlgorithm(double[] parameters)
+        {
+            if (selectedAlgorithm == null)
+            {
+                MessageBox.Show("Nie wybrano algorytmu!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Console.WriteLine($"Uruchamiam algorytm {selectedAlgorithm} z parametrami: {string.Join(", ", parameters)}");
+
             // Ustawienie parametrów algorytmu
             double[,] domain = new double[,] { { -10, 10 }, { -10, 10 } }; // Przykładowy zakres
             Func<double[], double> fitnessFunction = x =>
@@ -34,15 +55,13 @@ namespace AplikacjaZMSI.Presenter
                 return Math.Pow(x[0], 2) + Math.Pow(x[1], 2);
             };
 
-            Console.WriteLine("Rozpoczynam Aquila Optimizer...");
             try
             {
                 // Uruchom algorytm
-                optimizer.Solve(fitnessFunction, domain, alpha, delta, beta);
-                Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {optimizer.FBest}, X = [{string.Join(", ", optimizer.XBest)}]");
+                selectedAlgorithm.Solve(fitnessFunction, domain, parameters);
+                Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {selectedAlgorithm.FBest}, X = [{string.Join(", ", selectedAlgorithm.XBest)}]");
                 // Przekaż wyniki do widoku
-                view.DisplayResults(optimizer.FBest, optimizer.XBest);
-                Console.WriteLine("Zakończono optymalizację.");
+                view.DisplayResults(selectedAlgorithm.FBest, selectedAlgorithm.XBest);
             }
             catch (Exception ex)
             {

@@ -45,16 +45,33 @@ namespace AplikacjaZMSI.Presenter
                 return;
             }
 
-            Console.WriteLine($"Uruchamiam algorytm {selectedAlgorithm} z parametrami: {string.Join(", ", parameters)}");
+            // Pobranie wybranej funkcji testowej z widoku
+            string selectedTestFunctionName = view.SelectedTestFunction;
+            Func<double[], double> fitnessFunction;
+
+            switch (selectedTestFunctionName)
+            {
+                case "Sphere":
+                    fitnessFunction = TestFunction.Sphere;
+                    break;
+                case "Rastrigin":
+                    fitnessFunction = TestFunction.Rastrigin;
+                    break;
+                case "Rosenbrock":
+                    fitnessFunction = TestFunction.Rosenbrock;
+                    break;
+                case "Beale":
+                    fitnessFunction = TestFunction.Beale;
+                    break;
+                default:
+                    throw new InvalidOperationException("Nieznana funkcja testowa.");
+            }
+
+
+            Console.WriteLine($"Uruchamiam algorytm {selectedAlgorithm} z funkcją {selectedTestFunctionName} i parametrami: {string.Join(", ", parameters)}");
 
             // Ustawienie parametrów algorytmu
             double[,] domain = new double[,] { { -10, 10 }, { -10, 10 } }; // Przykładowy zakres
-            Func<double[], double> fitnessFunction = x =>
-            {
-                // Przykładowa funkcja celu (np. funkcja kwadratowa)
-                return Math.Pow(x[0], 2) + Math.Pow(x[1], 2);
-            };
-
             try
             {
                 // Uruchom algorytm
@@ -66,7 +83,8 @@ namespace AplikacjaZMSI.Presenter
             catch (Exception ex)
             {
                 MessageBox.Show($"Wystąpił błąd: {ex.Message}", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }   
+            
         }
     }
 }

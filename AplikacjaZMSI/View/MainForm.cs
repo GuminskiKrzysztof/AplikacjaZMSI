@@ -16,6 +16,8 @@ namespace AplikacjaZMSI
         private List<IOptimizationAlgorithm> algorithms;
         private List<TrackBar> dynamicTrackBars = new List<TrackBar>();
 
+        public string SelectedTestFunction => comboBoxTestFunctions.SelectedItem?.ToString();
+
         public event Action<double[]> OnSolve;
         public event Action<IOptimizationAlgorithm> OnAlgorithmSelected;
 
@@ -33,6 +35,12 @@ namespace AplikacjaZMSI
             comboBoxAlgorithms.DisplayMember = "Name";
 
             comboBoxAlgorithms.SelectedIndexChanged += comboBoxAlgorithms_SelectedIndexChanged;
+
+            // Zdarzenie na zmianę funkcji testowej
+            comboBoxTestFunctions.SelectedIndexChanged += (sender, e) =>
+            {
+                Console.WriteLine($"Wybrano funkcję testową: {SelectedTestFunction}");
+            };
 
         }
 

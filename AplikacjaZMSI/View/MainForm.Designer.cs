@@ -39,6 +39,7 @@
             this.labelConfiguration = new System.Windows.Forms.Label();
             this.buttonBack = new System.Windows.Forms.Button();
             this.lblResult = new System.Windows.Forms.Label();
+            this.comboBoxTestFunctions = new System.Windows.Forms.ComboBox();
             this.panelAlgorithmSelection.SuspendLayout();
             this.panelAlgorithmConfiguration.SuspendLayout();
             this.SuspendLayout();
@@ -105,6 +106,7 @@
             // 
             // panelAlgorithmConfiguration
             // 
+            this.panelAlgorithmConfiguration.Controls.Add(this.comboBoxTestFunctions);
             this.panelAlgorithmConfiguration.Controls.Add(this.panelParameters);
             this.panelAlgorithmConfiguration.Controls.Add(this.btnSolve);
             this.panelAlgorithmConfiguration.Controls.Add(this.labelConfiguration);
@@ -112,7 +114,7 @@
             this.panelAlgorithmConfiguration.Location = new System.Drawing.Point(363, 80);
             this.panelAlgorithmConfiguration.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelAlgorithmConfiguration.Name = "panelAlgorithmConfiguration";
-            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(747, 452);
+            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(804, 463);
             this.panelAlgorithmConfiguration.TabIndex = 5;
             this.panelAlgorithmConfiguration.Visible = false;
             // 
@@ -168,11 +170,27 @@
             this.lblResult.Size = new System.Drawing.Size(0, 32);
             this.lblResult.TabIndex = 15;
             // 
+            // comboBoxTestFunctions
+            // 
+            this.comboBoxTestFunctions.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxTestFunctions.FormattingEnabled = true;
+            this.comboBoxTestFunctions.Items.AddRange(new object[] {
+                "Sphere",
+                "Rastrigin",
+                "Rosenbrock",
+                "Beale"});
+            this.comboBoxTestFunctions.Location = new System.Drawing.Point(485, 245);
+            this.comboBoxTestFunctions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxTestFunctions.Name = "comboBoxTestFunctions";
+            this.comboBoxTestFunctions.SelectedIndex = 0;
+            this.comboBoxTestFunctions.Size = new System.Drawing.Size(315, 35);
+            this.comboBoxTestFunctions.TabIndex = 9;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1121, 622);
+            this.ClientSize = new System.Drawing.Size(1179, 622);
             this.Controls.Add(this.lblResult);
             this.Controls.Add(this.panelAlgorithmConfiguration);
             this.Controls.Add(this.panelAlgorithmSelection);
@@ -201,6 +219,7 @@
         private System.Windows.Forms.Label lblResult;
         private System.Windows.Forms.Panel panelParameters;
         private System.Windows.Forms.Label labelConfiguration;
+        private System.Windows.Forms.ComboBox comboBoxTestFunctions;
     }
 }
 

@@ -1,22 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using AplikacjaZMSI.View;
+using AplikacjaZMSI.Presenter;
+
 
 namespace AplikacjaZMSI
 {
-    internal static class Program
+    static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            // Tworzenie widoku
+            MainForm mainForm = new MainForm();
+
+            // Tworzenie prezentera
+            MainPresenter presenter = new MainPresenter(mainForm);
+
+            // Uruchomienie aplikacji
+            Application.Run(mainForm);
         }
     }
 }

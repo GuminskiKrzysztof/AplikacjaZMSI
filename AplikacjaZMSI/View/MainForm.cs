@@ -44,6 +44,27 @@ namespace AplikacjaZMSI
 
         }
 
+ 
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            // Toggle text and background color based on state
+            if (checkBox1.Checked)
+            {
+                checkBox1.Text = "Unit test";
+                checkBox1.BackColor = Color.LightPink;
+                panel1.Visible = false;
+                panel1.Enabled = false;
+            }
+            else
+            {
+                checkBox1.Text = "Group test";
+                checkBox1.BackColor = Color.LightSalmon;
+                panel1.Visible = true;
+                panel1.Enabled = true;
+            }
+        }
+
         private void buttonBack_Click(object sender, EventArgs e)
         {
             panelAlgorithmConfiguration.Visible = false;
@@ -163,5 +184,6 @@ namespace AplikacjaZMSI
         {
             lblResult.Text = $"Najlepsze f(X): {fBest:F4}\nX = [{string.Join(", ", xBest)}]";
         }
+
     }
 }

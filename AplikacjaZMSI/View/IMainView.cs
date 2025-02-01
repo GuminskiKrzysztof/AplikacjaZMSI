@@ -23,5 +23,7 @@ namespace AplikacjaZMSI.View
         // Metody do aktualizacji widoku
         void UpdateParameterConfiguration(string labelText, ParamInfo[] parameters);
         void DisplayResults(double fBest, double[] xBest);
+
+
     }
 }

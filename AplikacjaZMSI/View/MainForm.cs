@@ -122,6 +122,18 @@ namespace AplikacjaZMSI
             GenerateParameterControls((IOptimizationAlgorithm)comboBoxAlgorithms.SelectedItem);
         }
 
+        private void UpdateProgressBar(int value)
+        {
+            if (progressBar1.InvokeRequired)
+            {
+                progressBar1.Invoke(new Action(() => progressBar1.Value = value));
+            }
+            else
+            {
+                progressBar1.Value = value;
+            }
+        }
+
 
         private void comboBoxAlgorithms_SelectedIndexChanged(object sender, EventArgs e)
         {

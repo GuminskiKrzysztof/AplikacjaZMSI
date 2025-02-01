@@ -55,6 +55,8 @@
     <Compile Include="Model\AOAlgoritm.cs" />
     <Compile Include="Model\BOAAlgorithm.cs" />
     <Compile Include="Model\GeneratePDFReport.cs" />
+    <Compile Include="Model\MultiTest.cs" />
+    <Compile Include="Model\SingleTestForMulti.cs" />
     <Compile Include="Model\StateWriter.cs" />
     <Compile Include="Model\TestFunction.cs" />
     <Compile Include="Presenter\MainPresenter.cs" />

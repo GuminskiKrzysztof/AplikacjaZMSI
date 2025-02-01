@@ -47,6 +47,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.panelAlgorithmSelection.SuspendLayout();
             this.panelAlgorithmConfiguration.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -136,7 +137,7 @@
             "Rastrigin",
             "Rosenbrock",
             "Beale"});
-            this.comboBoxTestFunctions.Location = new System.Drawing.Point(364, 199);
+            this.comboBoxTestFunctions.Location = new System.Drawing.Point(613, 57);
             this.comboBoxTestFunctions.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTestFunctions.Name = "comboBoxTestFunctions";
             this.comboBoxTestFunctions.Size = new System.Drawing.Size(237, 30);
@@ -246,6 +247,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.progressBar1);
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.comboBoxTestFunctions);
@@ -266,13 +268,20 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(740, 329);
+            this.button2.Location = new System.Drawing.Point(723, 155);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 10;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(485, 352);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(440, 64);
+            this.progressBar1.TabIndex = 11;
             // 
             // MainForm
             // 
@@ -319,6 +328,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 

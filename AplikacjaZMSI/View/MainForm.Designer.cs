@@ -39,13 +39,18 @@
             this.btnSolve = new System.Windows.Forms.Button();
             this.labelConfiguration = new System.Windows.Forms.Label();
             this.buttonBack = new System.Windows.Forms.Button();
+            this.comboBoxTestFunctions1 = new System.Windows.Forms.ComboBox();
             this.lblResult = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.panelAlgorithmSelection.SuspendLayout();
             this.panelAlgorithmConfiguration.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonNextConfiguration
@@ -111,7 +116,6 @@
             // 
             // panelAlgorithmConfiguration
             // 
-            this.panelAlgorithmConfiguration.Controls.Add(this.comboBoxTestFunctions);
             this.panelAlgorithmConfiguration.Controls.Add(this.panelParameters);
             this.panelAlgorithmConfiguration.Controls.Add(this.btnSolve);
             this.panelAlgorithmConfiguration.Controls.Add(this.labelConfiguration);
@@ -183,6 +187,21 @@
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
+            // comboBoxTestFunctions1
+            // 
+            this.comboBoxTestFunctions1.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxTestFunctions1.FormattingEnabled = true;
+            this.comboBoxTestFunctions1.Items.AddRange(new object[] {
+            "Sphere",
+            "Rastrigin",
+            "Rosenbrock",
+            "Beale"});
+            this.comboBoxTestFunctions1.Location = new System.Drawing.Point(364, 199);
+            this.comboBoxTestFunctions1.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxTestFunctions1.Name = "comboBoxTestFunctions1";
+            this.comboBoxTestFunctions1.Size = new System.Drawing.Size(237, 30);
+            this.comboBoxTestFunctions1.TabIndex = 9;
+            // 
             // lblResult
             // 
             this.lblResult.AutoSize = true;
@@ -225,6 +244,36 @@
             this.label1.TabIndex = 18;
             this.label1.Text = "Go to:";
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.comboBoxTestFunctions);
+            this.panel2.Location = new System.Drawing.Point(14, 50);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(986, 517);
+            this.panel2.TabIndex = 19;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.Location = new System.Drawing.Point(81, 51);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(248, 32);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Wybierz algorytmy:";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(740, 329);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,7 +281,7 @@
             this.ClientSize = new System.Drawing.Size(1029, 613);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.lblResult);
             this.Controls.Add(this.button1);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -243,6 +292,8 @@
             this.panelAlgorithmConfiguration.ResumeLayout(false);
             this.panelAlgorithmConfiguration.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,9 +312,13 @@
         private System.Windows.Forms.Panel panelParameters;
         private System.Windows.Forms.Label labelConfiguration;
         private System.Windows.Forms.ComboBox comboBoxTestFunctions;
+        private System.Windows.Forms.ComboBox comboBoxTestFunctions1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button2;
     }
 }
 

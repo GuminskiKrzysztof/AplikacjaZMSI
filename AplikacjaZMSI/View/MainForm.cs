@@ -17,6 +17,7 @@ namespace AplikacjaZMSI
         private List<TrackBar> dynamicTrackBars = new List<TrackBar>();
 
         public string SelectedTestFunction => comboBoxTestFunctions.SelectedItem?.ToString();
+        public string SelectedTestFunctionMulti => comboBoxTestFunctions1.SelectedItem?.ToString();
 
         public event Action<double[]> OnSolve;
         public event Action<IOptimizationAlgorithm> OnAlgorithmSelected;
@@ -41,7 +42,10 @@ namespace AplikacjaZMSI
             {
                 Console.WriteLine($"Wybrano funkcję testową: {SelectedTestFunction}");
             };
-
+            comboBoxTestFunctions1.SelectedIndexChanged += (sender, e) =>
+            {
+                Console.WriteLine($"Wybrano funkcję testową: {SelectedTestFunctionMulti}");
+            };
         }
 
  
@@ -55,6 +59,8 @@ namespace AplikacjaZMSI
                 checkBox1.BackColor = Color.LightPink;
                 panel1.Visible = false;
                 panel1.Enabled = false;
+                panel2.Visible = true;
+                panel2.Enabled = true;
             }
             else
             {
@@ -62,6 +68,8 @@ namespace AplikacjaZMSI
                 checkBox1.BackColor = Color.LightSalmon;
                 panel1.Visible = true;
                 panel1.Enabled = true;
+                panel2.Visible = false;
+                panel2.Enabled = false;
             }
         }
 
@@ -185,5 +193,9 @@ namespace AplikacjaZMSI
             lblResult.Text = $"Najlepsze f(X): {fBest:F4}\nX = [{string.Join(", ", xBest)}]";
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

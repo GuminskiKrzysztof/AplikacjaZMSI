@@ -68,7 +68,8 @@ namespace AplikacjaZMSI
         // list ę pozosta łych wymaganych parametr ów algorytmu ( tylko warto ści , w kolejności takiej jak w ParamsInfo ).
         // Po wykonaniu ustawia odpowiednie właś ciwo ści: XBest , Fbest ,
         //NumberOfEvaluationFitnessFunction
-        void Solve(Func<double[], double> f, double[,] domain, params double[] parameters);
+        void init(Func<double[], double> f, double[,] domain, params double[] parameters);
+        void Solve();
 
         // Lista informacji o kolejnych parametrach algorytmu
         ParamInfo[] ParamsInfo { get; set; }

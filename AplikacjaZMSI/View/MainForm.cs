@@ -46,6 +46,8 @@ namespace AplikacjaZMSI
             {
                 Console.WriteLine($"Wybrano funkcję testową: {SelectedTestFunctionMulti}");
             };
+            checkedListBox1.Items.Add("AO");
+            checkedListBox1.Items.Add("BOA");
         }
 
  
@@ -122,7 +124,7 @@ namespace AplikacjaZMSI
             GenerateParameterControls((IOptimizationAlgorithm)comboBoxAlgorithms.SelectedItem);
         }
 
-        private void UpdateProgressBar(int value)
+        private bool UpdateProgressBar(int value)
         {
             if (progressBar1.InvokeRequired)
             {
@@ -132,6 +134,7 @@ namespace AplikacjaZMSI
             {
                 progressBar1.Value = value;
             }
+            return true;
         }
 
 
@@ -207,7 +210,15 @@ namespace AplikacjaZMSI
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Func<int, bool> update = UpdateProgressBar;
+            MultiTest testMulti = new MultiTest(update);
+            List<string> checkedItemsList = new List<string>();
+            foreach (var item in checkedListBox1.CheckedItems)
+            {
+                checkedItemsList.Add(item.ToString());
+            }
 
+            testMulti.run(SelectedTestFunctionMulti, checkedItemsList);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using AplikacjaZMSI.View;
 using AplikacjaZMSI.Presenter;
-
+using AplikacjaZMSI.Model;
 
 namespace AplikacjaZMSI
 {

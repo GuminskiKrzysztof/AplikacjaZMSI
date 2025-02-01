@@ -48,6 +48,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.panelAlgorithmSelection.SuspendLayout();
             this.panelAlgorithmConfiguration.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -247,6 +248,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.checkedListBox1);
             this.panel2.Controls.Add(this.progressBar1);
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.label2);
@@ -282,6 +284,14 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(440, 64);
             this.progressBar1.TabIndex = 11;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(99, 108);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(120, 94);
+            this.checkedListBox1.TabIndex = 12;
             // 
             // MainForm
             // 
@@ -329,6 +339,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
     }
 }
 

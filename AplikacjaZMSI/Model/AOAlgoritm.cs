@@ -31,7 +31,7 @@ namespace AplikacjaZMSI.Model
         private Func<double[], double> fitnessFunction;
         private Random rand = new Random();
 
-        public void Solve(Func<double[], double> f, double[,] domain, params double[] parameters)
+        public void init(Func<double[], double> f, double[,] domain, params double[] parameters)
         {
             // Przypisanie parametrów
             fitnessFunction = f;
@@ -44,6 +44,11 @@ namespace AplikacjaZMSI.Model
 
             Console.WriteLine("Rozpoczynam Aquila Optimizer...");
             InitializePopulation(domain);
+        }
+
+        public void Solve()
+        {
+            
 
             for (int iter = 0; iter < iterations; iter++)
             {

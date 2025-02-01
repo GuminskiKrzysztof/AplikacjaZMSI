@@ -80,7 +80,8 @@ namespace AplikacjaZMSI.Presenter
             try
             {
                 // Uruchom algorytm
-                selectedAlgorithm.Solve(fitnessFunction, domain, parameters);
+                selectedAlgorithm.init(fitnessFunction, domain, parameters);
+                selectedAlgorithm.Solve();
                 Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {selectedAlgorithm.FBest}, X = [{string.Join(", ", selectedAlgorithm.XBest)}]");
                 // Przekaż wyniki do widoku
                 view.DisplayResults(selectedAlgorithm.FBest, selectedAlgorithm.XBest);

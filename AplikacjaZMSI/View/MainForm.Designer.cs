@@ -252,7 +252,7 @@
             this.panel2.Controls.Add(this.progressBar1);
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.comboBoxTestFunctions);
+            this.panel2.Controls.Add(this.comboBoxTestFunctions1);
             this.panel2.Location = new System.Drawing.Point(14, 50);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(986, 517);

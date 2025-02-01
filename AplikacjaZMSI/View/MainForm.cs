@@ -44,7 +44,7 @@ namespace AplikacjaZMSI
             };
             comboBoxTestFunctions1.SelectedIndexChanged += (sender, e) =>
             {
-                Console.WriteLine($"Wybrano funkcję testową: {SelectedTestFunctionMulti}");
+                Console.WriteLine($"Wybrano funkcję testową1: {SelectedTestFunctionMulti}");
             };
             checkedListBox1.Items.Add("AO");
             checkedListBox1.Items.Add("BOA");

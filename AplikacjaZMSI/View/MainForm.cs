@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -85,47 +86,21 @@ namespace AplikacjaZMSI
             panelAlgorithmSelection.Visible = true;
         }
 
-        private void GenerateParameterControls(IOptimizationAlgorithm selectedAlgorithm)
-        {
-            foreach (var trackBar in dynamicTrackBars)
-            {
-                panelParameters.Controls.Remove(trackBar);
-            }
-            dynamicTrackBars.Clear();
-
-            int yOffset = 100;
-            foreach (var param in selectedAlgorithm.ParamsInfo)
-            {
-                var label = new Label
-                {
-                    Text = param.Name,
-                    Location = new Point(20, yOffset),
-                    Font = new Font("Consolas", 12),
-                    AutoSize = true
-                };
-                panelParameters.Controls.Add(label);
-
-                var trackBar = new TrackBar
-                {
-                    Minimum = (int)(param.LowerBoundary * 10),
-                    Maximum = (int)(param.UpperBoundary * 10),
-                    TickFrequency = 1,
-                    Location = new Point(200, yOffset),
-                    Width = 300
-                };
-                dynamicTrackBars.Add(trackBar);
-                panelParameters.Controls.Add(trackBar);
-
-                yOffset += 60;
-            }
-        }
-
         private void buttonNextConfiguration_Click(object sender, EventArgs e)
         {
             panelAlgorithmSelection.Visible = false;
             panelAlgorithmConfiguration.Visible = true;
 
-            GenerateParameterControls((IOptimizationAlgorithm)comboBoxAlgorithms.SelectedItem);
+            var selectedAlgorithm = (IOptimizationAlgorithm)comboBoxAlgorithms.SelectedItem;
+
+            // Używamy nazwy algorytmu jako labelText
+            var labelText = $"Konfiguracja parametrów dla {selectedAlgorithm.Name}";
+
+            // Parametry algorytmu do przekazania (odwołanie do ParamsInfo)
+            var parameters = selectedAlgorithm.ParamsInfo;
+
+            // Wywołanie UpdateParameterConfiguration z dwoma wymaganymi argumentami
+            UpdateParameterConfiguration(labelText, parameters);
         }
 
         private bool UpdateProgressBar(int value)
@@ -158,13 +133,30 @@ namespace AplikacjaZMSI
 
             foreach (var param in parameters)
             {
-                // Label z nazwą i zakresem
+                // Panel, który będzie przechowywał Labelki i Suwak
+                var panel = new Panel
+                {
+                    Dock = DockStyle.Top,
+                    Height = 50
+                };
+
+                // Label z nazwą parametru
                 var label = new Label
                 {
-                    Text = $"{param.Name} (Min: {param.LowerBoundary}, Max: {param.UpperBoundary})",
-                    AutoSize = true
+                    Text = param.Name,
+                    AutoSize = true,
+                    Location = new Point(0, 5) // Ustawienie z góry
                 };
-                panelParameters.Controls.Add(label);
+                panel.Controls.Add(label);
+
+                // Label z Min
+                var minLabel = new Label
+                {
+                    Text = $"{param.LowerBoundary:F1}",
+                    AutoSize = true,
+                    Location = new Point(0, 25) // Ustawienie poniżej nazwy
+                };
+                panel.Controls.Add(minLabel);
 
                 // Suwak
                 var trackBar = new TrackBar
@@ -173,23 +165,42 @@ namespace AplikacjaZMSI
                     Maximum = (int)(param.UpperBoundary * 10),
                     Value = (int)(param.LowerBoundary * 10),
                     TickFrequency = 10,
-                    Tag = param // Przechowuj informacje o parametrze w suwaku
+                    Tag = param, // Przechowywanie informacji o parametrze w suwaku
+                    Width = 200, // Szerokość suwaka
+                    Location = new Point(80, 10) // Ustawienie w odpowiednim miejscu
                 };
-                panelParameters.Controls.Add(trackBar); 
+                panel.Controls.Add(trackBar);
 
-                // Label z aktualną wartością
+                // Label z Max
+                var maxLabel = new Label
+                {
+                    Text = $"{param.UpperBoundary:F1}",
+                    AutoSize = true,
+                    Location = new Point(trackBar.Width + 100, 25) // Ustawienie po prawej stronie
+                };
+                panel.Controls.Add(maxLabel);
+
+                // Label z aktualną wartością (będzie zmieniana w czasie przewijania)
                 var valueLabel = new Label
                 {
-                    Text = $"{param.LowerBoundary}",
-                    AutoSize = true
+                    Text = $"{param.LowerBoundary:F1}", // Ustawienie wartości początkowej
+                    AutoSize = true,
+                    Location = new Point(trackBar.Width / 2 + 20, 25) // Ustawienie w odpowiednim miejscu
                 };
+                panel.Controls.Add(valueLabel);
+
+                // Reagowanie na zmianę wartości na suwaku
                 trackBar.Scroll += (sender, e) =>
                 {
                     var tb = sender as TrackBar;
-                    valueLabel.Text = (tb.Value / 10.0).ToString("F1");
+                    var currentValue = tb.Value / 10.0;
+                    valueLabel.Text = $"{currentValue:F1}"; // Wyświetlanie aktualnej wartości
                 };
-                panelParameters.Controls.Add(valueLabel);
 
+                // Dodanie panelu do głównego panelu
+                panelParameters.Controls.Add(panel);
+
+                // Dodanie suwaka do listy, aby ewentualnie można było go później edytować
                 dynamicTrackBars.Add(trackBar);
             }
         }

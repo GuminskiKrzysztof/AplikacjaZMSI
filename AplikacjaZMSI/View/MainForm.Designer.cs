@@ -34,11 +34,11 @@
             this.comboBoxAlgorithms = new System.Windows.Forms.ComboBox();
             this.labelSelectAlgorithm = new System.Windows.Forms.Label();
             this.panelAlgorithmConfiguration = new System.Windows.Forms.Panel();
+            this.buttonBack = new System.Windows.Forms.Button();
             this.panelParameters = new System.Windows.Forms.Panel();
             this.btnSolve = new System.Windows.Forms.Button();
             this.comboBoxTestFunctions = new System.Windows.Forms.ComboBox();
             this.labelConfiguration = new System.Windows.Forms.Label();
-            this.buttonBack = new System.Windows.Forms.Button();
             this.comboBoxTestFunctions1 = new System.Windows.Forms.ComboBox();
             this.lblResult = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -85,7 +85,7 @@
             this.panelAlgorithmSelection.Controls.Add(this.comboBoxAlgorithms);
             this.panelAlgorithmSelection.Controls.Add(this.labelSelectAlgorithm);
             this.panelAlgorithmSelection.Controls.Add(this.buttonNextConfiguration);
-            this.panelAlgorithmSelection.Location = new System.Drawing.Point(9, 16);
+            this.panelAlgorithmSelection.Location = new System.Drawing.Point(18, 5);
             this.panelAlgorithmSelection.Margin = new System.Windows.Forms.Padding(2);
             this.panelAlgorithmSelection.Name = "panelAlgorithmSelection";
             this.panelAlgorithmSelection.Size = new System.Drawing.Size(332, 144);
@@ -115,31 +115,45 @@
             // 
             // panelAlgorithmConfiguration
             // 
+            this.panelAlgorithmConfiguration.Controls.Add(this.buttonBack);
             this.panelAlgorithmConfiguration.Controls.Add(this.panelParameters);
             this.panelAlgorithmConfiguration.Controls.Add(this.btnSolve);
             this.panelAlgorithmConfiguration.Controls.Add(this.comboBoxTestFunctions);
             this.panelAlgorithmConfiguration.Controls.Add(this.labelConfiguration);
-            this.panelAlgorithmConfiguration.Controls.Add(this.buttonBack);
-            this.panelAlgorithmConfiguration.Location = new System.Drawing.Point(371, 105);
+            this.panelAlgorithmConfiguration.Location = new System.Drawing.Point(9, 105);
             this.panelAlgorithmConfiguration.Margin = new System.Windows.Forms.Padding(2);
             this.panelAlgorithmConfiguration.Name = "panelAlgorithmConfiguration";
-            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(893, 467);
+            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(1255, 467);
             this.panelAlgorithmConfiguration.TabIndex = 5;
             this.panelAlgorithmConfiguration.Visible = false;
             // 
+            // buttonBack
+            // 
+            this.buttonBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonBack.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonBack.Location = new System.Drawing.Point(11, 24);
+            this.buttonBack.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonBack.Name = "buttonBack";
+            this.buttonBack.Size = new System.Drawing.Size(52, 54);
+            this.buttonBack.TabIndex = 3;
+            this.buttonBack.Text = "⬅";
+            this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
+            // 
             // panelParameters
             // 
-            this.panelParameters.Location = new System.Drawing.Point(28, 88);
+            this.panelParameters.AutoScroll = true;
+            this.panelParameters.Location = new System.Drawing.Point(33, 97);
             this.panelParameters.Margin = new System.Windows.Forms.Padding(2);
             this.panelParameters.Name = "panelParameters";
-            this.panelParameters.Size = new System.Drawing.Size(344, 329);
+            this.panelParameters.Size = new System.Drawing.Size(837, 329);
             this.panelParameters.TabIndex = 9;
             // 
             // btnSolve
             // 
             this.btnSolve.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSolve.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnSolve.Location = new System.Drawing.Point(405, 253);
+            this.btnSolve.Location = new System.Drawing.Point(1145, 141);
             this.btnSolve.Margin = new System.Windows.Forms.Padding(2);
             this.btnSolve.Name = "btnSolve";
             this.btnSolve.Size = new System.Drawing.Size(80, 32);
@@ -157,7 +171,7 @@
             "Rastrigin",
             "Rosenbrock",
             "Beale"});
-            this.comboBoxTestFunctions.Location = new System.Drawing.Point(405, 187);
+            this.comboBoxTestFunctions.Location = new System.Drawing.Point(1000, 82);
             this.comboBoxTestFunctions.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTestFunctions.Name = "comboBoxTestFunctions";
             this.comboBoxTestFunctions.Size = new System.Drawing.Size(225, 35);
@@ -167,25 +181,12 @@
             // 
             this.labelConfiguration.AutoSize = true;
             this.labelConfiguration.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelConfiguration.Location = new System.Drawing.Point(31, 46);
+            this.labelConfiguration.Location = new System.Drawing.Point(81, 46);
             this.labelConfiguration.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelConfiguration.Name = "labelConfiguration";
             this.labelConfiguration.Size = new System.Drawing.Size(0, 32);
             this.labelConfiguration.TabIndex = 7;
             this.labelConfiguration.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // buttonBack
-            // 
-            this.buttonBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonBack.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonBack.Location = new System.Drawing.Point(9, 5);
-            this.buttonBack.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(52, 58);
-            this.buttonBack.TabIndex = 3;
-            this.buttonBack.Text = "⬅";
-            this.buttonBack.UseVisualStyleBackColor = true;
-            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
             // comboBoxTestFunctions1
             // 

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MathNet.Numerics.Distributions;
+using Org.BouncyCastle.Pqc.Crypto.Lms;
+using System;
 using System.Linq;
+using System.Text.Json;
 
 namespace AplikacjaZMSI.Model
 {
@@ -32,6 +35,20 @@ namespace AplikacjaZMSI.Model
         private int dimensions;
         private int iterations;
         private Func<double[], double> fitnessFunction;
+        private TestData data;
+
+        public string getJson()
+        {
+            Console.WriteLine(JsonSerializer.Serialize<TestData>(data));
+            Console.WriteLine(data.name);
+            return JsonSerializer.Serialize<TestData>(data);
+        }
+
+        public void setFuncName(string name)
+        {
+            data.func = name;
+
+        }
 
         public void init(Func<double[], double> f, double[,] domain, params double[] parameters)
         {
@@ -43,6 +60,15 @@ namespace AplikacjaZMSI.Model
             dimensions = domain.GetLength(0);
             populationSize = 50; // Można ustawić dynamicznie
             iterations = 100; // Można ustawić dynamicznie
+            data = new TestData();
+            data.name = Name;
+            data.param1 = a;
+            data.param2 = c;
+            data.param3 = p;
+            data.iter = iterations;
+            data.dim = dimensions;
+            data.limits = domain;
+            data.popSize = populationSize;
 
             Console.WriteLine("Rozpoczynam BOA...");
             InitializePopulation(domain);

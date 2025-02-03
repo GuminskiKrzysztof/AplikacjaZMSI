@@ -36,9 +36,9 @@
             this.panelAlgorithmConfiguration = new System.Windows.Forms.Panel();
             this.panelParameters = new System.Windows.Forms.Panel();
             this.btnSolve = new System.Windows.Forms.Button();
+            this.comboBoxTestFunctions = new System.Windows.Forms.ComboBox();
             this.labelConfiguration = new System.Windows.Forms.Label();
             this.buttonBack = new System.Windows.Forms.Button();
-            this.comboBoxTestFunctions = new System.Windows.Forms.ComboBox();
             this.comboBoxTestFunctions1 = new System.Windows.Forms.ComboBox();
             this.lblResult = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -59,7 +59,7 @@
             // 
             this.buttonNextConfiguration.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonNextConfiguration.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonNextConfiguration.Location = new System.Drawing.Point(164, 100);
+            this.buttonNextConfiguration.Location = new System.Drawing.Point(119, 100);
             this.buttonNextConfiguration.Margin = new System.Windows.Forms.Padding(2);
             this.buttonNextConfiguration.Name = "buttonNextConfiguration";
             this.buttonNextConfiguration.Size = new System.Drawing.Size(92, 42);
@@ -95,13 +95,10 @@
             // 
             this.comboBoxAlgorithms.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBoxAlgorithms.FormattingEnabled = true;
-            this.comboBoxAlgorithms.Items.AddRange(new object[] {
-            "🦅 AO ",
-            "🦋 BOA"});
             this.comboBoxAlgorithms.Location = new System.Drawing.Point(7, 53);
             this.comboBoxAlgorithms.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAlgorithms.Name = "comboBoxAlgorithms";
-            this.comboBoxAlgorithms.Size = new System.Drawing.Size(237, 35);
+            this.comboBoxAlgorithms.Size = new System.Drawing.Size(317, 35);
             this.comboBoxAlgorithms.TabIndex = 7;
             this.comboBoxAlgorithms.SelectedIndexChanged += new System.EventHandler(this.comboBoxAlgorithms_SelectedIndexChanged);
             // 
@@ -123,10 +120,10 @@
             this.panelAlgorithmConfiguration.Controls.Add(this.comboBoxTestFunctions);
             this.panelAlgorithmConfiguration.Controls.Add(this.labelConfiguration);
             this.panelAlgorithmConfiguration.Controls.Add(this.buttonBack);
-            this.panelAlgorithmConfiguration.Location = new System.Drawing.Point(428, 116);
+            this.panelAlgorithmConfiguration.Location = new System.Drawing.Point(371, 105);
             this.panelAlgorithmConfiguration.Margin = new System.Windows.Forms.Padding(2);
             this.panelAlgorithmConfiguration.Name = "panelAlgorithmConfiguration";
-            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(716, 417);
+            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(893, 467);
             this.panelAlgorithmConfiguration.TabIndex = 5;
             this.panelAlgorithmConfiguration.Visible = false;
             // 
@@ -142,7 +139,7 @@
             // 
             this.btnSolve.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSolve.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnSolve.Location = new System.Drawing.Point(405, 259);
+            this.btnSolve.Location = new System.Drawing.Point(405, 253);
             this.btnSolve.Margin = new System.Windows.Forms.Padding(2);
             this.btnSolve.Name = "btnSolve";
             this.btnSolve.Size = new System.Drawing.Size(80, 32);
@@ -150,6 +147,21 @@
             this.btnSolve.Text = "Testuj";
             this.btnSolve.UseVisualStyleBackColor = true;
             this.btnSolve.Click += new System.EventHandler(this.btnSolve_Click);
+            // 
+            // comboBoxTestFunctions
+            // 
+            this.comboBoxTestFunctions.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxTestFunctions.FormattingEnabled = true;
+            this.comboBoxTestFunctions.Items.AddRange(new object[] {
+            "Sphere",
+            "Rastrigin",
+            "Rosenbrock",
+            "Beale"});
+            this.comboBoxTestFunctions.Location = new System.Drawing.Point(405, 187);
+            this.comboBoxTestFunctions.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxTestFunctions.Name = "comboBoxTestFunctions";
+            this.comboBoxTestFunctions.Size = new System.Drawing.Size(225, 35);
+            this.comboBoxTestFunctions.TabIndex = 9;
             // 
             // labelConfiguration
             // 
@@ -174,21 +186,6 @@
             this.buttonBack.Text = "⬅";
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
-            // 
-            // comboBoxTestFunctions
-            // 
-            this.comboBoxTestFunctions.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBoxTestFunctions.FormattingEnabled = true;
-            this.comboBoxTestFunctions.Items.AddRange(new object[] {
-            "Sphere",
-            "Rastrigin",
-            "Rosenbrock",
-            "Beale"});
-            this.comboBoxTestFunctions.Location = new System.Drawing.Point(405, 187);
-            this.comboBoxTestFunctions.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxTestFunctions.Name = "comboBoxTestFunctions";
-            this.comboBoxTestFunctions.Size = new System.Drawing.Size(225, 35);
-            this.comboBoxTestFunctions.TabIndex = 9;
             // 
             // comboBoxTestFunctions1
             // 

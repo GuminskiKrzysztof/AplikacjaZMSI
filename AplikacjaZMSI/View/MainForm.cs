@@ -32,8 +32,12 @@ namespace AplikacjaZMSI
                 new BOAAlgorithm()
             };
 
+            comboBoxAlgorithms.SelectedIndexChanged -= comboBoxAlgorithms_SelectedIndexChanged;
+
             comboBoxAlgorithms.DataSource = algorithms;
             comboBoxAlgorithms.DisplayMember = "Name";
+
+            comboBoxAlgorithms.SelectedIndex = -1;
 
             comboBoxAlgorithms.SelectedIndexChanged += comboBoxAlgorithms_SelectedIndexChanged;
 

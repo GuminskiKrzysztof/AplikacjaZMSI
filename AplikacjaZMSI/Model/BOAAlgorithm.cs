@@ -67,6 +67,7 @@ namespace AplikacjaZMSI.Model
             }
 
             Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {FBest}, X = [{string.Join(", ", XBest)}]");
+            Console.WriteLine($"a = {a}, c = {c},p = {p}");
         }
 
         private void InitializePopulation(double[,] domain)

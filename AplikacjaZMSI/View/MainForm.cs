@@ -87,21 +87,21 @@ namespace AplikacjaZMSI
         }
 
         private void buttonNextConfiguration_Click(object sender, EventArgs e)
-        {
-            panelAlgorithmSelection.Visible = false;
-            panelAlgorithmConfiguration.Visible = true;
+{
+    panelAlgorithmSelection.Visible = false;
+    panelAlgorithmConfiguration.Visible = true;
 
-            var selectedAlgorithm = (IOptimizationAlgorithm)comboBoxAlgorithms.SelectedItem;
+    var selectedAlgorithm = (IOptimizationAlgorithm)comboBoxAlgorithms.SelectedItem;
 
-            // Używamy nazwy algorytmu jako labelText
-            var labelText = $"Konfiguracja parametrów dla {selectedAlgorithm.Name}";
+    // Używamy nazwy algorytmu jako labelText
+    var labelText = $"Konfiguracja parametrów dla {selectedAlgorithm.Name}";
 
-            // Parametry algorytmu do przekazania (odwołanie do ParamsInfo)
-            var parameters = selectedAlgorithm.ParamsInfo;
+    // Parametry algorytmu do przekazania (odwołanie do ParamsInfo)
+    var parameters = selectedAlgorithm.ParamsInfo;
 
-            // Wywołanie UpdateParameterConfiguration z dwoma wymaganymi argumentami
-            UpdateParameterConfiguration(labelText, parameters);
-        }
+    // Wywołanie UpdateParameterConfiguration z dwoma wymaganymi argumentami
+    UpdateParameterConfiguration(labelText, parameters);
+}
 
         private bool UpdateProgressBar(int value)
         {
@@ -133,77 +133,73 @@ namespace AplikacjaZMSI
 
             foreach (var param in parameters)
             {
-                // Panel, który będzie przechowywał Labelki i Suwak
                 var panel = new Panel
                 {
                     Dock = DockStyle.Top,
                     Height = 50
                 };
 
-                // Label z nazwą parametru
                 var label = new Label
                 {
                     Text = param.Name,
                     AutoSize = true,
-                    Location = new Point(0, 5) // Ustawienie z góry
+                    Location = new Point(0, 5)
                 };
                 panel.Controls.Add(label);
 
-                // Label z Min
                 var minLabel = new Label
                 {
                     Text = $"{param.LowerBoundary:F1}",
                     AutoSize = true,
-                    Location = new Point(0, 25) // Ustawienie poniżej nazwy
+                    Location = new Point(0, 25)
                 };
                 panel.Controls.Add(minLabel);
 
-                // Suwak
                 var trackBar = new TrackBar
                 {
                     Minimum = (int)(param.LowerBoundary * 10),
                     Maximum = (int)(param.UpperBoundary * 10),
                     Value = (int)(param.LowerBoundary * 10),
                     TickFrequency = 10,
-                    Tag = param, // Przechowywanie informacji o parametrze w suwaku
-                    Width = 200, // Szerokość suwaka
-                    Location = new Point(80, 10) // Ustawienie w odpowiednim miejscu
+                    Tag = param,
+                    Width = 200,
+                    Location = new Point(80, 10)
                 };
                 panel.Controls.Add(trackBar);
 
-                // Label z Max
                 var maxLabel = new Label
                 {
                     Text = $"{param.UpperBoundary:F1}",
                     AutoSize = true,
-                    Location = new Point(trackBar.Width + 100, 25) // Ustawienie po prawej stronie
+                    Location = new Point(trackBar.Width + 100, 25)
                 };
                 panel.Controls.Add(maxLabel);
 
-                // Label z aktualną wartością (będzie zmieniana w czasie przewijania)
+                // Etykieta z aktualną wartością - ustawiona obok suwaka
                 var valueLabel = new Label
                 {
-                    Text = $"{param.LowerBoundary:F1}", // Ustawienie wartości początkowej
+                    Text = $"{param.LowerBoundary:F1}",
                     AutoSize = true,
-                    Location = new Point(trackBar.Width / 2 + 20, 25) // Ustawienie w odpowiednim miejscu
+                    Location = new Point(trackBar.Right + 10, 15) // Na prawo od suwaka
                 };
                 panel.Controls.Add(valueLabel);
 
-                // Reagowanie na zmianę wartości na suwaku
+                // Aktualizacja wartości i przesuwanie etykiety
                 trackBar.Scroll += (sender, e) =>
                 {
                     var tb = sender as TrackBar;
-                    var currentValue = tb.Value / 10.0;
-                    valueLabel.Text = $"{currentValue:F1}"; // Wyświetlanie aktualnej wartości
+                    double currentValue = tb.Value / 10.0;
+                    valueLabel.Text = currentValue.ToString("F1");
+
+                    // Przesunięcie etykiety dynamicznie zgodnie z pozycją suwaka
+                    valueLabel.Location = new Point(tb.Left + tb.Width + 10, tb.Top + 5);
                 };
 
-                // Dodanie panelu do głównego panelu
                 panelParameters.Controls.Add(panel);
-
-                // Dodanie suwaka do listy, aby ewentualnie można było go później edytować
                 dynamicTrackBars.Add(trackBar);
             }
         }
+
 
         private void btnSolve_Click(object sender, EventArgs e)
         {

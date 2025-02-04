@@ -40,7 +40,15 @@ namespace AplikacjaZMSI
 
             comboBoxAlgorithms.SelectedIndex = -1;
 
+            buttonNextConfiguration.Enabled = false;
+            btnSolve.Enabled = false;
+            btnMultiSolve.Enabled = false;
+
             comboBoxAlgorithms.SelectedIndexChanged += comboBoxAlgorithms_SelectedIndexChanged;
+            comboBoxTestFunctions.SelectedIndexChanged += comboBoxTestFunctions_SelectedIndexChanged;
+            comboBoxTestFunctions1.SelectedIndexChanged += comboBoxTestFunctions1_SelectedIndexChanged;
+            checkedListBox1.ItemCheck += checkedListBox1_ItemCheck;
+
 
             // Zdarzenie na zmianę funkcji testowej
             comboBoxTestFunctions.SelectedIndexChanged += (sender, e) =>
@@ -53,9 +61,11 @@ namespace AplikacjaZMSI
             };
             checkedListBox1.Items.Add("AO");
             checkedListBox1.Items.Add("BOA");
+            
+
         }
 
- 
+
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -119,8 +129,18 @@ namespace AplikacjaZMSI
 
         private void comboBoxAlgorithms_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedAlgorithm = (IOptimizationAlgorithm)comboBoxAlgorithms.SelectedItem;
-            Console.WriteLine($"Wybrano algorytm: {selectedAlgorithm.Name}");
+            var selectedAlgorithm = comboBoxAlgorithms.SelectedItem as IOptimizationAlgorithm;
+
+            if (selectedAlgorithm != null)
+            {
+                Console.WriteLine($"Wybrano algorytm: {selectedAlgorithm.Name}");
+                buttonNextConfiguration.Enabled = true;
+            }
+            else
+            {
+                buttonNextConfiguration.Enabled = false;
+            }
+
             OnAlgorithmSelected?.Invoke(selectedAlgorithm);
         }
 
@@ -230,6 +250,11 @@ namespace AplikacjaZMSI
             }
         }
 
+        private void comboBoxTestFunctions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnSolve.Enabled = comboBoxTestFunctions.SelectedItem != null;
+        }
+
 
 
 
@@ -251,7 +276,7 @@ namespace AplikacjaZMSI
             lblResult.Text = $"Najlepsze f(X): {fBest}\nX = [{string.Join(", ", xBest)}]";
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnMultiSolve_Click(object sender, EventArgs e)
         {
             Func<int, bool> update = UpdateProgressBar;
             MultiTest testMulti = new MultiTest(update);
@@ -262,6 +287,22 @@ namespace AplikacjaZMSI
             }
 
             testMulti.run(SelectedTestFunctionMulti, checkedItemsList);
+        }
+
+        private void UpdateMultiSolveButtonState()
+        {
+            btnMultiSolve.Enabled = comboBoxTestFunctions1.SelectedItem != null && checkedListBox1.CheckedItems.Count > 0;
+        }
+
+        private void comboBoxTestFunctions1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateMultiSolveButtonState();
+        }
+
+        private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            // Aktualizacja po krótkim czasie, ponieważ CheckedItems jeszcze się nie zaktualizowało
+            BeginInvoke((Action)(() => UpdateMultiSolveButtonState()));
         }
     }
 }

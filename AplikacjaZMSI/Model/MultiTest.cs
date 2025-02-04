@@ -17,7 +17,7 @@ namespace AplikacjaZMSI.Model
     public class MultiTest
     {
         private Func<int, bool> progres;
-        private List<IOptimizationAlgorithm> testList;
+        public List<IOptimizationAlgorithm> testList;
         private Func<double[], double> TestFunc;
         JObject combinedData;
 

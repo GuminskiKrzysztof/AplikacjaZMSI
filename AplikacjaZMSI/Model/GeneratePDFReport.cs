@@ -47,7 +47,7 @@ namespace AplikacjaZMSI
 
             if (data.XBest != null && data.XBest.Length > 0)
             {
-                doc.Add(new Paragraph("Najlepsze znalezione współrzędne:", textFont));
+                doc.Add(new Paragraph("Najlepsze znalezione wspólrzędne:", textFont));
                 doc.Add(new Paragraph(string.Join(", ", data.XBest), textFont));
             }
             doc.Add(new Paragraph("\n"));

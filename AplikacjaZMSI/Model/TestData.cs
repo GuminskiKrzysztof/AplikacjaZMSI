@@ -20,7 +20,7 @@ namespace AplikacjaZMSI.Model
         public int dim { get; set; } = 0;
         public int iter { get; set; } = 0;
         public double[][] population { get; set; }
-        public double[,] limits;
+        public double[][] limits;
         public int curIter { get; set; } = 0;
     }
 }

@@ -19,31 +19,74 @@ namespace AplikacjaZMSI.Model
         private Func<int, bool> progres;
         private List<IOptimizationAlgorithm> testList;
         private Func<double[], double> TestFunc;
-        private List<string> jsonStrings;
+        JObject combinedData;
+
         public MultiTest(Func<int,bool> pr)
         {
             testList = new List<IOptimizationAlgorithm>();
             progres = pr;
             progres.Invoke(0);
         }
+        public MultiTest(Func<int, bool> pr, string json)
+        {
+            List<TestData> dataList = new List<TestData>();
+            dataList = JsonConvert.DeserializeObject<List<TestData>>(json);
+            testList = new List<IOptimizationAlgorithm>();
+            List<string> list = new List<string>();
+            if (dataList[0].name[0] == 'A') list.Add("AO");
+            if(dataList[dataList.Count-1].name[0] == 'B') list.Add("BOA");
+            createTests(dataList[0].func, list);
+            double i = 0;
+            
+            // Deserialize JSON into a List<TestData>
+            
+            Console.WriteLine("Loaded TestData objects:");
+            foreach (var data in dataList)
+                {
+                    Console.WriteLine($"Name: {data.name}, Param1: {data.param1}, Param2: {data.param2}");
+                }
+            
+            for (int u = 0; u < testList.Count; u++)
+            {
+                testList[u].setJson(dataList[u]);
+                string key = $"Data{u + 1}";
+                combinedData[key] = JObject.Parse(testList[u].getJson());
+                if (dataList[u].state == "DONE") i++;
+            }
+            File.WriteAllText("multitest.json", combinedData.ToString());
+
+            progres = pr;
+            progres.Invoke((int)i);
+
+            for (int u = (int)i; u < testList.Count; u++)
+            {
+                testList[u].Solve();
+                string key = $"Data{u + 1}";
+                testList[u].setPopNull();
+                JObject jsonObject = JObject.Parse(testList[u].getJson());
+                combinedData[key] = jsonObject;
+                File.WriteAllText("multitest.json", combinedData.ToString());
+                progres.Invoke((int)(((double)u / (double)testList.Count) * 100));
+            }
+            File.Delete("multitest.json");
+        }
+
         public void run(string testFunc, List<string> algoritms )
         {
-            Console.Write(testFunc);
             createTests(testFunc,algoritms);
             double i = 0;
             foreach (var test in testList)
             {
                 test.Solve();
-               
-
+                string key = $"Data{i + 1}";
+                test.setPopNull();
+                JObject jsonObject = JObject.Parse(test.getJson());
+                combinedData[key] = jsonObject;
+                File.WriteAllText("multitest.json", combinedData.ToString());
                 i +=1;
                 progres.Invoke((int)((i / (double)testList.Count) * 100));
-                
             }
-            //for
-            //test
-            // prog update
-
+            File.Delete("multitest.json");
         }
 
         private void createTests( string testFunc,List<string> algoritms)
@@ -66,7 +109,7 @@ namespace AplikacjaZMSI.Model
                 TestFunc = TestFunction.Beale;
             }
 
-            JObject combinedData = new JObject();
+            combinedData = new JObject();
             int i = 0;
             foreach (var alg in algoritms)
             {

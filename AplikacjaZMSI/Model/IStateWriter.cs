@@ -1,4 +1,5 @@
 ﻿using AplikacjaZMSI;
+using AplikacjaZMSI.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,6 +72,9 @@ namespace AplikacjaZMSI
         void init(Func<double[], double> f, double[,] domain, params double[] parameters);
         void Solve();
         string getJson();
+        void setPopNull();
+        void setJson(TestData d);
+        
 
         // Lista informacji o kolejnych parametrach algorytmu
         ParamInfo[] ParamsInfo { get; set; }

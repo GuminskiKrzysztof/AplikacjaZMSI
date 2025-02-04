@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.buttonNextConfiguration = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnInstruction = new System.Windows.Forms.Button();
             this.panelAlgorithmSelection = new System.Windows.Forms.Panel();
             this.comboBoxAlgorithms = new System.Windows.Forms.ComboBox();
             this.labelSelectAlgorithm = new System.Windows.Forms.Label();
@@ -42,6 +42,9 @@
             this.lblResult = new System.Windows.Forms.Label();
             this.comboBoxTestFunctions1 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panelInstruction = new System.Windows.Forms.Panel();
+            this.btnCloseInst = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -49,9 +52,11 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btnMultiSolve = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.richTextBoxInstructions = new System.Windows.Forms.RichTextBox();
             this.panelAlgorithmSelection.SuspendLayout();
             this.panelAlgorithmConfiguration.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panelInstruction.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,24 +73,25 @@
             this.buttonNextConfiguration.UseVisualStyleBackColor = true;
             this.buttonNextConfiguration.Click += new System.EventHandler(this.buttonNextConfiguration_Click);
             // 
-            // button1
+            // btnInstruction
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button1.Location = new System.Drawing.Point(1233, 10);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 39);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "instrukcja";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnInstruction.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnInstruction.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnInstruction.Location = new System.Drawing.Point(1233, 10);
+            this.btnInstruction.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnInstruction.Name = "btnInstruction";
+            this.btnInstruction.Size = new System.Drawing.Size(107, 39);
+            this.btnInstruction.TabIndex = 3;
+            this.btnInstruction.Text = "instrukcja";
+            this.btnInstruction.UseVisualStyleBackColor = true;
+            this.btnInstruction.Click += new System.EventHandler(this.btnInstruction_Click);
             // 
             // panelAlgorithmSelection
             // 
             this.panelAlgorithmSelection.Controls.Add(this.comboBoxAlgorithms);
             this.panelAlgorithmSelection.Controls.Add(this.labelSelectAlgorithm);
             this.panelAlgorithmSelection.Controls.Add(this.buttonNextConfiguration);
-            this.panelAlgorithmSelection.Location = new System.Drawing.Point(485, 26);
+            this.panelAlgorithmSelection.Location = new System.Drawing.Point(528, 5);
             this.panelAlgorithmSelection.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelAlgorithmSelection.Name = "panelAlgorithmSelection";
             this.panelAlgorithmSelection.Size = new System.Drawing.Size(461, 158);
@@ -216,6 +222,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panelInstruction);
             this.panel1.Controls.Add(this.panelAlgorithmSelection);
             this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
             this.panel1.Location = new System.Drawing.Point(25, 50);
@@ -223,6 +230,40 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1292, 633);
             this.panel1.TabIndex = 16;
+            // 
+            // panelInstruction
+            // 
+            this.panelInstruction.Controls.Add(this.richTextBoxInstructions);
+            this.panelInstruction.Controls.Add(this.btnCloseInst);
+            this.panelInstruction.Controls.Add(this.label3);
+            this.panelInstruction.Location = new System.Drawing.Point(3, 2);
+            this.panelInstruction.Name = "panelInstruction";
+            this.panelInstruction.Size = new System.Drawing.Size(1309, 626);
+            this.panelInstruction.TabIndex = 6;
+            this.panelInstruction.Visible = false;
+            // 
+            // btnCloseInst
+            // 
+            this.btnCloseInst.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCloseInst.Font = new System.Drawing.Font("Consolas", 18F);
+            this.btnCloseInst.Location = new System.Drawing.Point(1236, 16);
+            this.btnCloseInst.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCloseInst.Name = "btnCloseInst";
+            this.btnCloseInst.Size = new System.Drawing.Size(53, 44);
+            this.btnCloseInst.TabIndex = 20;
+            this.btnCloseInst.Text = "×";
+            this.btnCloseInst.UseVisualStyleBackColor = true;
+            this.btnCloseInst.Click += new System.EventHandler(this.btnCloseInst_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Consolas", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Location = new System.Drawing.Point(507, 18);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(197, 38);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Instrukcja";
             // 
             // checkBox1
             // 
@@ -234,9 +275,9 @@
             this.checkBox1.Location = new System.Drawing.Point(95, 15);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(90, 27);
+            this.checkBox1.Size = new System.Drawing.Size(234, 27);
             this.checkBox1.TabIndex = 17;
-            this.checkBox1.Text = "Unit test";
+            this.checkBox1.Text = "Testowanie wielu algorytmów";
             this.checkBox1.UseVisualStyleBackColor = false;
             this.checkBox1.Click += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -247,9 +288,9 @@
             this.label1.Location = new System.Drawing.Point(31, 21);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 17);
+            this.label1.Size = new System.Drawing.Size(64, 17);
             this.label1.TabIndex = 18;
-            this.label1.Text = "Go to:";
+            this.label1.Text = "Idź do:";
             // 
             // panel2
             // 
@@ -303,6 +344,15 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Wybierz algorytmy:";
             // 
+            // richTextBoxInstructions
+            // 
+            this.richTextBoxInstructions.Location = new System.Drawing.Point(17, 106);
+            this.richTextBoxInstructions.Name = "richTextBoxInstructions";
+            this.richTextBoxInstructions.ReadOnly = true;
+            this.richTextBoxInstructions.Size = new System.Drawing.Size(1272, 517);
+            this.richTextBoxInstructions.TabIndex = 21;
+            this.richTextBoxInstructions.Text = "";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -312,7 +362,7 @@
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnInstruction);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
             this.Text = "Form1";
@@ -321,6 +371,8 @@
             this.panelAlgorithmConfiguration.ResumeLayout(false);
             this.panelAlgorithmConfiguration.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panelInstruction.ResumeLayout(false);
+            this.panelInstruction.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -330,7 +382,7 @@
 
         #endregion
         private System.Windows.Forms.Button buttonNextConfiguration;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnInstruction;
         private System.Windows.Forms.Panel panelAlgorithmSelection;
         private System.Windows.Forms.Panel panelAlgorithmConfiguration;
         private System.Windows.Forms.Button buttonBack;
@@ -350,6 +402,10 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.ComboBox comboBoxAlgorithms;
+        private System.Windows.Forms.Panel panelInstruction;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnCloseInst;
+        private System.Windows.Forms.RichTextBox richTextBoxInstructions;
     }
 }
 

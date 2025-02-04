@@ -220,7 +220,7 @@
             // 
             this.panel1.Controls.Add(this.panelAlgorithmSelection);
             this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
-            this.panel1.Location = new System.Drawing.Point(25, 55);
+            this.panel1.Location = new System.Drawing.Point(25, 54);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1292, 633);
             this.panel1.TabIndex = 16;

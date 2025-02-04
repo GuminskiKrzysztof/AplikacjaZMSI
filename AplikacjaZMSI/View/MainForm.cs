@@ -34,7 +34,6 @@ namespace AplikacjaZMSI
             {
                 checkBox1.Checked = true;
                 checkBox1.Text = "Unit test";
-                checkBox1.BackColor = Color.LightPink;
                 panel1.Visible = false;
                 panel1.Enabled = false;
                 panel2.Visible = true;
@@ -47,7 +46,6 @@ namespace AplikacjaZMSI
             else if (File.Exists("test.json"))
             {
                 checkBox1.Text = "Group test";
-                checkBox1.BackColor = Color.LightSalmon;
                 panel1.Visible = true;
                 panel1.Enabled = true;
                 panel2.Visible = false;

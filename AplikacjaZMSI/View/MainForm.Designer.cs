@@ -55,6 +55,10 @@
             this.richTextBoxInstructions = new System.Windows.Forms.RichTextBox();
             this.btnMultiReport = new System.Windows.Forms.Button();
             this.btnSingleReport = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.panelAlgorithmSelection.SuspendLayout();
             this.panelAlgorithmConfiguration.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -93,7 +97,7 @@
             this.panelAlgorithmSelection.Controls.Add(this.comboBoxAlgorithms);
             this.panelAlgorithmSelection.Controls.Add(this.labelSelectAlgorithm);
             this.panelAlgorithmSelection.Controls.Add(this.buttonNextConfiguration);
-            this.panelAlgorithmSelection.Location = new System.Drawing.Point(528, 5);
+            this.panelAlgorithmSelection.Location = new System.Drawing.Point(485, 51);
             this.panelAlgorithmSelection.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelAlgorithmSelection.Name = "panelAlgorithmSelection";
             this.panelAlgorithmSelection.Size = new System.Drawing.Size(461, 158);
@@ -114,15 +118,16 @@
             // labelSelectAlgorithm
             // 
             this.labelSelectAlgorithm.AutoSize = true;
-            this.labelSelectAlgorithm.Font = new System.Drawing.Font("Consolas", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelSelectAlgorithm.Font = new System.Drawing.Font("Consolas", 15F);
             this.labelSelectAlgorithm.Location = new System.Drawing.Point(5, 9);
             this.labelSelectAlgorithm.Name = "labelSelectAlgorithm";
-            this.labelSelectAlgorithm.Size = new System.Drawing.Size(323, 38);
+            this.labelSelectAlgorithm.Size = new System.Drawing.Size(251, 29);
             this.labelSelectAlgorithm.TabIndex = 6;
             this.labelSelectAlgorithm.Text = "Wybierz algorytm:";
             // 
             // panelAlgorithmConfiguration
             // 
+            this.panelAlgorithmConfiguration.Controls.Add(this.label7);
             this.panelAlgorithmConfiguration.Controls.Add(this.btnSingleReport);
             this.panelAlgorithmConfiguration.Controls.Add(this.buttonBack);
             this.panelAlgorithmConfiguration.Controls.Add(this.panelParameters);
@@ -217,7 +222,7 @@
             "Rastrigin",
             "Rosenbrock",
             "Beale"});
-            this.comboBoxTestFunctions1.Location = new System.Drawing.Point(485, 245);
+            this.comboBoxTestFunctions1.Location = new System.Drawing.Point(795, 105);
             this.comboBoxTestFunctions1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxTestFunctions1.Name = "comboBoxTestFunctions1";
             this.comboBoxTestFunctions1.Size = new System.Drawing.Size(315, 35);
@@ -225,6 +230,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.panelAlgorithmSelection);
             this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
             this.panel1.Location = new System.Drawing.Point(25, 54);
@@ -238,7 +244,7 @@
             this.panelInstruction.Controls.Add(this.richTextBoxInstructions);
             this.panelInstruction.Controls.Add(this.btnCloseInst);
             this.panelInstruction.Controls.Add(this.label3);
-            this.panelInstruction.Location = new System.Drawing.Point(25, 49);
+            this.panelInstruction.Location = new System.Drawing.Point(25, 54);
             this.panelInstruction.Name = "panelInstruction";
             this.panelInstruction.Size = new System.Drawing.Size(1309, 626);
             this.panelInstruction.TabIndex = 6;
@@ -271,7 +277,7 @@
             // 
             this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBox1.AutoSize = true;
-            this.checkBox1.BackColor = System.Drawing.Color.LightPink;
+            this.checkBox1.BackColor = System.Drawing.Color.LightGray;
             this.checkBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.checkBox1.Font = new System.Drawing.Font("Consolas", 8F);
             this.checkBox1.Location = new System.Drawing.Point(95, 15);
@@ -296,6 +302,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.btnMultiReport);
             this.panel2.Controls.Add(this.checkedListBox1);
             this.panel2.Controls.Add(this.progressBar1);
@@ -310,27 +318,31 @@
             // 
             // checkedListBox1
             // 
+            this.checkedListBox1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(115, 139);
+            this.checkedListBox1.Location = new System.Drawing.Point(285, 105);
             this.checkedListBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(159, 89);
+            this.checkedListBox1.Size = new System.Drawing.Size(260, 85);
             this.checkedListBox1.TabIndex = 12;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(647, 433);
+            this.progressBar1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.progressBar1.Location = new System.Drawing.Point(285, 261);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(587, 79);
+            this.progressBar1.Size = new System.Drawing.Size(825, 48);
             this.progressBar1.TabIndex = 11;
             // 
             // btnMultiSolve
             // 
-            this.btnMultiSolve.Location = new System.Drawing.Point(969, 190);
+            this.btnMultiSolve.Font = new System.Drawing.Font("Consolas", 13.8F);
+            this.btnMultiSolve.Location = new System.Drawing.Point(994, 165);
             this.btnMultiSolve.Margin = new System.Windows.Forms.Padding(4);
             this.btnMultiSolve.Name = "btnMultiSolve";
-            this.btnMultiSolve.Size = new System.Drawing.Size(100, 28);
+            this.btnMultiSolve.Size = new System.Drawing.Size(116, 42);
             this.btnMultiSolve.TabIndex = 10;
             this.btnMultiSolve.Text = "Testuj";
             this.btnMultiSolve.UseVisualStyleBackColor = true;
@@ -339,11 +351,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(108, 63);
+            this.label2.Font = new System.Drawing.Font("Consolas", 15F);
+            this.label2.Location = new System.Drawing.Point(280, 61);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(298, 39);
+            this.label2.Size = new System.Drawing.Size(265, 29);
             this.label2.TabIndex = 0;
             this.label2.Text = "Wybierz algorytmy:";
             // 
@@ -360,7 +372,7 @@
             // 
             this.btnMultiReport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMultiReport.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnMultiReport.Location = new System.Drawing.Point(969, 541);
+            this.btnMultiReport.Location = new System.Drawing.Point(976, 383);
             this.btnMultiReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnMultiReport.Name = "btnMultiReport";
             this.btnMultiReport.Size = new System.Drawing.Size(134, 65);
@@ -382,6 +394,48 @@
             this.btnSingleReport.UseVisualStyleBackColor = true;
             this.btnSingleReport.Click += new System.EventHandler(this.btnSingleReport_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Consolas", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.Location = new System.Drawing.Point(420, 11);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(611, 38);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Testowanie pojedynczego algorytmu";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Consolas", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label5.Location = new System.Drawing.Point(412, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(503, 38);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Testowanie wielu algorytmów";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Consolas", 15F);
+            this.label6.Location = new System.Drawing.Point(790, 61);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(237, 29);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Funkcja testowa:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Consolas", 15F);
+            this.label7.Location = new System.Drawing.Point(194, 46);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(237, 29);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Funkcja testowa:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -401,6 +455,7 @@
             this.panelAlgorithmConfiguration.ResumeLayout(false);
             this.panelAlgorithmConfiguration.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panelInstruction.ResumeLayout(false);
             this.panelInstruction.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -438,6 +493,10 @@
         private System.Windows.Forms.RichTextBox richTextBoxInstructions;
         private System.Windows.Forms.Button btnSingleReport;
         private System.Windows.Forms.Button btnMultiReport;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }
 

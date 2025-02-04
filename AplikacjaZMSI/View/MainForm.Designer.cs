@@ -39,8 +39,8 @@
             this.btnSolve = new System.Windows.Forms.Button();
             this.comboBoxTestFunctions = new System.Windows.Forms.ComboBox();
             this.labelConfiguration = new System.Windows.Forms.Label();
-            this.comboBoxTestFunctions1 = new System.Windows.Forms.ComboBox();
             this.lblResult = new System.Windows.Forms.Label();
+            this.comboBoxTestFunctions1 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -93,6 +93,7 @@
             // 
             // comboBoxAlgorithms
             // 
+            this.comboBoxAlgorithms.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAlgorithms.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBoxAlgorithms.FormattingEnabled = true;
             this.comboBoxAlgorithms.Location = new System.Drawing.Point(7, 53);
@@ -120,10 +121,11 @@
             this.panelAlgorithmConfiguration.Controls.Add(this.btnSolve);
             this.panelAlgorithmConfiguration.Controls.Add(this.comboBoxTestFunctions);
             this.panelAlgorithmConfiguration.Controls.Add(this.labelConfiguration);
+            this.panelAlgorithmConfiguration.Controls.Add(this.lblResult);
             this.panelAlgorithmConfiguration.Location = new System.Drawing.Point(9, 105);
             this.panelAlgorithmConfiguration.Margin = new System.Windows.Forms.Padding(2);
             this.panelAlgorithmConfiguration.Name = "panelAlgorithmConfiguration";
-            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(1255, 467);
+            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(1255, 526);
             this.panelAlgorithmConfiguration.TabIndex = 5;
             this.panelAlgorithmConfiguration.Visible = false;
             // 
@@ -146,14 +148,14 @@
             this.panelParameters.Location = new System.Drawing.Point(33, 97);
             this.panelParameters.Margin = new System.Windows.Forms.Padding(2);
             this.panelParameters.Name = "panelParameters";
-            this.panelParameters.Size = new System.Drawing.Size(881, 351);
+            this.panelParameters.Size = new System.Drawing.Size(880, 351);
             this.panelParameters.TabIndex = 9;
             // 
             // btnSolve
             // 
             this.btnSolve.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSolve.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnSolve.Location = new System.Drawing.Point(1145, 141);
+            this.btnSolve.Location = new System.Drawing.Point(1000, 143);
             this.btnSolve.Margin = new System.Windows.Forms.Padding(2);
             this.btnSolve.Name = "btnSolve";
             this.btnSolve.Size = new System.Drawing.Size(80, 32);
@@ -164,6 +166,7 @@
             // 
             // comboBoxTestFunctions
             // 
+            this.comboBoxTestFunctions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTestFunctions.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBoxTestFunctions.FormattingEnabled = true;
             this.comboBoxTestFunctions.Items.AddRange(new object[] {
@@ -188,8 +191,18 @@
             this.labelConfiguration.TabIndex = 7;
             this.labelConfiguration.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblResult
+            // 
+            this.lblResult.AutoSize = true;
+            this.lblResult.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblResult.Location = new System.Drawing.Point(33, 477);
+            this.lblResult.Name = "lblResult";
+            this.lblResult.Size = new System.Drawing.Size(0, 23);
+            this.lblResult.TabIndex = 15;
+            // 
             // comboBoxTestFunctions1
             // 
+            this.comboBoxTestFunctions1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTestFunctions1.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBoxTestFunctions1.FormattingEnabled = true;
             this.comboBoxTestFunctions1.Items.AddRange(new object[] {
@@ -203,21 +216,11 @@
             this.comboBoxTestFunctions1.Size = new System.Drawing.Size(315, 35);
             this.comboBoxTestFunctions1.TabIndex = 9;
             // 
-            // lblResult
-            // 
-            this.lblResult.AutoSize = true;
-            this.lblResult.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblResult.Location = new System.Drawing.Point(82, 477);
-            this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(0, 32);
-            this.lblResult.TabIndex = 15;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.panelAlgorithmSelection);
             this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
-            this.panel1.Controls.Add(this.lblResult);
-            this.panel1.Location = new System.Drawing.Point(25, 54);
+            this.panel1.Location = new System.Drawing.Point(25, 55);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1292, 633);
             this.panel1.TabIndex = 16;
@@ -317,7 +320,6 @@
             this.panelAlgorithmConfiguration.ResumeLayout(false);
             this.panelAlgorithmConfiguration.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -332,7 +334,6 @@
         private System.Windows.Forms.Panel panelAlgorithmConfiguration;
         private System.Windows.Forms.Button buttonBack;
         private System.Windows.Forms.Label labelSelectAlgorithm;
-        private System.Windows.Forms.ComboBox comboBoxAlgorithms;
         private System.Windows.Forms.Button btnSolve;
         private System.Windows.Forms.Label lblResult;
         private System.Windows.Forms.FlowLayoutPanel panelParameters;
@@ -347,6 +348,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.ComboBox comboBoxAlgorithms;
     }
 }
 

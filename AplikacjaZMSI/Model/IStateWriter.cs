@@ -74,6 +74,7 @@ namespace AplikacjaZMSI
         string getJson();
         void setPopNull();
         void setJson(TestData d);
+        void Solve_restart(int i, double[,] pop, double f, double[] x);
         
 
         // Lista informacji o kolejnych parametrach algorytmu

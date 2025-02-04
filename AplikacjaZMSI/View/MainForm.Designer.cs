@@ -35,7 +35,7 @@
             this.labelSelectAlgorithm = new System.Windows.Forms.Label();
             this.panelAlgorithmConfiguration = new System.Windows.Forms.Panel();
             this.buttonBack = new System.Windows.Forms.Button();
-            this.panelParameters = new System.Windows.Forms.Panel();
+            this.panelParameters = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSolve = new System.Windows.Forms.Button();
             this.comboBoxTestFunctions = new System.Windows.Forms.ComboBox();
             this.labelConfiguration = new System.Windows.Forms.Label();
@@ -146,7 +146,7 @@
             this.panelParameters.Location = new System.Drawing.Point(33, 97);
             this.panelParameters.Margin = new System.Windows.Forms.Padding(2);
             this.panelParameters.Name = "panelParameters";
-            this.panelParameters.Size = new System.Drawing.Size(837, 329);
+            this.panelParameters.Size = new System.Drawing.Size(881, 351);
             this.panelParameters.TabIndex = 9;
             // 
             // btnSolve
@@ -335,7 +335,7 @@
         private System.Windows.Forms.ComboBox comboBoxAlgorithms;
         private System.Windows.Forms.Button btnSolve;
         private System.Windows.Forms.Label lblResult;
-        private System.Windows.Forms.Panel panelParameters;
+        private System.Windows.Forms.FlowLayoutPanel panelParameters;
         private System.Windows.Forms.Label labelConfiguration;
         private System.Windows.Forms.ComboBox comboBoxTestFunctions;
         private System.Windows.Forms.ComboBox comboBoxTestFunctions1;

@@ -87,21 +87,21 @@ namespace AplikacjaZMSI
         }
 
         private void buttonNextConfiguration_Click(object sender, EventArgs e)
-        {
-            panelAlgorithmSelection.Visible = false;
-            panelAlgorithmConfiguration.Visible = true;
+{
+    panelAlgorithmSelection.Visible = false;
+    panelAlgorithmConfiguration.Visible = true;
 
-            var selectedAlgorithm = (IOptimizationAlgorithm)comboBoxAlgorithms.SelectedItem;
+    var selectedAlgorithm = (IOptimizationAlgorithm)comboBoxAlgorithms.SelectedItem;
 
-            // Używamy nazwy algorytmu jako labelText
-            var labelText = $"Konfiguracja parametrów dla {selectedAlgorithm.Name}";
+    // Używamy nazwy algorytmu jako labelText
+    var labelText = $"Konfiguracja parametrów dla {selectedAlgorithm.Name}";
 
-            // Parametry algorytmu do przekazania (odwołanie do ParamsInfo)
-            var parameters = selectedAlgorithm.ParamsInfo;
+    // Parametry algorytmu do przekazania (odwołanie do ParamsInfo)
+    var parameters = selectedAlgorithm.ParamsInfo;
 
-            // Wywołanie UpdateParameterConfiguration z dwoma wymaganymi argumentami
-            UpdateParameterConfiguration(labelText, parameters);
-        }
+    // Wywołanie UpdateParameterConfiguration z dwoma wymaganymi argumentami
+    UpdateParameterConfiguration(labelText, parameters);
+}
 
         private bool UpdateProgressBar(int value)
         {
@@ -131,32 +131,31 @@ namespace AplikacjaZMSI
             panelParameters.Controls.Clear();
             dynamicTrackBars.Clear();
 
+            // FlowLayoutPanel zapewni odpowiednie układanie parametrów w pionie
+            panelParameters.AutoScroll = true; // Umożliwia przewijanie w przypadku wielu parametrów
+            panelParameters.FlowDirection = FlowDirection.TopDown; // Układ w pionie
+            panelParameters.WrapContents = false; // Bez zawijania (będzie przewijać się w pionie)
+
             foreach (var param in parameters)
             {
-                // Panel, który będzie przechowywał Labelki i Suwak
-                var panel = new Panel
+                // Kontener dla parametru
+                var paramPanel = new Panel
                 {
-                    Dock = DockStyle.Top,
-                    Height = 50
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Padding = new Padding(5),
+                    Margin = new Padding(5),
+                    Width = panelParameters.ClientSize.Width - 30, // Cała szerokość dostępnego panelu
+                    Height = 80
                 };
 
-                // Label z nazwą parametru
+                // Nazwa parametru
                 var label = new Label
                 {
                     Text = param.Name,
                     AutoSize = true,
-                    Location = new Point(0, 5) // Ustawienie z góry
+                    Location = new Point(5, 5)
                 };
-                panel.Controls.Add(label);
-
-                // Label z Min
-                var minLabel = new Label
-                {
-                    Text = $"{param.LowerBoundary:F1}",
-                    AutoSize = true,
-                    Location = new Point(0, 25) // Ustawienie poniżej nazwy
-                };
-                panel.Controls.Add(minLabel);
+                paramPanel.Controls.Add(label);
 
                 // Suwak
                 var trackBar = new TrackBar
@@ -165,45 +164,57 @@ namespace AplikacjaZMSI
                     Maximum = (int)(param.UpperBoundary * 10),
                     Value = (int)(param.LowerBoundary * 10),
                     TickFrequency = 10,
-                    Tag = param, // Przechowywanie informacji o parametrze w suwaku
-                    Width = 200, // Szerokość suwaka
-                    Location = new Point(80, 10) // Ustawienie w odpowiednim miejscu
+                    Tag = param,
+                    Width = paramPanel.Width - 100,
+                    Location = new Point(50, 30)
                 };
-                panel.Controls.Add(trackBar);
+                paramPanel.Controls.Add(trackBar);
 
-                // Label z Max
+                // Min wartość
+                var minLabel = new Label
+                {
+                    Text = $"{param.LowerBoundary:F1}",
+                    AutoSize = true,
+                    Location = new Point(5, trackBar.Top + 5)
+                };
+                paramPanel.Controls.Add(minLabel);
+
+                // Max wartość
                 var maxLabel = new Label
                 {
                     Text = $"{param.UpperBoundary:F1}",
                     AutoSize = true,
-                    Location = new Point(trackBar.Width + 100, 25) // Ustawienie po prawej stronie
+                    Location = new Point(trackBar.Right + 5, trackBar.Top + 5)
                 };
-                panel.Controls.Add(maxLabel);
+                paramPanel.Controls.Add(maxLabel);
 
-                // Label z aktualną wartością (będzie zmieniana w czasie przewijania)
+                // Aktualna wartość
                 var valueLabel = new Label
                 {
-                    Text = $"{param.LowerBoundary:F1}", // Ustawienie wartości początkowej
+                    Text = $"{param.LowerBoundary:F1}",
                     AutoSize = true,
-                    Location = new Point(trackBar.Width / 2 + 20, 25) // Ustawienie w odpowiednim miejscu
+                    Location = new Point(trackBar.Left, trackBar.Top - 20)
                 };
-                panel.Controls.Add(valueLabel);
+                paramPanel.Controls.Add(valueLabel);
 
-                // Reagowanie na zmianę wartości na suwaku
+                // Dynamiczne przesuwanie etykiety wartości
                 trackBar.Scroll += (sender, e) =>
                 {
                     var tb = sender as TrackBar;
-                    var currentValue = tb.Value / 10.0;
-                    valueLabel.Text = $"{currentValue:F1}"; // Wyświetlanie aktualnej wartości
+                    double currentValue = tb.Value / 10.0;
+                    valueLabel.Text = currentValue.ToString("F1");
+
+                    int relativePosition = (int)((tb.Value - tb.Minimum) / (double)(tb.Maximum - tb.Minimum) * tb.Width);
+                    valueLabel.Location = new Point(tb.Left + relativePosition - (valueLabel.Width / 2), tb.Top - 20);
                 };
 
-                // Dodanie panelu do głównego panelu
-                panelParameters.Controls.Add(panel);
-
-                // Dodanie suwaka do listy, aby ewentualnie można było go później edytować
+                // Dodaj do głównego kontenera
+                panelParameters.Controls.Add(paramPanel);
                 dynamicTrackBars.Add(trackBar);
             }
         }
+
+
 
         private void btnSolve_Click(object sender, EventArgs e)
         {

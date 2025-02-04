@@ -9,7 +9,7 @@ namespace AplikacjaZMSI
 {
     public class PDFReportGenerator : IGeneratePDFReport
     {
-        private TestData data;
+        public TestData data;
 
         public void raportData(TestData d)
         {
@@ -55,7 +55,6 @@ namespace AplikacjaZMSI
             // Informacje o populacji
             if (data.population != null && data.population.Length > 0)
             {
-                doc.Add(new Paragraph("Populacja początkowa:", subTitleFont));
                 PdfPTable table = new PdfPTable(data.population[0].Length);
                 table.WidthPercentage = 100;
 

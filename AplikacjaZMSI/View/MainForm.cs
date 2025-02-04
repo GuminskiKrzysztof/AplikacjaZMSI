@@ -320,6 +320,7 @@ namespace AplikacjaZMSI
             }
 
             testMulti.run(SelectedTestFunctionMulti, checkedItemsList);
+            
         }
 
         private void UpdateMultiSolveButtonState()

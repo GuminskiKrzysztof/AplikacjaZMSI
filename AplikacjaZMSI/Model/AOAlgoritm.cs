@@ -125,6 +125,9 @@ namespace AplikacjaZMSI.Model
             File.Delete("test.json");
 
             Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {FBest}, X = [{string.Join(", ", XBest)}]");
+            PDFReportGenerator pDFReportGenerator = new PDFReportGenerator();
+            pDFReportGenerator.raportData(data);
+            pDFReportGenerator.GenerateReport("Raport.pdf");
         }
 
         private void InitializePopulation(double[,] domain)

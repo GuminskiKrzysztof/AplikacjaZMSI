@@ -161,19 +161,23 @@ namespace AplikacjaZMSI
                 // Kontener dla parametru
                 var paramPanel = new Panel
                 {
-                    BorderStyle = BorderStyle.FixedSingle,
                     Padding = new Padding(5),
                     Margin = new Padding(5),
                     Width = panelParameters.ClientSize.Width - 30, // Cała szerokość dostępnego panelu
-                    Height = 80
+                    Height = 80,
+                    BackColor = Color.LightGray // Zmiana na jaśniejsze tło, zamiast ramki
                 };
 
-                // Nazwa parametru
+                // Nazwa parametru (szerokość ustawiona na sztywno)
                 var label = new Label
                 {
                     Text = param.Name,
-                    AutoSize = true,
-                    Location = new Point(5, 5)
+                    AutoSize = false,
+                    Width = 80,  // Stała szerokość dla nazw parametrów
+                    Height = 25,
+                    Location = new Point(5, 30),
+                    Font = new Font("Consolas", 12, FontStyle.Bold),
+                    TextAlign = ContentAlignment.MiddleLeft
                 };
                 paramPanel.Controls.Add(label);
 
@@ -185,35 +189,39 @@ namespace AplikacjaZMSI
                     Value = (int)(param.LowerBoundary * 10),
                     TickFrequency = 10,
                     Tag = param,
-                    Width = paramPanel.Width - 100,
-                    Location = new Point(50, 30)
+                    Width = paramPanel.Width - 170, // Dopasowanie szerokości do panelu
+                    Location = new Point(label.Right + 20, 30) // Suwak zaraz obok etykiety
                 };
                 paramPanel.Controls.Add(trackBar);
 
-                // Min wartość
+                // Min wartość (z lewej strony suwaka)
                 var minLabel = new Label
                 {
                     Text = $"{param.LowerBoundary:F1}",
                     AutoSize = true,
-                    Location = new Point(5, trackBar.Top + 5)
+                    Location = new Point(trackBar.Left - 35, trackBar.Top + 25),
+                    Font = new Font("Consolas", 10)
                 };
                 paramPanel.Controls.Add(minLabel);
 
-                // Max wartość
+                // Max wartość (z prawej strony suwaka)
                 var maxLabel = new Label
                 {
                     Text = $"{param.UpperBoundary:F1}",
                     AutoSize = true,
-                    Location = new Point(trackBar.Right + 5, trackBar.Top + 5)
+                    Location = new Point(trackBar.Right + 2, trackBar.Top + 25), // Przesunięcie w prawo
+                    Font = new Font("Consolas", 10)
                 };
                 paramPanel.Controls.Add(maxLabel);
 
-                // Aktualna wartość
+                // Aktualna wartość (nad suwakiem)
                 var valueLabel = new Label
                 {
                     Text = $"{param.LowerBoundary:F1}",
                     AutoSize = true,
-                    Location = new Point(trackBar.Left, trackBar.Top - 20)
+                    Location = new Point(trackBar.Left, trackBar.Top - 20),
+                    Font = new Font("Consolas", 10),
+                    BackColor = Color.LightYellow // Opcjonalnie dla lepszej widoczności
                 };
                 paramPanel.Controls.Add(valueLabel);
 
@@ -224,8 +232,16 @@ namespace AplikacjaZMSI
                     double currentValue = tb.Value / 10.0;
                     valueLabel.Text = currentValue.ToString("F1");
 
-                    int relativePosition = (int)((tb.Value - tb.Minimum) / (double)(tb.Maximum - tb.Minimum) * tb.Width);
-                    valueLabel.Location = new Point(tb.Left + relativePosition - (valueLabel.Width / 2), tb.Top - 20);
+                    // Pobranie szerokości suwaka i jego przesunięcia wewnętrznego
+                    int trackBarRange = tb.Maximum - tb.Minimum;
+                    int trackBarWidth = tb.Width - 10; // Odejmujemy marginesy po bokach
+
+                    // Obliczenie dokładnej pozycji
+                    int relativePosition = (int)((tb.Value - tb.Minimum) / (double)trackBarRange * trackBarWidth);
+
+                    // Wyśrodkowanie wartości nad suwakiem
+                    int labelCenterX = tb.Left + relativePosition - (valueLabel.Width / 2) + 5; // Dodajemy małą korektę
+                    valueLabel.Location = new Point(labelCenterX, tb.Top - 20);
                 };
 
                 // Dodaj do głównego kontenera
@@ -238,6 +254,7 @@ namespace AplikacjaZMSI
         {
             btnSolve.Enabled = comboBoxTestFunctions.SelectedItem != null;
         }
+
 
 
 
@@ -256,7 +273,7 @@ namespace AplikacjaZMSI
         // Metoda do wyświetlania wyników
         public void DisplayResults(double fBest, double[] xBest)
         {
-            lblResult.Text = $"Najlepsze f(X): {fBest:F4}\nX = [{string.Join(", ", xBest)}]";
+            lblResult.Text = $"Najlepsze f(X): {fBest}\nX = [{string.Join(", ", xBest)}]";
         }
 
         private void btnMultiSolve_Click(object sender, EventArgs e)

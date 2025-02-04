@@ -221,8 +221,7 @@
             // 
             this.panel1.Controls.Add(this.panelAlgorithmSelection);
             this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
-            this.panel1.Location = new System.Drawing.Point(21, 41);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Location = new System.Drawing.Point(25, 54);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(969, 514);
             this.panel1.TabIndex = 16;

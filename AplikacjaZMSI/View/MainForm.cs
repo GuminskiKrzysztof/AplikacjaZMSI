@@ -474,5 +474,15 @@ namespace AplikacjaZMSI
             panelInstruction.Visible = false;
             panelInstruction.Enabled = false;
         }
+
+        private void btnSingleReport_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnMultiReport_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

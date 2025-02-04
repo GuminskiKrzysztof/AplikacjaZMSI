@@ -53,6 +53,8 @@
             this.btnMultiSolve = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.richTextBoxInstructions = new System.Windows.Forms.RichTextBox();
+            this.btnMultiReport = new System.Windows.Forms.Button();
+            this.btnSingleReport = new System.Windows.Forms.Button();
             this.panelAlgorithmSelection.SuspendLayout();
             this.panelAlgorithmConfiguration.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -121,6 +123,7 @@
             // 
             // panelAlgorithmConfiguration
             // 
+            this.panelAlgorithmConfiguration.Controls.Add(this.btnSingleReport);
             this.panelAlgorithmConfiguration.Controls.Add(this.buttonBack);
             this.panelAlgorithmConfiguration.Controls.Add(this.panelParameters);
             this.panelAlgorithmConfiguration.Controls.Add(this.btnSolve);
@@ -222,10 +225,9 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.panelInstruction);
             this.panel1.Controls.Add(this.panelAlgorithmSelection);
             this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
-            this.panel1.Location = new System.Drawing.Point(25, 50);
+            this.panel1.Location = new System.Drawing.Point(25, 54);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1292, 633);
@@ -236,7 +238,7 @@
             this.panelInstruction.Controls.Add(this.richTextBoxInstructions);
             this.panelInstruction.Controls.Add(this.btnCloseInst);
             this.panelInstruction.Controls.Add(this.label3);
-            this.panelInstruction.Location = new System.Drawing.Point(3, 2);
+            this.panelInstruction.Location = new System.Drawing.Point(25, 49);
             this.panelInstruction.Name = "panelInstruction";
             this.panelInstruction.Size = new System.Drawing.Size(1309, 626);
             this.panelInstruction.TabIndex = 6;
@@ -294,6 +296,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnMultiReport);
             this.panel2.Controls.Add(this.checkedListBox1);
             this.panel2.Controls.Add(this.progressBar1);
             this.panel2.Controls.Add(this.btnMultiSolve);
@@ -353,12 +356,39 @@
             this.richTextBoxInstructions.TabIndex = 21;
             this.richTextBoxInstructions.Text = "";
             // 
+            // btnMultiReport
+            // 
+            this.btnMultiReport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMultiReport.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnMultiReport.Location = new System.Drawing.Point(969, 541);
+            this.btnMultiReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnMultiReport.Name = "btnMultiReport";
+            this.btnMultiReport.Size = new System.Drawing.Size(134, 65);
+            this.btnMultiReport.TabIndex = 13;
+            this.btnMultiReport.Text = "Pokaż raport";
+            this.btnMultiReport.UseVisualStyleBackColor = true;
+            this.btnMultiReport.Click += new System.EventHandler(this.btnMultiReport_Click);
+            // 
+            // btnSingleReport
+            // 
+            this.btnSingleReport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSingleReport.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnSingleReport.Location = new System.Drawing.Point(978, 436);
+            this.btnSingleReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSingleReport.Name = "btnSingleReport";
+            this.btnSingleReport.Size = new System.Drawing.Size(134, 65);
+            this.btnSingleReport.TabIndex = 16;
+            this.btnSingleReport.Text = "Pokaż raport";
+            this.btnSingleReport.UseVisualStyleBackColor = true;
+            this.btnSingleReport.Click += new System.EventHandler(this.btnSingleReport_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1372, 754);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.panelInstruction);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
@@ -406,6 +436,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCloseInst;
         private System.Windows.Forms.RichTextBox richTextBoxInstructions;
+        private System.Windows.Forms.Button btnSingleReport;
+        private System.Windows.Forms.Button btnMultiReport;
     }
 }
 

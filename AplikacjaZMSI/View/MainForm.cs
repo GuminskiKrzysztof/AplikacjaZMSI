@@ -8,8 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace AplikacjaZMSI
@@ -23,6 +25,7 @@ namespace AplikacjaZMSI
         public string SelectedTestFunctionMulti => comboBoxTestFunctions1.SelectedItem?.ToString();
         public MultiTest testMulti;
         public event Action<double[]> OnSolve;
+        public event Action<int> OnMulti;
         public event Action<IOptimizationAlgorithm> OnAlgorithmSelected;
 
         public void IsStoped()
@@ -40,10 +43,6 @@ namespace AplikacjaZMSI
                 string json = File.ReadAllText("multitest.json");
                 testMulti = new MultiTest(update, json);
 
-                if (File.Exists("test.json"))
-                {
-
-                }
             }
             else if (File.Exists("test.json"))
             {
@@ -53,7 +52,65 @@ namespace AplikacjaZMSI
                 panel1.Enabled = true;
                 panel2.Visible = false;
                 panel2.Enabled = false;
+
+                string json = File.ReadAllText("test.json"); 
+                TestData t = new TestData();
+                Func<double[], double> TestFunc = null;
+                if (t.func == "Sphere")
+                {
+                    TestFunc = TestFunction.Sphere;
+                }
+                else if (t.func == "Rastrigin")
+                {
+                    TestFunc = TestFunction.Rastrigin;
+                }
+                else if (t.func == "Rosenbrock")
+                {
+                    TestFunc = TestFunction.Rosenbrock;
+                }
+                else if (t.func == "Beale")
+                {
+                    TestFunc = TestFunction.Beale;
+                }
+                if (t.name == "AO")
+                {
+                    AquilaOptimizer aquilaOptimizer = new AquilaOptimizer();
+                    aquilaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits),new double[] { t.param1, t.param2, t.param3});
+                    aquilaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
+                    this.DisplayResults(aquilaOptimizer.FBest, aquilaOptimizer.XBest);
+                }
+                else
+                {
+                    BOAAlgorithm boaOptimizer = new BOAAlgorithm();
+                    boaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits),new double[] { t.param1, t.param2, t.param3 });
+                    boaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
+                    this.DisplayResults(boaOptimizer.FBest, boaOptimizer.XBest);
+                }
+
+
+               
             }
+        }
+
+        static double[,] ConvertJaggedToRectangular(double[][] jaggedArray)
+        {
+            // Determine the dimensions of the rectangular array
+            int rowCount = jaggedArray.Length;
+            int columnCount = jaggedArray[0].Length;
+
+            // Create the rectangular array (double[,])
+            double[,] rectangularArray = new double[rowCount, columnCount];
+
+            // Iterate through the jagged array and copy values to the rectangular array
+            for (int i = 0; i < rowCount; i++)
+            {
+                for (int j = 0; j < columnCount; j++)
+                {
+                    rectangularArray[i, j] = jaggedArray[i][j];
+                }
+            }
+
+            return rectangularArray;
         }
 
         public MainForm()
@@ -319,7 +376,6 @@ namespace AplikacjaZMSI
             {
                 checkedItemsList.Add(item.ToString());
             }
-
             testMulti.run(SelectedTestFunctionMulti, checkedItemsList);
         }
 

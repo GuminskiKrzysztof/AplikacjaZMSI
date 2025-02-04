@@ -71,6 +71,40 @@ namespace AplikacjaZMSI.Model
             return jaggedArray;
         }
 
+        public void Solve_restart(int i, double[,] pop,double f, double[] x)
+        {
+            data.state = "RUN";
+            population = pop;
+            FBest = f;
+            XBest = x;
+            for (int iter = i; iter < iterations; iter++)
+            {
+                CalculateIntensities();
+                CalculateFragrance();
+                FindBest();
+                UpdatePositions();
+
+                // Zapis stanu co kilka iteracji
+                if (iter % 10 == 0)
+                {
+                    data.population = ConvertToJaggedArray(population);
+                    data.XBest = XBest;
+                    data.FBest = FBest;
+                    data.curIter = iter;
+                    string jsonString = JsonSerializer.Serialize(data);
+                    File.WriteAllText("test_.json", jsonString);
+                    File.Copy("test_.json", "test.json", true);
+                }
+
+            }
+            File.Delete("test.json");
+            File.Delete("test_.json");
+            data.state = "DONE";
+            data.FBest = FBest;
+            data.XBest = XBest;
+        }
+
+
         public void init(Func<double[], double> f, double[,] domain, params double[] parameters)
         {
             // Przypisanie parametrów
@@ -120,11 +154,13 @@ namespace AplikacjaZMSI.Model
                     data.FBest = FBest;
                     data.curIter = iter;
                     string jsonString = JsonSerializer.Serialize(data);
-                    File.WriteAllText("test.json", jsonString);
+                    File.WriteAllText("test_.json", jsonString);
+                    File.Copy("test_.json", "test.json", true);
                 }
                 
             }
             File.Delete("test.json");
+            File.Delete("test_.json");
             data.state = "DONE";
             data.FBest = FBest;
             data.XBest = XBest;

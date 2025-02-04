@@ -131,30 +131,33 @@ namespace AplikacjaZMSI
             panelParameters.Controls.Clear();
             dynamicTrackBars.Clear();
 
+            // FlowLayoutPanel zapewni odpowiednie układanie parametrów w pionie
+            panelParameters.AutoScroll = true; // Umożliwia przewijanie w przypadku wielu parametrów
+            panelParameters.FlowDirection = FlowDirection.TopDown; // Układ w pionie
+            panelParameters.WrapContents = false; // Bez zawijania (będzie przewijać się w pionie)
+
             foreach (var param in parameters)
             {
-                var panel = new Panel
+                // Kontener dla parametru
+                var paramPanel = new Panel
                 {
-                    Dock = DockStyle.Top,
-                    Height = 50
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Padding = new Padding(5),
+                    Margin = new Padding(5),
+                    Width = panelParameters.ClientSize.Width - 30, // Cała szerokość dostępnego panelu
+                    Height = 80
                 };
 
+                // Nazwa parametru
                 var label = new Label
                 {
                     Text = param.Name,
                     AutoSize = true,
-                    Location = new Point(0, 5)
+                    Location = new Point(5, 5)
                 };
-                panel.Controls.Add(label);
+                paramPanel.Controls.Add(label);
 
-                var minLabel = new Label
-                {
-                    Text = $"{param.LowerBoundary:F1}",
-                    AutoSize = true,
-                    Location = new Point(0, 25)
-                };
-                panel.Controls.Add(minLabel);
-
+                // Suwak
                 var trackBar = new TrackBar
                 {
                     Minimum = (int)(param.LowerBoundary * 10),
@@ -162,43 +165,55 @@ namespace AplikacjaZMSI
                     Value = (int)(param.LowerBoundary * 10),
                     TickFrequency = 10,
                     Tag = param,
-                    Width = 200,
-                    Location = new Point(80, 10)
+                    Width = paramPanel.Width - 100,
+                    Location = new Point(50, 30)
                 };
-                panel.Controls.Add(trackBar);
+                paramPanel.Controls.Add(trackBar);
 
+                // Min wartość
+                var minLabel = new Label
+                {
+                    Text = $"{param.LowerBoundary:F1}",
+                    AutoSize = true,
+                    Location = new Point(5, trackBar.Top + 5)
+                };
+                paramPanel.Controls.Add(minLabel);
+
+                // Max wartość
                 var maxLabel = new Label
                 {
                     Text = $"{param.UpperBoundary:F1}",
                     AutoSize = true,
-                    Location = new Point(trackBar.Width + 100, 25)
+                    Location = new Point(trackBar.Right + 5, trackBar.Top + 5)
                 };
-                panel.Controls.Add(maxLabel);
+                paramPanel.Controls.Add(maxLabel);
 
-                // Etykieta z aktualną wartością - ustawiona obok suwaka
+                // Aktualna wartość
                 var valueLabel = new Label
                 {
                     Text = $"{param.LowerBoundary:F1}",
                     AutoSize = true,
-                    Location = new Point(trackBar.Right + 10, 15) // Na prawo od suwaka
+                    Location = new Point(trackBar.Left, trackBar.Top - 20)
                 };
-                panel.Controls.Add(valueLabel);
+                paramPanel.Controls.Add(valueLabel);
 
-                // Aktualizacja wartości i przesuwanie etykiety
+                // Dynamiczne przesuwanie etykiety wartości
                 trackBar.Scroll += (sender, e) =>
                 {
                     var tb = sender as TrackBar;
                     double currentValue = tb.Value / 10.0;
                     valueLabel.Text = currentValue.ToString("F1");
 
-                    // Przesunięcie etykiety dynamicznie zgodnie z pozycją suwaka
-                    valueLabel.Location = new Point(tb.Left + tb.Width + 10, tb.Top + 5);
+                    int relativePosition = (int)((tb.Value - tb.Minimum) / (double)(tb.Maximum - tb.Minimum) * tb.Width);
+                    valueLabel.Location = new Point(tb.Left + relativePosition - (valueLabel.Width / 2), tb.Top - 20);
                 };
 
-                panelParameters.Controls.Add(panel);
+                // Dodaj do głównego kontenera
+                panelParameters.Controls.Add(paramPanel);
                 dynamicTrackBars.Add(trackBar);
             }
         }
+
 
 
         private void btnSolve_Click(object sender, EventArgs e)

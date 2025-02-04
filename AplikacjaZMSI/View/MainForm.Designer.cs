@@ -221,7 +221,7 @@
             // 
             this.panel1.Controls.Add(this.panelAlgorithmSelection);
             this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
-            this.panel1.Location = new System.Drawing.Point(25, 54);
+            this.panel1.Location = new System.Drawing.Point(22, 33);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(969, 514);
             this.panel1.TabIndex = 16;
@@ -232,22 +232,22 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.BackColor = System.Drawing.Color.LightPink;
             this.checkBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox1.Location = new System.Drawing.Point(870, 13);
+            this.checkBox1.Location = new System.Drawing.Point(839, 12);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(56, 23);
+            this.checkBox1.Size = new System.Drawing.Size(155, 23);
             this.checkBox1.TabIndex = 17;
-            this.checkBox1.Text = "Unit test";
+            this.checkBox1.Text = "Testowanie wielu algorytmów";
             this.checkBox1.UseVisualStyleBackColor = false;
             this.checkBox1.Click += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(828, 20);
+            this.label1.Location = new System.Drawing.Point(794, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 18;
-            this.label1.Text = "Go to:";
+            this.label1.Text = "Idź do:";
             // 
             // panel2
             // 

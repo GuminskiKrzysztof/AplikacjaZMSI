@@ -1,14 +1,16 @@
-﻿using AplikacjaZMSI.Model;
+using AplikacjaZMSI.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace AplikacjaZMSI
 {
@@ -19,14 +21,45 @@ namespace AplikacjaZMSI
 
         public string SelectedTestFunction => comboBoxTestFunctions.SelectedItem?.ToString();
         public string SelectedTestFunctionMulti => comboBoxTestFunctions1.SelectedItem?.ToString();
-
+        public MultiTest testMulti;
         public event Action<double[]> OnSolve;
         public event Action<IOptimizationAlgorithm> OnAlgorithmSelected;
+
+        public void IsStoped()
+        {
+            if (File.Exists("multitest.json"))
+            {
+                checkBox1.Checked = true;
+                checkBox1.Text = "Unit test";
+                checkBox1.BackColor = Color.LightPink;
+                panel1.Visible = false;
+                panel1.Enabled = false;
+                panel2.Visible = true;
+                panel2.Enabled = true;
+                Func<int, bool> update = UpdateProgressBar;
+                string json = File.ReadAllText("multitest.json");
+                testMulti = new MultiTest(update, json);
+
+                if (File.Exists("test.json"))
+                {
+
+                }
+            }
+            else if (File.Exists("test.json"))
+            {
+                checkBox1.Text = "Group test";
+                checkBox1.BackColor = Color.LightSalmon;
+                panel1.Visible = true;
+                panel1.Enabled = true;
+                panel2.Visible = false;
+                panel2.Enabled = false;
+            }
+        }
 
         public MainForm()
         {
             InitializeComponent();
-
+            
             algorithms = new List<IOptimizationAlgorithm>
             {
                 new AquilaOptimizer(),
@@ -72,7 +105,7 @@ namespace AplikacjaZMSI
             // Toggle text and background color based on state
             if (checkBox1.Checked)
             {
-                checkBox1.Text = "Unit test";
+                checkBox1.Text = "Testowanie pojedyńczego algorytmu";
                 checkBox1.BackColor = Color.LightPink;
                 panel1.Visible = false;
                 panel1.Enabled = false;
@@ -81,7 +114,7 @@ namespace AplikacjaZMSI
             }
             else
             {
-                checkBox1.Text = "Group test";
+                checkBox1.Text = "Testowanie wielu algorytmów";
                 checkBox1.BackColor = Color.LightSalmon;
                 panel1.Visible = true;
                 panel1.Enabled = true;
@@ -279,7 +312,7 @@ namespace AplikacjaZMSI
         private void btnMultiSolve_Click(object sender, EventArgs e)
         {
             Func<int, bool> update = UpdateProgressBar;
-            MultiTest testMulti = new MultiTest(update);
+            testMulti = new MultiTest(update);
             List<string> checkedItemsList = new List<string>();
             foreach (var item in checkedListBox1.CheckedItems)
             {

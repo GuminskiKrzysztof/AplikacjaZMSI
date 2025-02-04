@@ -33,6 +33,7 @@ namespace AplikacjaZMSI
         // liczbie wywo łań funkcji celu ,
         // parametrach algorytmu
         void GenerateReport(string path);
+        void Milti(List<TestData> t);
     }
 
     public interface IGenerateTextReport
@@ -61,7 +62,7 @@ namespace AplikacjaZMSI
     {
         // Nazwa algorytmu
         string Name { get; set; }
-
+        TestData data { get; set; }
         // Metoda zaczynaj ąca rozwi ą zywanie zagadnienia poszukiwania minimum funkcjicelu.
         // Jako argument przyjmuje :
         // funkcj ę celu ,
@@ -74,7 +75,9 @@ namespace AplikacjaZMSI
         string getJson();
         void setPopNull();
         void setJson(TestData d);
+        void Solve_restart(int i, double[,] pop, double f, double[] x);
         
+
 
         // Lista informacji o kolejnych parametrach algorytmu
         ParamInfo[] ParamsInfo { get; set; }

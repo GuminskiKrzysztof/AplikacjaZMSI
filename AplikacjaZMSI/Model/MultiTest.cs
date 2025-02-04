@@ -27,6 +27,50 @@ namespace AplikacjaZMSI.Model
             progres = pr;
             progres.Invoke(0);
         }
+
+        public List<TestData> getbest()
+        {
+            List<TestData> r = new List<TestData>();
+            double mini = 1000000000000;
+            TestData m = new TestData();
+            if (testList[0].data.name[0] == 'A')
+            {
+                foreach (var test in testList)
+                {
+                    if (test.data.name[0] == 'A')
+                        if (test.data.FBest < mini)
+                        {
+                            mini = test.data.FBest;
+                            m = test.data;
+
+                        }
+
+                }
+                r.Add(m);
+            }
+
+            mini = 1000000000000;
+            if (testList[testList.Count - 1].data.name[0] == 'B')
+            {
+                foreach (var test in testList)
+                {
+                    if (test.data.name[0] == 'B')
+                        if (test.data.FBest < mini)
+                        {
+                            mini = test.data.FBest;
+                            m = test.data;
+
+                        }
+
+                }
+                r.Add(m);
+            }
+
+
+            return r;
+        }
+
+
         public MultiTest(Func<int, bool> pr, string json)
         {
             Dictionary<string, TestData> dataDict = JsonConvert.DeserializeObject<Dictionary<string, TestData>>(json);
@@ -72,6 +116,9 @@ namespace AplikacjaZMSI.Model
             }
             File.Delete("multitest_.json");
             File.Delete("multitest.json");
+            PDFReportGenerator e = new PDFReportGenerator();
+            Console.WriteLine(getbest());
+            e.Milti(getbest());
         }
 
         public void run(string testFunc, List<string> algoritms )
@@ -91,6 +138,10 @@ namespace AplikacjaZMSI.Model
                 progres.Invoke((int)((i / (double)testList.Count) * 100));
             }
             File.Delete("multitest.json");
+            File.Delete("multitest_.json");
+            PDFReportGenerator e = new PDFReportGenerator();
+            Console.WriteLine(getbest());
+            e.Milti(getbest());
         }
 
         private void createTests( string testFunc,List<string> algoritms)

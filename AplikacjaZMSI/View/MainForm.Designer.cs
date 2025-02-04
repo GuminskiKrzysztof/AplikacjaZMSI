@@ -53,6 +53,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btnMultiSolve = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.multiTestLabel = new System.Windows.Forms.Label();
             this.panelAlgorithmSelection.SuspendLayout();
             this.panelAlgorithmConfiguration.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -128,7 +129,7 @@
             this.panelAlgorithmConfiguration.Controls.Add(this.comboBoxTestFunctions);
             this.panelAlgorithmConfiguration.Controls.Add(this.labelConfiguration);
             this.panelAlgorithmConfiguration.Controls.Add(this.lblResult);
-            this.panelAlgorithmConfiguration.Location = new System.Drawing.Point(7, 85);
+            this.panelAlgorithmConfiguration.Location = new System.Drawing.Point(26, 49);
             this.panelAlgorithmConfiguration.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelAlgorithmConfiguration.Name = "panelAlgorithmConfiguration";
             this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(941, 427);
@@ -225,10 +226,9 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.panelInstruction);
             this.panel1.Controls.Add(this.panelAlgorithmSelection);
             this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
-            this.panel1.Location = new System.Drawing.Point(19, 41);
+            this.panel1.Location = new System.Drawing.Point(19, 67);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(969, 514);
             this.panel1.TabIndex = 16;
@@ -238,7 +238,7 @@
             this.panelInstruction.Controls.Add(this.richTextBoxInstructions);
             this.panelInstruction.Controls.Add(this.btnCloseInst);
             this.panelInstruction.Controls.Add(this.label3);
-            this.panelInstruction.Location = new System.Drawing.Point(2, 2);
+            this.panelInstruction.Location = new System.Drawing.Point(19, 56);
             this.panelInstruction.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelInstruction.Name = "panelInstruction";
             this.panelInstruction.Size = new System.Drawing.Size(982, 509);
@@ -306,12 +306,13 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.multiTestLabel);
             this.panel2.Controls.Add(this.checkedListBox1);
             this.panel2.Controls.Add(this.progressBar1);
             this.panel2.Controls.Add(this.btnMultiSolve);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.comboBoxTestFunctions1);
-            this.panel2.Location = new System.Drawing.Point(19, 45);
+            this.panel2.Location = new System.Drawing.Point(19, 78);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(986, 517);
             this.panel2.TabIndex = 19;
@@ -351,14 +352,24 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Wybierz algorytmy:";
             // 
+            // multiTestLabel
+            // 
+            this.multiTestLabel.AutoSize = true;
+            this.multiTestLabel.Location = new System.Drawing.Point(7, 243);
+            this.multiTestLabel.Name = "multiTestLabel";
+            this.multiTestLabel.Size = new System.Drawing.Size(35, 13);
+            this.multiTestLabel.TabIndex = 17;
+            this.multiTestLabel.Text = "label4";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1029, 613);
+            this.Controls.Add(this.panelInstruction);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnInstruction);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
@@ -404,6 +415,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCloseInst;
         private System.Windows.Forms.RichTextBox richTextBoxInstructions;
+        private System.Windows.Forms.Label multiTestLabel;
     }
 }
 

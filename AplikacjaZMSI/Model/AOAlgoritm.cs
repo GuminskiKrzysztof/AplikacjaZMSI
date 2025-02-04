@@ -33,7 +33,7 @@ namespace AplikacjaZMSI.Model
         private int iterations;
         private Func<double[], double> fitnessFunction;
         private Random rand = new Random();
-        public TestData data;
+        public TestData data { get; set; }
 
         public static double[][] ConvertToJaggedArray(double[,] array)
         {
@@ -99,6 +99,37 @@ namespace AplikacjaZMSI.Model
             data.population = null; 
         }
 
+        public void Solve_restart(int i, double[,] pop, double f, double[] x)
+        {
+            data.state = "RUN";
+            population = ConvertToJaggedArray(pop);
+            FBest = f;
+            XBest = x;
+            for (int iter = i; iter < iterations; iter++)
+            {
+                FindBest();
+                UpdatePositions(iter);
+
+                // Zapis stanu co kilka iteracji
+                if (iter % 10 == 0)
+                {
+                    data.population = population;
+                    data.XBest = XBest;
+                    data.FBest = FBest;
+                    data.curIter = iter;
+                    string jsonString = JsonSerializer.Serialize(data);
+                    File.WriteAllText("test_.json", jsonString);
+                    File.Copy("test_.json", "test.json", true);
+                }
+
+            }
+            File.Delete("test.json");
+            File.Delete("test_.json");
+            data.state = "DONE";
+            data.FBest = FBest;
+            data.XBest = XBest;
+        }
+
         public void Solve()
         {
             
@@ -116,13 +147,15 @@ namespace AplikacjaZMSI.Model
                     data.FBest = FBest;
                     data.curIter = iter;
                     string jsonString = JsonSerializer.Serialize(data);
-                    File.WriteAllText("test.json", jsonString);
+                    File.WriteAllText("test_.json", jsonString);
+                    File.Copy("test_.json", "test.json", true);
                 }
             }
             data.state = "DONE";
             data.FBest = FBest;
             data.XBest = XBest;
             File.Delete("test.json");
+            File.Delete("test_.json");
 
             Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {FBest}, X = [{string.Join(", ", XBest)}]");
             PDFReportGenerator pDFReportGenerator = new PDFReportGenerator();

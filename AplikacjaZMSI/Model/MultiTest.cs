@@ -17,7 +17,7 @@ namespace AplikacjaZMSI.Model
     public class MultiTest
     {
         private Func<int, bool> progres;
-        private List<IOptimizationAlgorithm> testList;
+        public List<IOptimizationAlgorithm> testList;
         private Func<double[], double> TestFunc;
         JObject combinedData;
 
@@ -171,9 +171,9 @@ namespace AplikacjaZMSI.Model
                 
                 if (alg == "AO")
                 {
-                    foreach (var param1 in new double[] { 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5 })
-                        foreach (var param2 in new double[] { 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5 })
-                            foreach (var param3 in new double[] { -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0, 2.5 })
+                    foreach (var param1 in new double[] { 0.01, 0.1, 0.2, 0.4, 0.5 })
+                        foreach (var param2 in new double[] { 0.01, 0.1, 0.2, 0.4, 0.5 })
+                            foreach (var param3 in new double[] { -1.0, 0.0, 0.5, 1.5, 2.0, 2.5 })
                             {
 
                                 AquilaOptimizer ao = new AquilaOptimizer();
@@ -190,9 +190,9 @@ namespace AplikacjaZMSI.Model
      
                 else if(alg == "BOA")
                 {
-                    foreach (var param1 in new double[] { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 })
-                        foreach (var param2 in new double[] { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 })
-                            foreach (var param3 in new double[] {0.1, 0.2, 0.3, 0.4, 0.5,0.6,0.7,0.8,0.9 })
+                    foreach (var param1 in new double[] { 0.1, 0.2, 0.4, 0.5, 0.7, 0.8, 0.9 })
+                        foreach (var param2 in new double[] { 0.1, 0.2, 0.4, 0.5, 0.7, 0.8, 0.9 })
+                            foreach (var param3 in new double[] {0.1, 0.2, 0.4, 0.5,0.7,0.8,0.9 })
                             {
                                 BOAAlgorithm boa = new BOAAlgorithm();
                                 boa.init(TestFunc, new double[,] { { -5, 5 }, { -5, 5 } }, new double[] { param1, param2, param3 });

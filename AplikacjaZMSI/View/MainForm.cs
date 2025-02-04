@@ -94,7 +94,8 @@ namespace AplikacjaZMSI
             };
             checkedListBox1.Items.Add("AO");
             checkedListBox1.Items.Add("BOA");
-            
+
+            LoadInstructions();
 
         }
 
@@ -337,6 +338,86 @@ namespace AplikacjaZMSI
         {
             // Aktualizacja po krótkim czasie, ponieważ CheckedItems jeszcze się nie zaktualizowało
             BeginInvoke((Action)(() => UpdateMultiSolveButtonState()));
+        }
+
+        private void btnInstruction_Click(object sender, EventArgs e)
+        {
+            panelInstruction.Visible = true;
+            panelInstruction.Enabled = true;
+        }
+
+        private void LoadInstructions()
+        {
+            // Wypełnienie RichTextBox instrukcją obsługi
+            richTextBoxInstructions.Clear();
+
+            // Dodajemy tytuł
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 14, FontStyle.Bold);
+            richTextBoxInstructions.AppendText("Instrukcja obsługi systemu optymalizacji metaheurystycznych\n\n");
+
+            // Dodajemy punkt o testowaniu pojedynczego algorytmu
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
+            richTextBoxInstructions.AppendText("1. Testowanie pojedynczego algorytmu:\n");
+
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Bold);
+            richTextBoxInstructions.AppendText("Wybór Algorytmu i Konfiguracja Parametrów:\n");
+
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
+            richTextBoxInstructions.AppendText("Wybierz algorytm metaheurystyczny z listy i naciśnij \"Dalej\".\n");
+            richTextBoxInstructions.AppendText("Ustaw parametry algorytmu (zakres każdego parametru jest ustalony ze stałym krokiem).\n");
+            richTextBoxInstructions.AppendText("Zatwierdź konfigurację, klikając \"Dalej\".\n\n");
+
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Bold);
+            richTextBoxInstructions.AppendText("Testowanie Pojedynczego Algorytmu:\n");
+
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
+            richTextBoxInstructions.AppendText("Wybierz funkcję testową (fitness function).\n");
+            richTextBoxInstructions.AppendText("Kliknij \"Testuj\".\n");
+            richTextBoxInstructions.AppendText("Po zakończeniu generowany jest raport wyników.\n\n");
+
+            // Dodajemy punkt o testowaniu wielu algorytmów
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Bold);
+            richTextBoxInstructions.AppendText("2. Testowanie wielu algorytmów:\n");
+
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Bold);
+            richTextBoxInstructions.AppendText("Wybór algorytmów do testowania:\n");
+
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
+            richTextBoxInstructions.AppendText("Wybierz algorytmy, które chcesz testować.\n");
+            richTextBoxInstructions.AppendText("Wybierz funkcję testową (fitness function).\n");
+            richTextBoxInstructions.AppendText("System automatycznie dobierze najlepsze parametry dla każdego algorytmu.\n");
+            richTextBoxInstructions.AppendText("Kliknij \"Rozpocznij test\".\n");
+            richTextBoxInstructions.AppendText("Po zakończeniu testu wygenerowany zostanie raport.\n\n");
+
+            // Dodajemy punkt o przerwaniu i wznowieniu obliczeń
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Bold);
+            richTextBoxInstructions.AppendText("3. Przerwanie i wznowienie obliczeń:\n");
+
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
+            richTextBoxInstructions.AppendText("Stan obliczeń zapisywany jest automatycznie.\n");
+            richTextBoxInstructions.AppendText("W przypadku zamknięcia aplikacji można wznowić test od ostatniego zapisanego etapu.\n\n");
+
+            // Dodajemy punkt o generowaniu raportów
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Bold);
+            richTextBoxInstructions.AppendText("4. Generowanie Raportów:\n");
+
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
+            richTextBoxInstructions.AppendText("Po zakończeniu testów system automatycznie wygeneruje raport w formacie czytelnym dla użytkownika.\n");
+            richTextBoxInstructions.AppendText("Raport zawiera wyniki testów, parametry wejściowe i wykresy wynikowe.\n");
+
+            // Opcjonalnie, dodanie sekcji o możliwościach rozszerzenia aplikacji
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Bold);
+            richTextBoxInstructions.AppendText("\nOpcjonalne rozszerzenia:\n");
+
+            richTextBoxInstructions.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
+            richTextBoxInstructions.AppendText("1. Możliwość dodawania nowych algorytmów optymalizacyjnych w postaci plików .dll.\n");
+            richTextBoxInstructions.AppendText("2. Możliwość dodawania nowych funkcji testowych (benchmarków).\n");
+        }
+
+        private void btnCloseInst_Click(object sender, EventArgs e)
+        {
+            panelInstruction.Visible = false;
+            panelInstruction.Enabled = false;
         }
     }
 }

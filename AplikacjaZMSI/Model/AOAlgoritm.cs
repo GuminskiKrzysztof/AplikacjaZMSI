@@ -35,6 +35,24 @@ namespace AplikacjaZMSI.Model
         private Random rand = new Random();
         private TestData data;
 
+        public static double[][] ConvertToJaggedArray(double[,] array)
+        {
+            int rows = array.GetLength(0);
+            int cols = array.GetLength(1);
+            double[][] jaggedArray = new double[rows][];
+
+            for (int i = 0; i < rows; i++)
+            {
+                jaggedArray[i] = new double[cols];
+                for (int j = 0; j < cols; j++)
+                {
+                    jaggedArray[i][j] = array[i, j];
+                }
+            }
+
+            return jaggedArray;
+        }
+
 
         public void init(Func<double[], double> f, double[,] domain, params double[] parameters)
         {
@@ -53,7 +71,7 @@ namespace AplikacjaZMSI.Model
             data.param3 = beta;
             data.iter = iterations;
             data.dim = dimensions;  
-            data.limits = domain;
+            data.limits = ConvertToJaggedArray(domain);
             data.popSize = populationSize;
 
             Console.WriteLine("Rozpoczynam Aquila Optimizer...");
@@ -62,14 +80,23 @@ namespace AplikacjaZMSI.Model
 
         public string getJson()
         {
-            Console.WriteLine(data.name);
             return  JsonSerializer.Serialize<TestData>(data);
+        }
+
+        public void setJson(TestData d)
+        {
+            data = d;
         }
 
         public void setFuncName(string name)
         {
             data.func = name;
 
+        }
+
+        public void setPopNull()
+        {
+            data.population = null; 
         }
 
         public void Solve()
@@ -82,7 +109,7 @@ namespace AplikacjaZMSI.Model
                 FindBest();
                 UpdatePositions(iter);
                 // Zapis stanu co kilka iteracji
-                if (iter % 10000 == 0)
+                if (iter % 10 == 0)
                 {
                     data.population = population;
                     data.XBest = XBest;
@@ -95,6 +122,7 @@ namespace AplikacjaZMSI.Model
             data.state = "DONE";
             data.FBest = FBest;
             data.XBest = XBest;
+            File.Delete("test.json");
 
             Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {FBest}, X = [{string.Join(", ", XBest)}]");
         }

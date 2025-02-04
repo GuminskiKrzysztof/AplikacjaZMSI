@@ -1,5 +1,9 @@
-﻿using System;
+﻿using MathNet.Numerics.Distributions;
+using Org.BouncyCastle.Pqc.Crypto.Lms;
+using System;
 using System.Linq;
+using System.Text.Json;
+using System.IO;
 
 namespace AplikacjaZMSI.Model
 {
@@ -32,6 +36,40 @@ namespace AplikacjaZMSI.Model
         private int dimensions;
         private int iterations;
         private Func<double[], double> fitnessFunction;
+        private TestData data;
+
+        public string getJson()
+        {
+            return JsonSerializer.Serialize<TestData>(data);
+        }
+        public void setJson(TestData d)
+        {
+            data = d;
+        }
+
+        public void setFuncName(string name)
+        {
+            data.func = name;
+
+        }
+
+        public static double[][] ConvertToJaggedArray(double[,] array)
+        {
+            int rows = array.GetLength(0);
+            int cols = array.GetLength(1);
+            double[][] jaggedArray = new double[rows][];
+
+            for (int i = 0; i < rows; i++)
+            {
+                jaggedArray[i] = new double[cols];
+                for (int j = 0; j < cols; j++)
+                {
+                    jaggedArray[i][j] = array[i, j];
+                }
+            }
+
+            return jaggedArray;
+        }
 
         public void init(Func<double[], double> f, double[,] domain, params double[] parameters)
         {
@@ -43,15 +81,30 @@ namespace AplikacjaZMSI.Model
             dimensions = domain.GetLength(0);
             populationSize = 50; // Można ustawić dynamicznie
             iterations = 100; // Można ustawić dynamicznie
+            data = new TestData();
+            data.name = Name;
+            data.param1 = a;
+            data.param2 = c;
+            data.param3 = p;
+            data.iter = iterations;
+            data.dim = dimensions;
+            data.limits = ConvertToJaggedArray(domain);
+            data.popSize = populationSize;
 
             Console.WriteLine("Rozpoczynam BOA...");
             InitializePopulation(domain);
         }
 
+
+        public void setPopNull()
+        {
+            data.population = null;
+        }
+
         public void Solve()
         {
-           
 
+            data.state = "RUN";
             for (int iter = 0; iter < iterations; iter++)
             {
                 CalculateIntensities();
@@ -62,9 +115,19 @@ namespace AplikacjaZMSI.Model
                 // Zapis stanu co kilka iteracji
                 if (iter % 10 == 0)
                 {
-                    writer.SaveToFileStateOfAlghoritm("state.txt");
+                    data.population = ConvertToJaggedArray(population);
+                    data.XBest = XBest;
+                    data.FBest = FBest;
+                    data.curIter = iter;
+                    string jsonString = JsonSerializer.Serialize(data);
+                    File.WriteAllText("test.json", jsonString);
                 }
+                
             }
+            File.Delete("test.json");
+            data.state = "DONE";
+            data.FBest = FBest;
+            data.XBest = XBest;
 
             Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {FBest}, X = [{string.Join(", ", XBest)}]");
             Console.WriteLine($"a = {a}, c = {c},p = {p}");

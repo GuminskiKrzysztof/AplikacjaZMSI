@@ -19,11 +19,12 @@ namespace AplikacjaZMSI.Presenter
         public MainPresenter(MainForm view)
         {
             this.view = view;
-
+            
             view.OnAlgorithmSelected += UpdateSelectedAlgorithm;
 
             // Subskrybuj zdarzenie Solve z widoku
             view.OnSolve += RunAlgorithm;
+           
         }
 
         private void UpdateSelectedAlgorithm(IOptimizationAlgorithm algorithm)

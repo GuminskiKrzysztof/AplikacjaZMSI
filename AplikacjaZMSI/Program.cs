@@ -11,6 +11,8 @@ namespace AplikacjaZMSI
         [STAThread]
         static void Main()
         {
+            PDFReportGenerator e = new PDFReportGenerator();
+            e.GenerateReport("ff");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

@@ -70,6 +70,7 @@ namespace AplikacjaZMSI
         //NumberOfEvaluationFitnessFunction
         void init(Func<double[], double> f, double[,] domain, params double[] parameters);
         void Solve();
+        string getJson();
 
         // Lista informacji o kolejnych parametrach algorytmu
         ParamInfo[] ParamsInfo { get; set; }

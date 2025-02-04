@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json.Serialization;
 using MathNet.Numerics;
+using System.IO;
+using System.Text.Json;
 
 namespace AplikacjaZMSI.Model
 {
     public class AquilaOptimizer : IOptimizationAlgorithm
     {
         public string Name { get; set; } = "Aquila Optimizer (AO)";
-
         public ParamInfo[] ParamsInfo { get; set; } = new ParamInfo[]
         {
             new ParamInfo { Name = "alpha", Description = "Parametr alpha", LowerBoundary = 0.1, UpperBoundary = 1.0 },
             new ParamInfo { Name = "delta", Description = "Parametr delta", LowerBoundary = 0.1, UpperBoundary = 2.0 },
             new ParamInfo { Name = "beta", Description = "Parametr beta (dla dystrybucji Lévy'ego)", LowerBoundary = 1.0, UpperBoundary = 3.0 }
         };
-
         public IStateWriter writer { get; set; } = new StateWriter();
         public IStateReader reader { get; set; } = new StateReader();
         public IGenerateTextReport stringReportGenerator { get; set; }
@@ -24,12 +25,16 @@ namespace AplikacjaZMSI.Model
         public double FBest { get; set; }
         private double[][] population;
         private double[][] limits;
-        private double alpha, delta, beta;
+        private double delta;        
+        private double beta;
+        private double alpha;
         private int populationSize;
         private int dimensions;
         private int iterations;
         private Func<double[], double> fitnessFunction;
         private Random rand = new Random();
+        private TestData data;
+
 
         public void init(Func<double[], double> f, double[,] domain, params double[] parameters)
         {
@@ -41,9 +46,30 @@ namespace AplikacjaZMSI.Model
             dimensions = domain.GetLength(0);
             populationSize = 50; // Domyślna wielkość populacji
             iterations = 100; // Domyślna liczba iteracji
+            data = new TestData();
+            data.name = Name;
+            data.param1 = alpha;
+            data.param2 = delta;
+            data.param3 = beta;
+            data.iter = iterations;
+            data.dim = dimensions;  
+            data.limits = domain;
+            data.popSize = populationSize;
 
             Console.WriteLine("Rozpoczynam Aquila Optimizer...");
             InitializePopulation(domain);
+        }
+
+        public string getJson()
+        {
+            Console.WriteLine(data.name);
+            return  JsonSerializer.Serialize<TestData>(data);
+        }
+
+        public void setFuncName(string name)
+        {
+            data.func = name;
+
         }
 
         public void Solve()
@@ -52,15 +78,23 @@ namespace AplikacjaZMSI.Model
 
             for (int iter = 0; iter < iterations; iter++)
             {
+                data.state = "RUN";
                 FindBest();
                 UpdatePositions(iter);
-
                 // Zapis stanu co kilka iteracji
-                if (iter % 10 == 0)
+                if (iter % 10000 == 0)
                 {
-                    writer.SaveToFileStateOfAlghoritm("state.txt");
+                    data.population = population;
+                    data.XBest = XBest;
+                    data.FBest = FBest;
+                    data.curIter = iter;
+                    string jsonString = JsonSerializer.Serialize(data);
+                    File.WriteAllText("test.json", jsonString);
                 }
             }
+            data.state = "DONE";
+            data.FBest = FBest;
+            data.XBest = XBest;
 
             Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {FBest}, X = [{string.Join(", ", XBest)}]");
         }

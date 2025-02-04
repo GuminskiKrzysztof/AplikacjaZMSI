@@ -36,7 +36,7 @@ namespace AplikacjaZMSI.Model
         private int dimensions;
         private int iterations;
         private Func<double[], double> fitnessFunction;
-        private TestData data;
+        public TestData data { get; set; }
 
         public string getJson()
         {

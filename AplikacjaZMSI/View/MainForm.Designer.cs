@@ -119,7 +119,7 @@
             // 
             this.labelSelectAlgorithm.AutoSize = true;
             this.labelSelectAlgorithm.Font = new System.Drawing.Font("Consolas", 15F);
-            this.labelSelectAlgorithm.Location = new System.Drawing.Point(5, 9);
+            this.labelSelectAlgorithm.Location = new System.Drawing.Point(110, 11);
             this.labelSelectAlgorithm.Name = "labelSelectAlgorithm";
             this.labelSelectAlgorithm.Size = new System.Drawing.Size(251, 29);
             this.labelSelectAlgorithm.TabIndex = 6;
@@ -429,7 +429,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Consolas", 15F);
-            this.label7.Location = new System.Drawing.Point(194, 46);
+            this.label7.Location = new System.Drawing.Point(964, 143);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(237, 29);

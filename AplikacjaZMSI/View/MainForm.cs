@@ -159,11 +159,10 @@ namespace AplikacjaZMSI
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            // Toggle text and background color based on state
+            // Toggle text based on state
             if (checkBox1.Checked)
             {
                 checkBox1.Text = "Testowanie pojedyńczego algorytmu";
-                checkBox1.BackColor = Color.LightPink;
                 panel1.Visible = false;
                 panel1.Enabled = false;
                 panel2.Visible = true;
@@ -172,7 +171,6 @@ namespace AplikacjaZMSI
             else
             {
                 checkBox1.Text = "Testowanie wielu algorytmów";
-                checkBox1.BackColor = Color.LightSalmon;
                 panel1.Visible = true;
                 panel1.Enabled = true;
                 panel2.Visible = false;

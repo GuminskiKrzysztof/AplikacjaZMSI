@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using System.Diagnostics;
 
 namespace AplikacjaZMSI
 {
@@ -381,7 +382,7 @@ namespace AplikacjaZMSI
             multiTestLabel.Text = "";
             foreach (var test in testMulti.getbest())
             {
-                multiTestLabel.Text = "Nazwa algorytmu: " + test.name + " Najlepszy wynik: " + test.FBest + " Parametry: \n";
+                multiTestLabel.Text += "Nazwa algorytmu: " + test.name + " Najlepszy wynik: " + test.FBest + "\n";
             }
                 
         }
@@ -480,6 +481,30 @@ namespace AplikacjaZMSI
         {
             panelInstruction.Visible = false;
             panelInstruction.Enabled = false;
+        }
+
+        private void btnSingleReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("raport.pdf");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+        private void btnMultiReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("multiraport.pdf");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
     }
 }

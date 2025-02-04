@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,6 +22,7 @@ namespace AplikacjaZMSI
         public string SelectedTestFunctionMulti => comboBoxTestFunctions1.SelectedItem?.ToString();
 
         public event Action<double[]> OnSolve;
+        public event Action<int> OnMulti;
         public event Action<IOptimizationAlgorithm> OnAlgorithmSelected;
 
         public MainForm()
@@ -61,7 +63,7 @@ namespace AplikacjaZMSI
             };
             checkedListBox1.Items.Add("AO");
             checkedListBox1.Items.Add("BOA");
-            
+            OnMulti += aaa;
 
         }
 
@@ -278,6 +280,12 @@ namespace AplikacjaZMSI
 
         private void btnMultiSolve_Click(object sender, EventArgs e)
         {
+            OnMulti?.Invoke(1);
+           
+        }
+        
+        private void aaa(int a)
+        {
             Func<int, bool> update = UpdateProgressBar;
             MultiTest testMulti = new MultiTest(update);
             List<string> checkedItemsList = new List<string>();
@@ -285,9 +293,9 @@ namespace AplikacjaZMSI
             {
                 checkedItemsList.Add(item.ToString());
             }
-
             testMulti.run(SelectedTestFunctionMulti, checkedItemsList);
         }
+       
 
         private void UpdateMultiSolveButtonState()
         {

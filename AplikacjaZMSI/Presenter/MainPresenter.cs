@@ -40,7 +40,6 @@ namespace AplikacjaZMSI.Presenter
         }
 
 
-        
 
         private void RunAlgorithm(double[] parameters)
         {

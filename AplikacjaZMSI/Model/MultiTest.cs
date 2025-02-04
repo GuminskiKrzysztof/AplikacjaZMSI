@@ -29,9 +29,9 @@ namespace AplikacjaZMSI.Model
         }
         public MultiTest(Func<int, bool> pr, string json)
         {
-            List<TestData> dataList = new List<TestData>();
-            dataList = JsonConvert.DeserializeObject<List<TestData>>(json);
+            Dictionary<string, TestData> dataDict = JsonConvert.DeserializeObject<Dictionary<string, TestData>>(json);
             testList = new List<IOptimizationAlgorithm>();
+            List<TestData> dataList = dataDict.Values.ToList();
             List<string> list = new List<string>();
             if (dataList[0].name[0] == 'A') list.Add("AO");
             if(dataList[dataList.Count-1].name[0] == 'B') list.Add("BOA");
@@ -53,10 +53,11 @@ namespace AplikacjaZMSI.Model
                 combinedData[key] = JObject.Parse(testList[u].getJson());
                 if (dataList[u].state == "DONE") i++;
             }
-            File.WriteAllText("multitest.json", combinedData.ToString());
+            File.WriteAllText("multitest_.json", combinedData.ToString());
+            File.Copy("multitest_.json", "multitest.json", true);
 
             progres = pr;
-            progres.Invoke((int)i);
+            progres.Invoke((int)((i / (double)testList.Count) * 100));
 
             for (int u = (int)i; u < testList.Count; u++)
             {
@@ -65,9 +66,11 @@ namespace AplikacjaZMSI.Model
                 testList[u].setPopNull();
                 JObject jsonObject = JObject.Parse(testList[u].getJson());
                 combinedData[key] = jsonObject;
-                File.WriteAllText("multitest.json", combinedData.ToString());
-                progres.Invoke((int)(((double)u / (double)testList.Count) * 100));
+                File.WriteAllText("multitest_.json", combinedData.ToString());
+                File.Copy("multitest_.json", "multitest.json", true);
+                progres.Invoke((int)(((double)(u+1) / (double)testList.Count) * 100));
             }
+            File.Delete("multitest_.json");
             File.Delete("multitest.json");
         }
 
@@ -82,7 +85,8 @@ namespace AplikacjaZMSI.Model
                 test.setPopNull();
                 JObject jsonObject = JObject.Parse(test.getJson());
                 combinedData[key] = jsonObject;
-                File.WriteAllText("multitest.json", combinedData.ToString());
+                File.WriteAllText("multitest_.json", combinedData.ToString());
+                File.Copy("multitest_.json", "multitest.json", true);
                 i +=1;
                 progres.Invoke((int)((i / (double)testList.Count) * 100));
             }
@@ -152,7 +156,8 @@ namespace AplikacjaZMSI.Model
                         }
                 }
             }
-            File.WriteAllText("multitest.json", combinedData.ToString());
+            File.WriteAllText("multitest_.json", combinedData.ToString());
+            File.Copy("multitest_.json", "multitest.json", true);
         }
 
     }

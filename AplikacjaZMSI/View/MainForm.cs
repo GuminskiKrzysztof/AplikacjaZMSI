@@ -58,8 +58,7 @@ namespace AplikacjaZMSI
         public MainForm()
         {
             InitializeComponent();
-            IsStoped();
-
+            
             algorithms = new List<IOptimizationAlgorithm>
             {
                 new AquilaOptimizer(),
@@ -86,9 +85,16 @@ namespace AplikacjaZMSI
             };
             checkedListBox1.Items.Add("AO");
             checkedListBox1.Items.Add("BOA");
+
+            this.Shown += new EventHandler(MainForm_Shown);
+        }
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            IsStoped();
         }
 
- 
+
+
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {

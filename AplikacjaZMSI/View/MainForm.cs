@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using System.Diagnostics;
 
 namespace AplikacjaZMSI
 {
@@ -475,12 +476,26 @@ namespace AplikacjaZMSI
 
         private void btnSingleReport_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                Process.Start("raport.pdf");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
 
         private void btnMultiReport_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                Process.Start("multiraport.pdf");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ namespace AplikacjaZMSI.Model
         private int iterations;
         private Func<double[], double> fitnessFunction;
         private Random rand = new Random();
-        private TestData data;
+        public TestData data { get; set; }
 
         public static double[][] ConvertToJaggedArray(double[,] array)
         {

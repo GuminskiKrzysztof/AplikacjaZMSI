@@ -92,5 +92,7 @@ namespace AplikacjaZMSI.Presenter
             }   
             
         }
+
+
     }
 }

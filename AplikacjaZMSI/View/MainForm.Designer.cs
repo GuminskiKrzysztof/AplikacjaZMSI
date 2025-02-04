@@ -100,7 +100,7 @@ namespace AplikacjaZMSI
             this.panelAlgorithmSelection.Controls.Add(this.comboBoxAlgorithms);
             this.panelAlgorithmSelection.Controls.Add(this.labelSelectAlgorithm);
             this.panelAlgorithmSelection.Controls.Add(this.buttonNextConfiguration);
-            this.panelAlgorithmSelection.Location = new System.Drawing.Point(647, 63);
+            this.panelAlgorithmSelection.Location = new System.Drawing.Point(449, 49);
             this.panelAlgorithmSelection.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.panelAlgorithmSelection.Name = "panelAlgorithmSelection";
             this.panelAlgorithmSelection.Size = new System.Drawing.Size(461, 158);
@@ -122,7 +122,7 @@ namespace AplikacjaZMSI
             // 
             this.labelSelectAlgorithm.AutoSize = true;
             this.labelSelectAlgorithm.Font = new System.Drawing.Font("Consolas", 15F);
-            this.labelSelectAlgorithm.Location = new System.Drawing.Point(147, 14);
+            this.labelSelectAlgorithm.Location = new System.Drawing.Point(114, 11);
             this.labelSelectAlgorithm.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSelectAlgorithm.Name = "labelSelectAlgorithm";
             this.labelSelectAlgorithm.Size = new System.Drawing.Size(251, 29);
@@ -261,7 +261,7 @@ namespace AplikacjaZMSI
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.panelAlgorithmSelection);
             this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
-            this.panel1.Location = new System.Drawing.Point(20, 82);
+            this.panel1.Location = new System.Drawing.Point(15, 77);
             this.panel1.Margin = new System.Windows.Forms.Padding(5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1292, 633);
@@ -271,7 +271,7 @@ namespace AplikacjaZMSI
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Consolas", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(560, 14);
+            this.label4.Location = new System.Drawing.Point(377, 9);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(611, 38);
@@ -283,7 +283,7 @@ namespace AplikacjaZMSI
             this.panelInstruction.Controls.Add(this.richTextBoxInstructions);
             this.panelInstruction.Controls.Add(this.btnCloseInst);
             this.panelInstruction.Controls.Add(this.label3);
-            this.panelInstruction.Location = new System.Drawing.Point(20, 76);
+            this.panelInstruction.Location = new System.Drawing.Point(3, 574);
             this.panelInstruction.Margin = new System.Windows.Forms.Padding(4);
             this.panelInstruction.Name = "panelInstruction";
             this.panelInstruction.Size = new System.Drawing.Size(1309, 626);

@@ -283,7 +283,7 @@ namespace AplikacjaZMSI
             this.panelInstruction.Controls.Add(this.richTextBoxInstructions);
             this.panelInstruction.Controls.Add(this.btnCloseInst);
             this.panelInstruction.Controls.Add(this.label3);
-            this.panelInstruction.Location = new System.Drawing.Point(3, 574);
+            this.panelInstruction.Location = new System.Drawing.Point(13, 71);
             this.panelInstruction.Margin = new System.Windows.Forms.Padding(4);
             this.panelInstruction.Name = "panelInstruction";
             this.panelInstruction.Size = new System.Drawing.Size(1309, 626);

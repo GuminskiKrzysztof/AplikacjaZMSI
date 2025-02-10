@@ -41,7 +41,6 @@ namespace AplikacjaZMSI
             this.buttonBack = new System.Windows.Forms.Button();
             this.panelParameters = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSolve = new System.Windows.Forms.Button();
-            this.comboBoxTestFunctions = new System.Windows.Forms.ComboBox();
             this.labelConfiguration = new System.Windows.Forms.Label();
             this.lblResult = new System.Windows.Forms.Label();
             this.comboBoxTestFunctions1 = new System.Windows.Forms.ComboBox();
@@ -62,6 +61,7 @@ namespace AplikacjaZMSI
             this.btnMultiReport = new System.Windows.Forms.Button();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.checkedListBoxFunctions = new System.Windows.Forms.CheckedListBox();
             this.panelAlgorithmSelection.SuspendLayout();
             this.panelAlgorithmConfiguration.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -73,10 +73,10 @@ namespace AplikacjaZMSI
             // 
             this.buttonNextConfiguration.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonNextConfiguration.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonNextConfiguration.Location = new System.Drawing.Point(363, 105);
-            this.buttonNextConfiguration.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonNextConfiguration.Location = new System.Drawing.Point(272, 85);
+            this.buttonNextConfiguration.Margin = new System.Windows.Forms.Padding(2);
             this.buttonNextConfiguration.Name = "buttonNextConfiguration";
-            this.buttonNextConfiguration.Size = new System.Drawing.Size(92, 42);
+            this.buttonNextConfiguration.Size = new System.Drawing.Size(69, 34);
             this.buttonNextConfiguration.TabIndex = 1;
             this.buttonNextConfiguration.Text = "Dalej";
             this.buttonNextConfiguration.UseVisualStyleBackColor = true;
@@ -86,10 +86,10 @@ namespace AplikacjaZMSI
             // 
             this.btnInstruction.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnInstruction.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnInstruction.Location = new System.Drawing.Point(1233, 10);
-            this.btnInstruction.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnInstruction.Location = new System.Drawing.Point(925, 8);
+            this.btnInstruction.Margin = new System.Windows.Forms.Padding(2);
             this.btnInstruction.Name = "btnInstruction";
-            this.btnInstruction.Size = new System.Drawing.Size(107, 39);
+            this.btnInstruction.Size = new System.Drawing.Size(80, 32);
             this.btnInstruction.TabIndex = 3;
             this.btnInstruction.Text = "instrukcja";
             this.btnInstruction.UseVisualStyleBackColor = true;
@@ -100,10 +100,10 @@ namespace AplikacjaZMSI
             this.panelAlgorithmSelection.Controls.Add(this.comboBoxAlgorithms);
             this.panelAlgorithmSelection.Controls.Add(this.labelSelectAlgorithm);
             this.panelAlgorithmSelection.Controls.Add(this.buttonNextConfiguration);
-            this.panelAlgorithmSelection.Location = new System.Drawing.Point(449, 49);
-            this.panelAlgorithmSelection.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.panelAlgorithmSelection.Location = new System.Drawing.Point(337, 40);
+            this.panelAlgorithmSelection.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelAlgorithmSelection.Name = "panelAlgorithmSelection";
-            this.panelAlgorithmSelection.Size = new System.Drawing.Size(461, 158);
+            this.panelAlgorithmSelection.Size = new System.Drawing.Size(346, 128);
             this.panelAlgorithmSelection.TabIndex = 4;
             // 
             // comboBoxAlgorithms
@@ -111,10 +111,10 @@ namespace AplikacjaZMSI
             this.comboBoxAlgorithms.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAlgorithms.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBoxAlgorithms.FormattingEnabled = true;
-            this.comboBoxAlgorithms.Location = new System.Drawing.Point(7, 55);
-            this.comboBoxAlgorithms.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxAlgorithms.Location = new System.Drawing.Point(5, 45);
+            this.comboBoxAlgorithms.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAlgorithms.Name = "comboBoxAlgorithms";
-            this.comboBoxAlgorithms.Size = new System.Drawing.Size(451, 35);
+            this.comboBoxAlgorithms.Size = new System.Drawing.Size(339, 30);
             this.comboBoxAlgorithms.TabIndex = 7;
             this.comboBoxAlgorithms.SelectedIndexChanged += new System.EventHandler(this.comboBoxAlgorithms_SelectedIndexChanged);
             // 
@@ -122,27 +122,27 @@ namespace AplikacjaZMSI
             // 
             this.labelSelectAlgorithm.AutoSize = true;
             this.labelSelectAlgorithm.Font = new System.Drawing.Font("Consolas", 15F);
-            this.labelSelectAlgorithm.Location = new System.Drawing.Point(114, 11);
-            this.labelSelectAlgorithm.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelSelectAlgorithm.Location = new System.Drawing.Point(86, 9);
             this.labelSelectAlgorithm.Name = "labelSelectAlgorithm";
-            this.labelSelectAlgorithm.Size = new System.Drawing.Size(251, 29);
+            this.labelSelectAlgorithm.Size = new System.Drawing.Size(197, 23);
             this.labelSelectAlgorithm.TabIndex = 6;
             this.labelSelectAlgorithm.Text = "Wybierz algorytm:";
             // 
             // panelAlgorithmConfiguration
             // 
+            this.panelAlgorithmConfiguration.Controls.Add(this.panelInstruction);
+            this.panelAlgorithmConfiguration.Controls.Add(this.checkedListBoxFunctions);
             this.panelAlgorithmConfiguration.Controls.Add(this.label7);
             this.panelAlgorithmConfiguration.Controls.Add(this.btnSingleReport);
             this.panelAlgorithmConfiguration.Controls.Add(this.buttonBack);
             this.panelAlgorithmConfiguration.Controls.Add(this.panelParameters);
             this.panelAlgorithmConfiguration.Controls.Add(this.btnSolve);
-            this.panelAlgorithmConfiguration.Controls.Add(this.comboBoxTestFunctions);
             this.panelAlgorithmConfiguration.Controls.Add(this.labelConfiguration);
             this.panelAlgorithmConfiguration.Controls.Add(this.lblResult);
-            this.panelAlgorithmConfiguration.Location = new System.Drawing.Point(35, 60);
-            this.panelAlgorithmConfiguration.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panelAlgorithmConfiguration.Location = new System.Drawing.Point(26, 49);
+            this.panelAlgorithmConfiguration.Margin = new System.Windows.Forms.Padding(2);
             this.panelAlgorithmConfiguration.Name = "panelAlgorithmConfiguration";
-            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(1255, 526);
+            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(941, 427);
             this.panelAlgorithmConfiguration.TabIndex = 5;
             this.panelAlgorithmConfiguration.Visible = false;
             // 
@@ -150,10 +150,10 @@ namespace AplikacjaZMSI
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Consolas", 15F);
-            this.label7.Location = new System.Drawing.Point(1285, 176);
-            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label7.Location = new System.Drawing.Point(964, 143);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(237, 29);
+            this.label7.Size = new System.Drawing.Size(186, 23);
             this.label7.TabIndex = 15;
             this.label7.Text = "Funkcja testowa:";
             // 
@@ -161,10 +161,10 @@ namespace AplikacjaZMSI
             // 
             this.btnSingleReport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSingleReport.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnSingleReport.Location = new System.Drawing.Point(953, 480);
-            this.btnSingleReport.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.btnSingleReport.Location = new System.Drawing.Point(715, 390);
+            this.btnSingleReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSingleReport.Name = "btnSingleReport";
-            this.btnSingleReport.Size = new System.Drawing.Size(179, 80);
+            this.btnSingleReport.Size = new System.Drawing.Size(134, 65);
             this.btnSingleReport.TabIndex = 16;
             this.btnSingleReport.Text = "Pokaż raport";
             this.btnSingleReport.UseVisualStyleBackColor = true;
@@ -174,10 +174,10 @@ namespace AplikacjaZMSI
             // 
             this.buttonBack.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonBack.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonBack.Location = new System.Drawing.Point(11, 25);
-            this.buttonBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonBack.Location = new System.Drawing.Point(8, 20);
+            this.buttonBack.Margin = new System.Windows.Forms.Padding(2);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(52, 54);
+            this.buttonBack.Size = new System.Drawing.Size(39, 44);
             this.buttonBack.TabIndex = 3;
             this.buttonBack.Text = "⬅";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -186,48 +186,33 @@ namespace AplikacjaZMSI
             // panelParameters
             // 
             this.panelParameters.AutoScroll = true;
-            this.panelParameters.Location = new System.Drawing.Point(64, 108);
-            this.panelParameters.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panelParameters.Location = new System.Drawing.Point(48, 88);
+            this.panelParameters.Margin = new System.Windows.Forms.Padding(2);
             this.panelParameters.Name = "panelParameters";
-            this.panelParameters.Size = new System.Drawing.Size(880, 351);
+            this.panelParameters.Size = new System.Drawing.Size(660, 285);
             this.panelParameters.TabIndex = 9;
             // 
             // btnSolve
             // 
             this.btnSolve.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSolve.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnSolve.Location = new System.Drawing.Point(1125, 234);
-            this.btnSolve.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSolve.Location = new System.Drawing.Point(844, 190);
+            this.btnSolve.Margin = new System.Windows.Forms.Padding(2);
             this.btnSolve.Name = "btnSolve";
-            this.btnSolve.Size = new System.Drawing.Size(112, 42);
+            this.btnSolve.Size = new System.Drawing.Size(84, 34);
             this.btnSolve.TabIndex = 8;
             this.btnSolve.Text = "Testuj";
             this.btnSolve.UseVisualStyleBackColor = true;
             this.btnSolve.Click += new System.EventHandler(this.btnSolve_Click);
             // 
-            // comboBoxTestFunctions
-            // 
-            this.comboBoxTestFunctions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTestFunctions.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBoxTestFunctions.FormattingEnabled = true;
-            this.comboBoxTestFunctions.Items.AddRange(new object[] {
-            "Sphere",
-            "Rastrigin",
-            "Rosenbrock",
-            "Beale"});
-            this.comboBoxTestFunctions.Location = new System.Drawing.Point(969, 185);
-            this.comboBoxTestFunctions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxTestFunctions.Name = "comboBoxTestFunctions";
-            this.comboBoxTestFunctions.Size = new System.Drawing.Size(271, 35);
-            this.comboBoxTestFunctions.TabIndex = 9;
-            // 
             // labelConfiguration
             // 
             this.labelConfiguration.AutoSize = true;
             this.labelConfiguration.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelConfiguration.Location = new System.Drawing.Point(81, 46);
+            this.labelConfiguration.Location = new System.Drawing.Point(61, 37);
+            this.labelConfiguration.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelConfiguration.Name = "labelConfiguration";
-            this.labelConfiguration.Size = new System.Drawing.Size(0, 32);
+            this.labelConfiguration.Size = new System.Drawing.Size(0, 26);
             this.labelConfiguration.TabIndex = 7;
             this.labelConfiguration.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -235,9 +220,10 @@ namespace AplikacjaZMSI
             // 
             this.lblResult.AutoSize = true;
             this.lblResult.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblResult.Location = new System.Drawing.Point(33, 478);
+            this.lblResult.Location = new System.Drawing.Point(25, 370);
+            this.lblResult.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(0, 23);
+            this.lblResult.Size = new System.Drawing.Size(0, 160);
             this.lblResult.TabIndex = 15;
             // 
             // comboBoxTestFunctions1
@@ -250,10 +236,10 @@ namespace AplikacjaZMSI
             "Rastrigin",
             "Rosenbrock",
             "Beale"});
-            this.comboBoxTestFunctions1.Location = new System.Drawing.Point(872, 129);
-            this.comboBoxTestFunctions1.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.comboBoxTestFunctions1.Location = new System.Drawing.Point(654, 105);
+            this.comboBoxTestFunctions1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxTestFunctions1.Name = "comboBoxTestFunctions1";
-            this.comboBoxTestFunctions1.Size = new System.Drawing.Size(315, 35);
+            this.comboBoxTestFunctions1.Size = new System.Drawing.Size(237, 30);
             this.comboBoxTestFunctions1.TabIndex = 9;
             // 
             // panel1
@@ -261,20 +247,19 @@ namespace AplikacjaZMSI
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.panelAlgorithmSelection);
             this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
-            this.panel1.Location = new System.Drawing.Point(15, 77);
-            this.panel1.Margin = new System.Windows.Forms.Padding(5);
+            this.panel1.Location = new System.Drawing.Point(11, 63);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1292, 633);
+            this.panel1.Size = new System.Drawing.Size(969, 514);
             this.panel1.TabIndex = 16;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Consolas", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(377, 9);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(283, 7);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(611, 38);
+            this.label4.Size = new System.Drawing.Size(509, 32);
             this.label4.TabIndex = 8;
             this.label4.Text = "Testowanie pojedynczego algorytmu";
             // 
@@ -283,20 +268,19 @@ namespace AplikacjaZMSI
             this.panelInstruction.Controls.Add(this.richTextBoxInstructions);
             this.panelInstruction.Controls.Add(this.btnCloseInst);
             this.panelInstruction.Controls.Add(this.label3);
-            this.panelInstruction.Location = new System.Drawing.Point(13, 71);
-            this.panelInstruction.Margin = new System.Windows.Forms.Padding(4);
+            this.panelInstruction.Location = new System.Drawing.Point(844, 190);
             this.panelInstruction.Name = "panelInstruction";
-            this.panelInstruction.Size = new System.Drawing.Size(1309, 626);
+            this.panelInstruction.Size = new System.Drawing.Size(982, 509);
             this.panelInstruction.TabIndex = 6;
             this.panelInstruction.Visible = false;
             // 
             // richTextBoxInstructions
             // 
-            this.richTextBoxInstructions.Location = new System.Drawing.Point(17, 106);
-            this.richTextBoxInstructions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.richTextBoxInstructions.Location = new System.Drawing.Point(13, 86);
+            this.richTextBoxInstructions.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBoxInstructions.Name = "richTextBoxInstructions";
             this.richTextBoxInstructions.ReadOnly = true;
-            this.richTextBoxInstructions.Size = new System.Drawing.Size(1272, 517);
+            this.richTextBoxInstructions.Size = new System.Drawing.Size(955, 421);
             this.richTextBoxInstructions.TabIndex = 21;
             this.richTextBoxInstructions.Text = "";
             // 
@@ -304,10 +288,10 @@ namespace AplikacjaZMSI
             // 
             this.btnCloseInst.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCloseInst.Font = new System.Drawing.Font("Consolas", 18F);
-            this.btnCloseInst.Location = new System.Drawing.Point(1236, 16);
-            this.btnCloseInst.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCloseInst.Location = new System.Drawing.Point(927, 13);
+            this.btnCloseInst.Margin = new System.Windows.Forms.Padding(2);
             this.btnCloseInst.Name = "btnCloseInst";
-            this.btnCloseInst.Size = new System.Drawing.Size(53, 44);
+            this.btnCloseInst.Size = new System.Drawing.Size(40, 36);
             this.btnCloseInst.TabIndex = 20;
             this.btnCloseInst.Text = "×";
             this.btnCloseInst.UseVisualStyleBackColor = true;
@@ -317,9 +301,10 @@ namespace AplikacjaZMSI
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Consolas", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(507, 18);
+            this.label3.Location = new System.Drawing.Point(380, 15);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(197, 38);
+            this.label3.Size = new System.Drawing.Size(164, 32);
             this.label3.TabIndex = 7;
             this.label3.Text = "Instrukcja";
             // 
@@ -330,10 +315,9 @@ namespace AplikacjaZMSI
             this.checkBox1.BackColor = System.Drawing.Color.LightGray;
             this.checkBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.checkBox1.Font = new System.Drawing.Font("Consolas", 8F);
-            this.checkBox1.Location = new System.Drawing.Point(95, 15);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox1.Location = new System.Drawing.Point(71, 12);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(234, 27);
+            this.checkBox1.Size = new System.Drawing.Size(179, 23);
             this.checkBox1.TabIndex = 17;
             this.checkBox1.Text = "Testowanie wielu algorytmów";
             this.checkBox1.UseVisualStyleBackColor = false;
@@ -343,10 +327,9 @@ namespace AplikacjaZMSI
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Consolas", 8F);
-            this.label1.Location = new System.Drawing.Point(31, 21);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(23, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 17);
+            this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 18;
             this.label1.Text = "Idź do:";
             // 
@@ -361,20 +344,19 @@ namespace AplikacjaZMSI
             this.panel2.Controls.Add(this.checkedListBox1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.comboBoxTestFunctions1);
-            this.panel2.Location = new System.Drawing.Point(25, 96);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Location = new System.Drawing.Point(19, 78);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1343, 636);
+            this.panel2.Size = new System.Drawing.Size(1007, 517);
             this.panel2.TabIndex = 19;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Consolas", 15F);
-            this.label6.Location = new System.Drawing.Point(867, 75);
-            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label6.Location = new System.Drawing.Point(650, 61);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(237, 29);
+            this.label6.Size = new System.Drawing.Size(186, 23);
             this.label6.TabIndex = 14;
             this.label6.Text = "Funkcja testowa:";
             // 
@@ -382,39 +364,37 @@ namespace AplikacjaZMSI
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Consolas", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(443, 13);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(332, 11);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(503, 38);
+            this.label5.Size = new System.Drawing.Size(419, 32);
             this.label5.TabIndex = 9;
             this.label5.Text = "Testowanie wielu algorytmów";
             // 
             // multiTestLabel
             // 
             this.multiTestLabel.AutoSize = true;
-            this.multiTestLabel.Location = new System.Drawing.Point(182, 392);
-            this.multiTestLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.multiTestLabel.Location = new System.Drawing.Point(136, 318);
             this.multiTestLabel.Name = "multiTestLabel";
-            this.multiTestLabel.Size = new System.Drawing.Size(44, 16);
+            this.multiTestLabel.Size = new System.Drawing.Size(35, 13);
             this.multiTestLabel.TabIndex = 17;
             this.multiTestLabel.Text = "label4";
             // 
             // progressBar1
             // 
             this.progressBar1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.progressBar1.Location = new System.Drawing.Point(185, 284);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(5);
+            this.progressBar1.Location = new System.Drawing.Point(139, 231);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1002, 59);
+            this.progressBar1.Size = new System.Drawing.Size(752, 48);
             this.progressBar1.TabIndex = 11;
             // 
             // btnMultiSolve
             // 
             this.btnMultiSolve.Font = new System.Drawing.Font("Consolas", 13.8F);
-            this.btnMultiSolve.Location = new System.Drawing.Point(1032, 189);
-            this.btnMultiSolve.Margin = new System.Windows.Forms.Padding(5);
+            this.btnMultiSolve.Location = new System.Drawing.Point(774, 154);
+            this.btnMultiSolve.Margin = new System.Windows.Forms.Padding(4);
             this.btnMultiSolve.Name = "btnMultiSolve";
-            this.btnMultiSolve.Size = new System.Drawing.Size(155, 52);
+            this.btnMultiSolve.Size = new System.Drawing.Size(116, 42);
             this.btnMultiSolve.TabIndex = 10;
             this.btnMultiSolve.Text = "Testuj";
             this.btnMultiSolve.UseVisualStyleBackColor = true;
@@ -424,10 +404,10 @@ namespace AplikacjaZMSI
             // 
             this.btnMultiReport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMultiReport.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnMultiReport.Location = new System.Drawing.Point(1008, 392);
-            this.btnMultiReport.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.btnMultiReport.Location = new System.Drawing.Point(756, 318);
+            this.btnMultiReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnMultiReport.Name = "btnMultiReport";
-            this.btnMultiReport.Size = new System.Drawing.Size(179, 80);
+            this.btnMultiReport.Size = new System.Drawing.Size(134, 65);
             this.btnMultiReport.TabIndex = 13;
             this.btnMultiReport.Text = "Pokaż raport";
             this.btnMultiReport.UseVisualStyleBackColor = true;
@@ -438,35 +418,42 @@ namespace AplikacjaZMSI
             this.checkedListBox1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(185, 129);
-            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(5);
+            this.checkedListBox1.Location = new System.Drawing.Point(139, 105);
+            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(347, 102);
+            this.checkedListBox1.Size = new System.Drawing.Size(260, 75);
             this.checkedListBox1.TabIndex = 12;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Consolas", 15F);
-            this.label2.Location = new System.Drawing.Point(267, 75);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Location = new System.Drawing.Point(200, 61);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(265, 29);
+            this.label2.Size = new System.Drawing.Size(208, 23);
             this.label2.TabIndex = 0;
             this.label2.Text = "Wybierz algorytmy:";
             // 
+            // checkedListBoxFunctions
+            // 
+            this.checkedListBoxFunctions.FormattingEnabled = true;
+            this.checkedListBoxFunctions.Location = new System.Drawing.Point(823, 76);
+            this.checkedListBoxFunctions.Name = "checkedListBoxFunctions";
+            this.checkedListBoxFunctions.Size = new System.Drawing.Size(120, 94);
+            this.checkedListBoxFunctions.TabIndex = 17;
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1372, 754);
-            this.Controls.Add(this.panelInstruction);
+            this.ClientSize = new System.Drawing.Size(1029, 613);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnInstruction);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "Form1";
             this.panelAlgorithmSelection.ResumeLayout(false);
@@ -495,7 +482,6 @@ namespace AplikacjaZMSI
         private System.Windows.Forms.Label lblResult;
         private System.Windows.Forms.FlowLayoutPanel panelParameters;
         private System.Windows.Forms.Label labelConfiguration;
-        private System.Windows.Forms.ComboBox comboBoxTestFunctions;
         private System.Windows.Forms.ComboBox comboBoxTestFunctions1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBox1;
@@ -517,6 +503,7 @@ namespace AplikacjaZMSI
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private CheckedListBox checkedListBoxFunctions;
     }
 }
 

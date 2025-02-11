@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace AplikacjaZMSI
 {
@@ -21,8 +22,9 @@ namespace AplikacjaZMSI
     {
         private List<IOptimizationAlgorithm> algorithms;
         private List<TrackBar> dynamicTrackBars = new List<TrackBar>();
+        private Thread thread;
 
-// public string SelectedTestFunction => comboBoxTestFunctions.SelectedItem?.ToString();
+        // public string SelectedTestFunction => comboBoxTestFunctions.SelectedItem?.ToString();
         public string SelectedTestFunctionMulti => comboBoxTestFunctions1.SelectedItem?.ToString();
         public MultiTest testMulti;
         public event Action<double[]> OnSolve;
@@ -71,6 +73,11 @@ namespace AplikacjaZMSI
                 {
                     TestFunc = TestFunction.Beale;
                 }
+                else if (t.func == "TSFDE")
+                {
+                    TSFDE_fractional_boundary tsfde_inv = new TSFDE_fractional_boundary();
+                    TestFunc = tsfde_inv.fintnessFunction;
+                }
 
 
 
@@ -94,7 +101,30 @@ namespace AplikacjaZMSI
             }
         }
 
-        static double[,] ConvertJaggedToRectangular(double[][] jaggedArray)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to exit?",
+                "Exit",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true; // Prevents the form from closing
+            }
+            else
+            {
+                if (thread != null)
+                {
+                    thread.Abort();
+                }
+            }
+        }
+
+
+                static double[,] ConvertJaggedToRectangular(double[][] jaggedArray)
         {
             // Determine the dimensions of the rectangular array
             int rowCount = jaggedArray.Length;
@@ -426,19 +456,27 @@ namespace AplikacjaZMSI
 
         private void btnMultiSolve_Click(object sender, EventArgs e)
         {
-            Func<int, bool> update = UpdateProgressBar;
-            testMulti = new MultiTest(update);
-            List<string> checkedItemsList = new List<string>();
-            foreach (var item in checkedListBox1.CheckedItems)
+            string sss = SelectedTestFunctionMulti;
+
+            thread = new Thread(() =>
             {
-                checkedItemsList.Add(item.ToString());
+                Func<int, bool> update = UpdateProgressBar;
+                testMulti = new MultiTest(update);
+                List<string> checkedItemsList = new List<string>();
+                foreach (var item in checkedListBox1.CheckedItems)
+                {
+                    checkedItemsList.Add(item.ToString());
+                }
+                testMulti.run(sss, checkedItemsList);
+                multiTestLabel.Text = "";
+                foreach (var test in testMulti.getbest())
+                {
+                    multiTestLabel.Text += "Nazwa algorytmu: " + test.name + " Najlepszy wynik: " + test.FBest + "\n";
+                }
             }
-            testMulti.run(SelectedTestFunctionMulti, checkedItemsList);
-            multiTestLabel.Text = "";
-            foreach (var test in testMulti.getbest())
-            {
-                multiTestLabel.Text += "Nazwa algorytmu: " + test.name + " Najlepszy wynik: " + test.FBest + "\n";
-            }
+            );
+            thread.Start();
+
         }
 
         private void UpdateMultiSolveButtonState()

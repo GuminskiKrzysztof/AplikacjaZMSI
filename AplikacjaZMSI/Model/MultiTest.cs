@@ -179,30 +179,32 @@ namespace AplikacjaZMSI.Model
                     foreach (var param1 in new double[] { 0.01, 0.1, 0.2, 0.4, 0.5 })
                         foreach (var param2 in new double[] { 0.01, 0.1, 0.2, 0.4, 0.5 })
                             foreach (var param3 in new double[] { -1.0, 0.0, 0.5, 1.5, 2.0, 2.5 })
-                            {
-
-                                AquilaOptimizer ao = new AquilaOptimizer();
-                                if (testFunc == "TSFDE")
-                                {
-                                    double[] a = { 0.1, 1.1, 1.0, -70.0, 250.0, -30.0, 50.0 };
-                                    double[] b = { 0.9, 1.9, 5.0, -20.0, 450.0, -10.0, 250.0 };
-                                    double[,] dom = new double[7, 2];
-                                    for (int j = 0; j < 7; j++)
+                                foreach (var param4 in new double[] { 10, 50, 100, 150 })
+                                    foreach (var param5 in new double[] { 10, 50, 100, 150 })
                                     {
-                                        dom[j, 0] = a[j];
-                                        dom[j, 1] = b[j];
+
+                                        AquilaOptimizer ao = new AquilaOptimizer();
+                                        if (testFunc == "TSFDE")
+                                        {
+                                            double[] a = { 0.1, 1.1, 1.0, -70.0, 250.0, -30.0, 50.0 };
+                                            double[] b = { 0.9, 1.9, 5.0, -20.0, 450.0, -10.0, 250.0 };
+                                            double[,] dom = new double[7, 2];
+                                            for (int j = 0; j < 7; j++)
+                                            {
+                                                dom[j, 0] = a[j];
+                                                dom[j, 1] = b[j];
+                                            }
+                                            ao.init(TestFunc, dom, new double[] { param1, param2, param3, param4, param5 });
+                                        }
+                                        else
+                                            ao.init(TestFunc, new double[,] { { -5, 5 }, { -5, 5 } }, new double[] { param1, param2, param3,param4, param5 });
+                                        testList.Add(ao);
+                                        ao.setFuncName(testFunc);
+                                        string key = $"Data{i + 1}";
+                                        JObject jsonObject = JObject.Parse(ao.getJson());
+                                        combinedData[key] = jsonObject;
+                                        i++;
                                     }
-                                    ao.init(TestFunc, dom, new double[] { param1, param2, param3 });
-                                }
-                                else
-                                    ao.init(TestFunc, new double[,] { { -5, 5 }, { -5, 5 } }, new double[] { param1, param2, param3 });
-                                testList.Add(ao);
-                                ao.setFuncName(testFunc);
-                                string key = $"Data{i + 1}";
-                                JObject jsonObject = JObject.Parse(ao.getJson());
-                                combinedData[key] = jsonObject;
-                                i++;
-                            }
                     
                 }
      
@@ -211,32 +213,34 @@ namespace AplikacjaZMSI.Model
                     foreach (var param1 in new double[] { 0.1, 0.2, 0.4, 0.5, 0.7, 0.8, 0.9 })
                         foreach (var param2 in new double[] { 0.1, 0.2, 0.4, 0.5, 0.7, 0.8, 0.9 })
                             foreach (var param3 in new double[] {0.1, 0.2, 0.4, 0.5,0.7,0.8,0.9 })
-                            {
-                                BOAAlgorithm boa = new BOAAlgorithm();
-                                if (testFunc == "TSFDE")
-                                {
-                                    double[] a = { 0.1, 1.1, 1.0, -70.0, 250.0, -30.0, 50.0 };
-                                    double[] b = { 0.9, 1.9, 5.0, -20.0, 450.0, -10.0, 250.0 };
-                                    double[,] dom = new double[7, 2];
-                                    for (int j = 0; j < 7; j++)
+                                foreach (var param4 in new double[] { 10,50,100,150 })
+                                    foreach (var param5 in new double[] { 10, 50, 100, 150 })
                                     {
-                                        dom[j, 0] = a[j];
-                                        dom[j, 1] = b[j];
+                                        BOAAlgorithm boa = new BOAAlgorithm();
+                                        if (testFunc == "TSFDE")
+                                        {
+                                            double[] a = { 0.1, 1.1, 1.0, -70.0, 250.0, -30.0, 50.0 };
+                                            double[] b = { 0.9, 1.9, 5.0, -20.0, 450.0, -10.0, 250.0 };
+                                            double[,] dom = new double[7, 2];
+                                            for (int j = 0; j < 7; j++)
+                                            {
+                                                dom[j, 0] = a[j];
+                                                dom[j, 1] = b[j];
+                                            }
+                                            boa.init(TestFunc, dom , new double[] { param1, param2, param3, param4, param5 });
+                                        }
+                                        else
+                                            boa.init(TestFunc, new double[,] { { -5, 5 }, { -5, 5 } }, new double[] { param1, param2, param3, param4, param5 });
+
+                                        boa.setFuncName(testFunc);
+                                        testList.Add(boa);
+                                        string key = $"Data{i + 1}";
+                                        JObject jsonObject = JObject.Parse(boa.getJson());
+                                        Console.WriteLine(jsonObject.ToString());
+                                        combinedData[key] = jsonObject;
+                                        i++;
+
                                     }
-                                    boa.init(TestFunc, dom , new double[] { param1, param2, param3 });
-                                }
-                                else
-                                    boa.init(TestFunc, new double[,] { { -5, 5 }, { -5, 5 } }, new double[] { param1, param2, param3 });
-
-                                boa.setFuncName(testFunc);
-                                testList.Add(boa);
-                                string key = $"Data{i + 1}";
-                                JObject jsonObject = JObject.Parse(boa.getJson());
-                                Console.WriteLine(jsonObject.ToString());
-                                combinedData[key] = jsonObject;
-                                i++;
-
-                        }
                 }
             }
             File.WriteAllText("multitest_.json", combinedData.ToString());

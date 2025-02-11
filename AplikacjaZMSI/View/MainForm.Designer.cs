@@ -288,7 +288,9 @@ namespace AplikacjaZMSI
             "Sphere",
             "Rastrigin",
             "Rosenbrock",
-            "Beale"});
+            "Beale",
+            "TSFDE",
+            "OF"});
             this.comboBoxTestFunctions1.Location = new System.Drawing.Point(872, 129);
             this.comboBoxTestFunctions1.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.comboBoxTestFunctions1.Name = "comboBoxTestFunctions1";

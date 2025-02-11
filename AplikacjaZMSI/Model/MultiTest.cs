@@ -168,6 +168,11 @@ namespace AplikacjaZMSI.Model
                 TSFDE_fractional_boundary tsfde_inv = new TSFDE_fractional_boundary();
                 TestFunc = tsfde_inv.fintnessFunction;
             }
+            else if (testFunc == "OF")
+            {
+                ObjectiveFunction of = new ObjectiveFunction();
+                TestFunc = of.FunkcjaCelu.Wartosc;
+            }
 
             combinedData = new JObject();
             int i = 0;

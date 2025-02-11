@@ -22,7 +22,7 @@ namespace AplikacjaZMSI
     {
         private List<IOptimizationAlgorithm> algorithms;
         private List<TrackBar> dynamicTrackBars = new List<TrackBar>();
-        private Thread thread;
+        public Thread thread;
 
         // public string SelectedTestFunction => comboBoxTestFunctions.SelectedItem?.ToString();
         public string SelectedTestFunctionMulti => comboBoxTestFunctions1.SelectedItem?.ToString();
@@ -77,6 +77,11 @@ namespace AplikacjaZMSI
                 {
                     TSFDE_fractional_boundary tsfde_inv = new TSFDE_fractional_boundary();
                     TestFunc = tsfde_inv.fintnessFunction;
+                }
+                else if (t.func == "OF")
+                {
+                    ObjectiveFunction of = new ObjectiveFunction();
+                    TestFunc = of.FunkcjaCelu.Wartosc;
                 }
 
 
@@ -190,6 +195,8 @@ namespace AplikacjaZMSI
             checkedListBoxFunctions.Items.Add("Rastrigin");
             checkedListBoxFunctions.Items.Add("Rosenbrock");
             checkedListBoxFunctions.Items.Add("Beale");
+            checkedListBoxFunctions.Items.Add("TSFDE");
+            checkedListBoxFunctions.Items.Add("OF"); 
 
             LoadInstructions();
 

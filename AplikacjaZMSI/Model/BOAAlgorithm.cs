@@ -13,9 +13,11 @@ namespace AplikacjaZMSI.Model
 
         public ParamInfo[] ParamsInfo { get; set; } = new ParamInfo[]
         {
-            new ParamInfo { Name = "a", Description = "Parametr a (współczynnik w BOA)", LowerBoundary = 0.1, UpperBoundary = 1.0 },
-            new ParamInfo { Name = "c", Description = "Parametr c (intensywność zapachu)", LowerBoundary = 0.1, UpperBoundary = 2.0 },
-            new ParamInfo { Name = "p", Description = "Prawdopodobieństwo globalnej eksploracji", LowerBoundary = 0.1, UpperBoundary = 1.0 }
+            new ParamInfo { Name = "a", Description = "Parametr a (współczynnik w BOA)", LowerBoundary = 0.1, UpperBoundary = 1.0, IsInteger = false },
+            new ParamInfo { Name = "c", Description = "Parametr c (intensywność zapachu)", LowerBoundary = 0.1, UpperBoundary = 2.0, IsInteger = false },
+            new ParamInfo { Name = "p", Description = "Prawdopodobieństwo globalnej eksploracji", LowerBoundary = 0.1, UpperBoundary = 1.0, IsInteger = false },
+            new ParamInfo { Name = "pop", Description = "Wielkość populacji", LowerBoundary = 10, UpperBoundary = 150, IsInteger = true },
+            new ParamInfo { Name = "itr", Description = "Liczba iteracji", LowerBoundary = 5, UpperBoundary = 100, IsInteger = true }
         };
 
         public IStateWriter writer { get; set; } = new StateWriter();
@@ -45,6 +47,7 @@ namespace AplikacjaZMSI.Model
         public void setJson(TestData d)
         {
             data = d;
+            data.resIn = new double[(int)(iterations / 5)];
         }
 
         public void setFuncName(string name)
@@ -95,6 +98,10 @@ namespace AplikacjaZMSI.Model
                     File.WriteAllText("test_.json", jsonString);
                     File.Copy("test_.json", "test.json", true);
                 }
+                if (iter % 5 == 0)
+                {
+                    data.resIn[iter / 5] = FBest;
+                }
 
             }
             File.Delete("test.json");
@@ -113,8 +120,8 @@ namespace AplikacjaZMSI.Model
             c = parameters[1];
             p = parameters[2];
             dimensions = domain.GetLength(0);
-            populationSize = 50; // Można ustawić dynamicznie
-            iterations = 100; // Można ustawić dynamicznie
+            populationSize = (int)parameters[3];
+            iterations = (int)parameters[4];
             data = new TestData();
             data.name = Name;
             data.param1 = a;
@@ -122,6 +129,7 @@ namespace AplikacjaZMSI.Model
             data.param3 = p;
             data.iter = iterations;
             data.dim = dimensions;
+            data.resIn = new double[(int)(iterations / 5)];
             data.limits = ConvertToJaggedArray(domain);
             data.popSize = populationSize;
 
@@ -157,7 +165,11 @@ namespace AplikacjaZMSI.Model
                     File.WriteAllText("test_.json", jsonString);
                     File.Copy("test_.json", "test.json", true);
                 }
-                
+                if (iter % 5 == 0)
+                {
+                    data.resIn[iter / 5] = FBest;
+                }
+
             }
             File.Delete("test.json");
             File.Delete("test_.json");
@@ -169,7 +181,7 @@ namespace AplikacjaZMSI.Model
             Console.WriteLine($"a = {a}, c = {c},p = {p}");
             PDFReportGenerator pDFReportGenerator = new PDFReportGenerator();
             pDFReportGenerator.raportData(data);
-            pDFReportGenerator.GenerateReport("Raport.pdf");
+            pDFReportGenerator.GenerateReport("Rapor_" + data.func + ".pdf");
         }
 
         private void InitializePopulation(double[,] domain)

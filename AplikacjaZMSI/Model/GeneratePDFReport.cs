@@ -37,7 +37,8 @@ namespace AplikacjaZMSI
                 Font textFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
                 doc.Add(new Paragraph("Algorytm testowany: " + r.name, subTitleFont));
                 doc.Add(new Paragraph("Funkcja testowana: " + r.func, subTitleFont));
-                doc.Add(new Paragraph("Stan: " + r.state, textFont));
+                doc.Add(new Paragraph("Liczba iteracji: " + r.iter, subTitleFont));
+                doc.Add(new Paragraph("Rozmiar populacji: " + r.popSize, subTitleFont));
                 doc.Add(new Paragraph("\n"));
 
                 // Parametry
@@ -55,6 +56,13 @@ namespace AplikacjaZMSI
                     doc.Add(new Paragraph(string.Join(", ", r.XBest), textFont));
                 }
                 doc.Add(new Paragraph("\n"));
+                doc.Add(new Paragraph("Wyniki po X iteracjach:", subTitleFont));
+                int p = 0;
+                foreach (double u in r.resIn)
+                {
+                    p++;
+                    doc.Add(new Paragraph("Najlepsze rozwiązanie po " + (p * 5).ToString() + " iteracjach: " + u.ToString(), textFont));
+                }
                 doc.Add(new Chunk(new LineSeparator()));
                 doc.Add(new Paragraph("\n"));
             }
@@ -78,7 +86,8 @@ namespace AplikacjaZMSI
             Font textFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
             doc.Add(new Paragraph("Algorytm testowany: " + data.name, subTitleFont));
             doc.Add(new Paragraph("Funkcja testowana: " + data.func, subTitleFont));
-            doc.Add(new Paragraph("Stan: " + data.state, textFont));
+            doc.Add(new Paragraph("Liczba iteracji: " + data.iter, subTitleFont));
+            doc.Add(new Paragraph("Rozmiar populacji: " + data.popSize, subTitleFont));
             doc.Add(new Paragraph("\n"));
 
             // Parametry
@@ -96,22 +105,14 @@ namespace AplikacjaZMSI
                 doc.Add(new Paragraph(string.Join(", ", data.XBest), textFont));
             }
             doc.Add(new Paragraph("\n"));
-
-            // Informacje o populacji
-            if (data.population != null && data.population.Length > 0)
+            doc.Add(new Paragraph("Wyniki po X iteracjach:", subTitleFont));
+            int t = 0;
+            foreach(double u in data.resIn)
             {
-                PdfPTable table = new PdfPTable(data.population[0].Length);
-                table.WidthPercentage = 100;
-
-                foreach (var row in data.population)
-                {
-                    foreach (var value in row)
-                    {
-                        table.AddCell(new PdfPCell(new Phrase(value.ToString(), textFont)));
-                    }
-                }
-                doc.Add(table);
+                t++;
+                doc.Add(new Paragraph("Najlepsze rozwiązanie po " + (t*5).ToString()+ " iteracjach: " + u.ToString(), textFont));
             }
+           
 
             doc.Close();
         }

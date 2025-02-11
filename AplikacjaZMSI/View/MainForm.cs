@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace AplikacjaZMSI
 {
@@ -21,8 +22,10 @@ namespace AplikacjaZMSI
     {
         private List<IOptimizationAlgorithm> algorithms;
         private List<TrackBar> dynamicTrackBars = new List<TrackBar>();
+        public Thread thread;
+        private IAsyncResult inv;
 
-        public string SelectedTestFunction => comboBoxTestFunctions.SelectedItem?.ToString();
+        // public string SelectedTestFunction => comboBoxTestFunctions.SelectedItem?.ToString();
         public string SelectedTestFunctionMulti => comboBoxTestFunctions1.SelectedItem?.ToString();
         public MultiTest testMulti;
         public event Action<double[]> OnSolve;
@@ -41,7 +44,18 @@ namespace AplikacjaZMSI
                 panel2.Enabled = true;
                 Func<int, bool> update = UpdateProgressBar;
                 string json = File.ReadAllText("multitest.json");
-                testMulti = new MultiTest(update, json);
+                if (thread != null)
+                    if (thread.IsAlive)
+                    {
+                        thread.Abort();
+                    }
+
+                thread = new Thread(() =>
+                {
+                    testMulti = new MultiTest(update, json);
+                });
+                thread.Start();
+                
 
             }
             else if (File.Exists("test.json"))
@@ -52,7 +66,7 @@ namespace AplikacjaZMSI
                 panel2.Visible = false;
                 panel2.Enabled = false;
 
-                string json = File.ReadAllText("test.json"); 
+                string json = File.ReadAllText("test.json");
                 TestData t = new TestData();
                 Func<double[], double> TestFunc = null;
                 if (t.func == "Sphere")
@@ -71,27 +85,74 @@ namespace AplikacjaZMSI
                 {
                     TestFunc = TestFunction.Beale;
                 }
-                if (t.name == "AO")
+                else if (t.func == "TSFDE")
                 {
-                    AquilaOptimizer aquilaOptimizer = new AquilaOptimizer();
-                    aquilaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits),new double[] { t.param1, t.param2, t.param3});
-                    aquilaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
-                    this.DisplayResults(aquilaOptimizer.FBest, aquilaOptimizer.XBest);
+                    TSFDE_fractional_boundary tsfde_inv = new TSFDE_fractional_boundary();
+                    TestFunc = tsfde_inv.fintnessFunction;
                 }
-                else
+                else if (t.func == "OF")
                 {
-                    BOAAlgorithm boaOptimizer = new BOAAlgorithm();
-                    boaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits),new double[] { t.param1, t.param2, t.param3 });
-                    boaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
-                    this.DisplayResults(boaOptimizer.FBest, boaOptimizer.XBest);
+                    ObjectiveFunction of = new ObjectiveFunction();
+                    TestFunc = of.FunkcjaCelu.Wartosc;
                 }
+
+                if (thread != null)
+                    if (thread.IsAlive)
+                    {
+                        thread.Abort();
+                    }
+
+                thread = new Thread(() =>
+                {
+                    if (t.name == "AO")
+                    {
+                        AquilaOptimizer aquilaOptimizer = new AquilaOptimizer();
+                        aquilaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits), new double[] { t.param1, t.param2, t.param3, t.popSize, t.iter });
+                        aquilaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
+                        this.DisplayResults(aquilaOptimizer.FBest, aquilaOptimizer.XBest, t.func);
+                    }
+                    else
+                    {
+                        BOAAlgorithm boaOptimizer = new BOAAlgorithm();
+                        boaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits), new double[] { t.param1, t.param2, t.param3, t.popSize, t.iter });
+                        boaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
+                        this.DisplayResults(boaOptimizer.FBest, boaOptimizer.XBest, t.func);
+                    }
+                });
+                thread.Start();
+
+                
 
 
                
             }
         }
 
-        static double[,] ConvertJaggedToRectangular(double[][] jaggedArray)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to exit?",
+                "Exit",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true; // Prevents the form from closing
+            }
+            else
+            {
+                progressBar1.EndInvoke(inv);
+                if (thread != null)
+                {
+                    thread.Abort();
+                }
+            }
+        }
+
+
+                static double[,] ConvertJaggedToRectangular(double[][] jaggedArray)
         {
             // Determine the dimensions of the rectangular array
             int rowCount = jaggedArray.Length;
@@ -115,7 +176,7 @@ namespace AplikacjaZMSI
         public MainForm()
         {
             InitializeComponent();
-            
+
             algorithms = new List<IOptimizationAlgorithm>
             {
                 new AquilaOptimizer(),
@@ -130,22 +191,22 @@ namespace AplikacjaZMSI
             comboBoxAlgorithms.SelectedIndex = -1;
 
             buttonNextConfiguration.Enabled = false;
-            btnSolve.Enabled = false;
+            btnSolve.Enabled = true;
             btnMultiSolve.Enabled = false;
 
             multiTestLabel.Text = "";
 
             comboBoxAlgorithms.SelectedIndexChanged += comboBoxAlgorithms_SelectedIndexChanged;
-            comboBoxTestFunctions.SelectedIndexChanged += comboBoxTestFunctions_SelectedIndexChanged;
+            //comboBoxTestFunctions.SelectedIndexChanged += comboBoxTestFunctions_SelectedIndexChanged;
             comboBoxTestFunctions1.SelectedIndexChanged += comboBoxTestFunctions1_SelectedIndexChanged;
             checkedListBox1.ItemCheck += checkedListBox1_ItemCheck;
 
 
             // Zdarzenie na zmianę funkcji testowej
-            comboBoxTestFunctions.SelectedIndexChanged += (sender, e) =>
-            {
-                Console.WriteLine($"Wybrano funkcję testową: {SelectedTestFunction}");
-            };
+            //comboBoxTestFunctions.SelectedIndexChanged += (sender, e) =>
+            //{
+            //    Console.WriteLine($"Wybrano funkcję testową: {SelectedTestFunction}");
+            //};
             comboBoxTestFunctions1.SelectedIndexChanged += (sender, e) =>
             {
                 Console.WriteLine($"Wybrano funkcję testową1: {SelectedTestFunctionMulti}");
@@ -153,11 +214,25 @@ namespace AplikacjaZMSI
             checkedListBox1.Items.Add("AO");
             checkedListBox1.Items.Add("BOA");
 
-            LoadInstructions();
+            checkedListBoxFunctions.Items.Add("Sphere");
+            checkedListBoxFunctions.Items.Add("Rastrigin");
+            checkedListBoxFunctions.Items.Add("Rosenbrock");
+            checkedListBoxFunctions.Items.Add("Beale");
+            checkedListBoxFunctions.Items.Add("TSFDE");
+            checkedListBoxFunctions.Items.Add("OF");
 
+            LoadInstructions();
+            IsStoped();
+           
         }
 
-
+        public List<string> SelectedTestFunctions
+        {
+            get
+            {
+                return checkedListBoxFunctions.CheckedItems.Cast<string>().ToList();
+            }
+        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -207,7 +282,7 @@ namespace AplikacjaZMSI
         {
             if (progressBar1.InvokeRequired)
             {
-                progressBar1.Invoke(new Action(() => progressBar1.Value = value));
+                 inv = progressBar1.BeginInvoke(new Action(() => progressBar1.Value = value));
             }
             else
             {
@@ -259,7 +334,7 @@ namespace AplikacjaZMSI
                 };
 
                 // Nazwa parametru (szerokość ustawiona na sztywno)
-                var label = new Label
+                var nameLabel = new Label
                 {
                     Text = param.Name,
                     AutoSize = false,
@@ -269,69 +344,101 @@ namespace AplikacjaZMSI
                     Font = new Font("Consolas", 12, FontStyle.Bold),
                     TextAlign = ContentAlignment.MiddleLeft
                 };
-                paramPanel.Controls.Add(label);
+                paramPanel.Controls.Add(nameLabel);
 
                 // Suwak
-                var trackBar = new TrackBar
+                TrackBar trackBar = new TrackBar();
+                if (param.IsInteger)
                 {
-                    Minimum = (int)(param.LowerBoundary * 10),
-                    Maximum = (int)(param.UpperBoundary * 10),
-                    Value = (int)(param.LowerBoundary * 10),
-                    TickFrequency = 10,
-                    Tag = param,
-                    Width = paramPanel.Width - 170, // Dopasowanie szerokości do panelu
-                    Location = new Point(label.Right + 20, 30) // Suwak zaraz obok etykiety
-                };
+                    trackBar.Minimum = (int)param.LowerBoundary;
+                    trackBar.Maximum = (int)param.UpperBoundary;
+                    trackBar.Value = (int)param.LowerBoundary;
+                    trackBar.TickFrequency = 1;
+                }    
+                else
+                {
+                    trackBar.Minimum = (int)(param.LowerBoundary * 10);
+                    trackBar.Maximum = (int)(param.UpperBoundary * 10);
+                    trackBar.Value = (int)(param.LowerBoundary * 10);
+                    trackBar.TickFrequency = 10;
+                }
+                trackBar.Tag = param;
+                trackBar.Width = paramPanel.Width - 170; // Dopasowanie szerokości do panelu
+                trackBar.Location = new Point(nameLabel.Right + 20, 30); // Suwak zaraz obok etykiety
                 paramPanel.Controls.Add(trackBar);
 
                 // Min wartość (z lewej strony suwaka)
                 var minLabel = new Label
                 {
-                    Text = $"{param.LowerBoundary:F1}",
                     AutoSize = true,
                     Location = new Point(trackBar.Left - 35, trackBar.Top + 25),
                     Font = new Font("Consolas", 10)
                 };
-                paramPanel.Controls.Add(minLabel);
 
                 // Max wartość (z prawej strony suwaka)
                 var maxLabel = new Label
                 {
-                    Text = $"{param.UpperBoundary:F1}",
                     AutoSize = true,
                     Location = new Point(trackBar.Right + 2, trackBar.Top + 25), // Przesunięcie w prawo
                     Font = new Font("Consolas", 10)
                 };
+
+                if (param.IsInteger)
+                {
+                    minLabel.Text = ((int)param.LowerBoundary).ToString();
+                    maxLabel.Text = ((int)param.UpperBoundary).ToString();
+                }
+                else
+                {
+                    minLabel.Text = $"{param.LowerBoundary:F1}";
+                    maxLabel.Text = $"{param.UpperBoundary:F1}";
+                }
+                paramPanel.Controls.Add(minLabel);
                 paramPanel.Controls.Add(maxLabel);
+
 
                 // Aktualna wartość (nad suwakiem)
                 var valueLabel = new Label
                 {
-                    Text = $"{param.LowerBoundary:F1}",
+                    // Text = $"{param.LowerBoundary:F1}",
                     AutoSize = true,
                     Location = new Point(trackBar.Left, trackBar.Top - 20),
                     Font = new Font("Consolas", 10),
                     BackColor = Color.LightYellow // Opcjonalnie dla lepszej widoczności
                 };
+
+
+                if (param.IsInteger)
+                    valueLabel.Text = trackBar.Value.ToString();
+                else
+                    valueLabel.Text = (trackBar.Value / 10.0).ToString("F1");
+
                 paramPanel.Controls.Add(valueLabel);
 
                 // Dynamiczne przesuwanie etykiety wartości
                 trackBar.Scroll += (sender, e) =>
                 {
                     var tb = sender as TrackBar;
-                    double currentValue = tb.Value / 10.0;
-                    valueLabel.Text = currentValue.ToString("F1");
-
-                    // Pobranie szerokości suwaka i jego przesunięcia wewnętrznego
-                    int trackBarRange = tb.Maximum - tb.Minimum;
-                    int trackBarWidth = tb.Width - 10; // Odejmujemy marginesy po bokach
-
-                    // Obliczenie dokładnej pozycji
-                    int relativePosition = (int)((tb.Value - tb.Minimum) / (double)trackBarRange * trackBarWidth);
-
-                    // Wyśrodkowanie wartości nad suwakiem
-                    int labelCenterX = tb.Left + relativePosition - (valueLabel.Width / 2) + 5; // Dodajemy małą korektę
-                    valueLabel.Location = new Point(labelCenterX, tb.Top - 20);
+                    if (tb.Tag is ParamInfo p)
+                    {
+                        if (p.IsInteger)
+                        {
+                            valueLabel.Text = tb.Value.ToString();
+                            int relPos = (int)(((tb.Value - tb.Minimum) / (double)(tb.Maximum - tb.Minimum)) * (tb.Width - 10));
+                            int labelCenterX = tb.Left + relPos - (valueLabel.Width / 2);
+                            valueLabel.Location = new Point(labelCenterX, tb.Top - 20);
+                        }
+                        else
+                        {
+                            double currentValue = tb.Value / 10.0;
+                            valueLabel.Text = currentValue.ToString("F1");
+                            int trackBarRange = tb.Maximum - tb.Minimum;
+                            int trackBarWidth = tb.Width - 10;
+                            int relPos = (int)(((tb.Value - tb.Minimum) / (double)trackBarRange) * trackBarWidth);
+                            int labelCenterX = tb.Left + relPos - (valueLabel.Width / 2) + 5;
+                            valueLabel.Location = new Point(labelCenterX, tb.Top - 20);
+                        }
+                    }
                 };
 
                 // Dodaj do głównego kontenera
@@ -342,7 +449,7 @@ namespace AplikacjaZMSI
 
         private void comboBoxTestFunctions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnSolve.Enabled = comboBoxTestFunctions.SelectedItem != null;
+            //btnSolve.Enabled = comboBoxTestFunctions.SelectedItem != null;
         }
 
 
@@ -356,31 +463,68 @@ namespace AplikacjaZMSI
                 return;
             }
 
-            var parameterValues = dynamicTrackBars.Select(tb => tb.Value / 10.0).ToArray();
+            var parameterValues = dynamicTrackBars.Select(tb =>
+            {
+                var p = tb.Tag as ParamInfo;
+                return p.IsInteger ? (double)tb.Value : tb.Value / 10.0;
+            }).ToArray();
+
             OnSolve?.Invoke(parameterValues);
         }
 
         // Metoda do wyświetlania wyników
-        public void DisplayResults(double fBest, double[] xBest)
+
+        public void ClearResults()
         {
-            lblResult.Text = $"Najlepsze f(X): {fBest}\nX = [{string.Join(", ", xBest)}]";
+            lblResult.Text = "";
+        }
+
+        public bool UpdateDisplayResults(string value)
+        {
+            if (lblResult.InvokeRequired)
+            {
+                lblResult.Invoke(new Action(() => lblResult.Text += value));
+            }
+            else
+            {
+                lblResult.Text += value;
+            }
+            return true;
+        }
+
+        public void DisplayResults(double fBest, double[] xBest, string functionName)
+        {
+            lblResult.Text += $"Funkcja: {functionName} Najlepsze f(X): {fBest}\n";
         }
 
         private void btnMultiSolve_Click(object sender, EventArgs e)
         {
-            Func<int, bool> update = UpdateProgressBar;
-            testMulti = new MultiTest(update);
-            List<string> checkedItemsList = new List<string>();
-            foreach (var item in checkedListBox1.CheckedItems)
+            string sss = SelectedTestFunctionMulti;
+            if(thread != null)
+            if (thread.IsAlive)
             {
-                checkedItemsList.Add(item.ToString());
-            }
-            testMulti.run(SelectedTestFunctionMulti, checkedItemsList);
-            multiTestLabel.Text = "";
-            foreach (var test in testMulti.getbest())
+                thread.Abort();
+                    }
+          
+            thread = new Thread(() =>
             {
-                multiTestLabel.Text += "Nazwa algorytmu: " + test.name + " Najlepszy wynik: " + test.FBest + "\n";
+                Func<int, bool> update = UpdateProgressBar;
+                testMulti = new MultiTest(update);
+                List<string> checkedItemsList = new List<string>();
+                foreach (var item in checkedListBox1.CheckedItems)
+                {
+                    checkedItemsList.Add(item.ToString());
+                }
+                testMulti.run(sss, checkedItemsList);
+                multiTestLabel.Text = "";
+                foreach (var test in testMulti.getbest())
+                {
+                    multiTestLabel.Text += "Nazwa algorytmu: " + test.name + " Najlepszy wynik: " + test.FBest + "\n";
+                }
             }
+            );
+            thread.Start();
+
         }
 
         private void UpdateMultiSolveButtonState()
@@ -477,13 +621,16 @@ namespace AplikacjaZMSI
 
         private void btnSingleReport_Click(object sender, EventArgs e)
         {
-            try
+            foreach (string uuu in SelectedTestFunctions)
             {
-                Process.Start("raport.pdf");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
+                try
+                {
+                    Process.Start("rapor_"+uuu+".pdf");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
             }
         }
 

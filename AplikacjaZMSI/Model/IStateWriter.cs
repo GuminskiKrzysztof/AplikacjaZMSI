@@ -56,6 +56,7 @@ namespace AplikacjaZMSI
         public string Description { get; set; }
         public double UpperBoundary { get; set; }
         public double LowerBoundary { get; set; }
+        public bool IsInteger { get; set; }
     }
 
     public interface IOptimizationAlgorithm
@@ -76,7 +77,8 @@ namespace AplikacjaZMSI
         void setPopNull();
         void setJson(TestData d);
         void Solve_restart(int i, double[,] pop, double f, double[] x);
-        
+        void setFuncName(string functionName);
+
 
 
         // Lista informacji o kolejnych parametrach algorytmu

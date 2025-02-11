@@ -36,21 +36,21 @@ namespace AplikacjaZMSI
             this.comboBoxAlgorithms = new System.Windows.Forms.ComboBox();
             this.labelSelectAlgorithm = new System.Windows.Forms.Label();
             this.panelAlgorithmConfiguration = new System.Windows.Forms.Panel();
+            this.panelInstruction = new System.Windows.Forms.Panel();
+            this.richTextBoxInstructions = new System.Windows.Forms.RichTextBox();
+            this.btnCloseInst = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.checkedListBoxFunctions = new System.Windows.Forms.CheckedListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnSingleReport = new System.Windows.Forms.Button();
             this.buttonBack = new System.Windows.Forms.Button();
             this.panelParameters = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSolve = new System.Windows.Forms.Button();
-            this.comboBoxTestFunctions = new System.Windows.Forms.ComboBox();
             this.labelConfiguration = new System.Windows.Forms.Label();
             this.lblResult = new System.Windows.Forms.Label();
             this.comboBoxTestFunctions1 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.panelInstruction = new System.Windows.Forms.Panel();
-            this.richTextBoxInstructions = new System.Windows.Forms.RichTextBox();
-            this.btnCloseInst = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -64,8 +64,8 @@ namespace AplikacjaZMSI
             this.label2 = new System.Windows.Forms.Label();
             this.panelAlgorithmSelection.SuspendLayout();
             this.panelAlgorithmConfiguration.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panelInstruction.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,7 +122,7 @@ namespace AplikacjaZMSI
             // 
             this.labelSelectAlgorithm.AutoSize = true;
             this.labelSelectAlgorithm.Font = new System.Drawing.Font("Consolas", 15F);
-            this.labelSelectAlgorithm.Location = new System.Drawing.Point(114, 11);
+            this.labelSelectAlgorithm.Location = new System.Drawing.Point(115, 11);
             this.labelSelectAlgorithm.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSelectAlgorithm.Name = "labelSelectAlgorithm";
             this.labelSelectAlgorithm.Size = new System.Drawing.Size(251, 29);
@@ -131,160 +131,28 @@ namespace AplikacjaZMSI
             // 
             // panelAlgorithmConfiguration
             // 
+            this.panelAlgorithmConfiguration.Controls.Add(this.checkedListBoxFunctions);
             this.panelAlgorithmConfiguration.Controls.Add(this.label7);
             this.panelAlgorithmConfiguration.Controls.Add(this.btnSingleReport);
             this.panelAlgorithmConfiguration.Controls.Add(this.buttonBack);
             this.panelAlgorithmConfiguration.Controls.Add(this.panelParameters);
             this.panelAlgorithmConfiguration.Controls.Add(this.btnSolve);
-            this.panelAlgorithmConfiguration.Controls.Add(this.comboBoxTestFunctions);
             this.panelAlgorithmConfiguration.Controls.Add(this.labelConfiguration);
             this.panelAlgorithmConfiguration.Controls.Add(this.lblResult);
             this.panelAlgorithmConfiguration.Location = new System.Drawing.Point(35, 60);
             this.panelAlgorithmConfiguration.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelAlgorithmConfiguration.Name = "panelAlgorithmConfiguration";
-            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(1255, 526);
+            this.panelAlgorithmConfiguration.Size = new System.Drawing.Size(1673, 807);
             this.panelAlgorithmConfiguration.TabIndex = 5;
             this.panelAlgorithmConfiguration.Visible = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Consolas", 15F);
-            this.label7.Location = new System.Drawing.Point(1285, 176);
-            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(237, 29);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Funkcja testowa:";
-            // 
-            // btnSingleReport
-            // 
-            this.btnSingleReport.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSingleReport.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnSingleReport.Location = new System.Drawing.Point(953, 480);
-            this.btnSingleReport.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.btnSingleReport.Name = "btnSingleReport";
-            this.btnSingleReport.Size = new System.Drawing.Size(179, 80);
-            this.btnSingleReport.TabIndex = 16;
-            this.btnSingleReport.Text = "Pokaż raport";
-            this.btnSingleReport.UseVisualStyleBackColor = true;
-            this.btnSingleReport.Click += new System.EventHandler(this.btnSingleReport_Click);
-            // 
-            // buttonBack
-            // 
-            this.buttonBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonBack.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonBack.Location = new System.Drawing.Point(11, 25);
-            this.buttonBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(52, 54);
-            this.buttonBack.TabIndex = 3;
-            this.buttonBack.Text = "⬅";
-            this.buttonBack.UseVisualStyleBackColor = true;
-            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
-            // 
-            // panelParameters
-            // 
-            this.panelParameters.AutoScroll = true;
-            this.panelParameters.Location = new System.Drawing.Point(64, 108);
-            this.panelParameters.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panelParameters.Name = "panelParameters";
-            this.panelParameters.Size = new System.Drawing.Size(880, 351);
-            this.panelParameters.TabIndex = 9;
-            // 
-            // btnSolve
-            // 
-            this.btnSolve.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSolve.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnSolve.Location = new System.Drawing.Point(1125, 234);
-            this.btnSolve.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnSolve.Name = "btnSolve";
-            this.btnSolve.Size = new System.Drawing.Size(112, 42);
-            this.btnSolve.TabIndex = 8;
-            this.btnSolve.Text = "Testuj";
-            this.btnSolve.UseVisualStyleBackColor = true;
-            this.btnSolve.Click += new System.EventHandler(this.btnSolve_Click);
-            // 
-            // comboBoxTestFunctions
-            // 
-            this.comboBoxTestFunctions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTestFunctions.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBoxTestFunctions.FormattingEnabled = true;
-            this.comboBoxTestFunctions.Items.AddRange(new object[] {
-            "Sphere",
-            "Rastrigin",
-            "Rosenbrock",
-            "Beale"});
-            this.comboBoxTestFunctions.Location = new System.Drawing.Point(969, 185);
-            this.comboBoxTestFunctions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxTestFunctions.Name = "comboBoxTestFunctions";
-            this.comboBoxTestFunctions.Size = new System.Drawing.Size(271, 35);
-            this.comboBoxTestFunctions.TabIndex = 9;
-            // 
-            // labelConfiguration
-            // 
-            this.labelConfiguration.AutoSize = true;
-            this.labelConfiguration.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelConfiguration.Location = new System.Drawing.Point(81, 46);
-            this.labelConfiguration.Name = "labelConfiguration";
-            this.labelConfiguration.Size = new System.Drawing.Size(0, 32);
-            this.labelConfiguration.TabIndex = 7;
-            this.labelConfiguration.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblResult
-            // 
-            this.lblResult.AutoSize = true;
-            this.lblResult.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblResult.Location = new System.Drawing.Point(33, 478);
-            this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(0, 23);
-            this.lblResult.TabIndex = 15;
-            // 
-            // comboBoxTestFunctions1
-            // 
-            this.comboBoxTestFunctions1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTestFunctions1.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBoxTestFunctions1.FormattingEnabled = true;
-            this.comboBoxTestFunctions1.Items.AddRange(new object[] {
-            "Sphere",
-            "Rastrigin",
-            "Rosenbrock",
-            "Beale"});
-            this.comboBoxTestFunctions1.Location = new System.Drawing.Point(872, 129);
-            this.comboBoxTestFunctions1.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.comboBoxTestFunctions1.Name = "comboBoxTestFunctions1";
-            this.comboBoxTestFunctions1.Size = new System.Drawing.Size(315, 35);
-            this.comboBoxTestFunctions1.TabIndex = 9;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.panelAlgorithmSelection);
-            this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
-            this.panel1.Location = new System.Drawing.Point(15, 77);
-            this.panel1.Margin = new System.Windows.Forms.Padding(5);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1292, 633);
-            this.panel1.TabIndex = 16;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Consolas", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(377, 9);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(611, 38);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Testowanie pojedynczego algorytmu";
             // 
             // panelInstruction
             // 
             this.panelInstruction.Controls.Add(this.richTextBoxInstructions);
             this.panelInstruction.Controls.Add(this.btnCloseInst);
             this.panelInstruction.Controls.Add(this.label3);
-            this.panelInstruction.Location = new System.Drawing.Point(13, 71);
-            this.panelInstruction.Margin = new System.Windows.Forms.Padding(4);
+            this.panelInstruction.Location = new System.Drawing.Point(15, 78);
+            this.panelInstruction.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.panelInstruction.Name = "panelInstruction";
             this.panelInstruction.Size = new System.Drawing.Size(1309, 626);
             this.panelInstruction.TabIndex = 6;
@@ -323,6 +191,134 @@ namespace AplikacjaZMSI
             this.label3.TabIndex = 7;
             this.label3.Text = "Instrukcja";
             // 
+            // checkedListBoxFunctions
+            // 
+            this.checkedListBoxFunctions.FormattingEnabled = true;
+            this.checkedListBoxFunctions.Location = new System.Drawing.Point(1292, 220);
+            this.checkedListBoxFunctions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkedListBoxFunctions.Name = "checkedListBoxFunctions";
+            this.checkedListBoxFunctions.Size = new System.Drawing.Size(230, 106);
+            this.checkedListBoxFunctions.TabIndex = 17;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Consolas", 15F);
+            this.label7.Location = new System.Drawing.Point(1285, 176);
+            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(237, 29);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Funkcja testowa:";
+            // 
+            // btnSingleReport
+            // 
+            this.btnSingleReport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSingleReport.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnSingleReport.Location = new System.Drawing.Point(1292, 703);
+            this.btnSingleReport.Margin = new System.Windows.Forms.Padding(5, 2, 5, 2);
+            this.btnSingleReport.Name = "btnSingleReport";
+            this.btnSingleReport.Size = new System.Drawing.Size(179, 80);
+            this.btnSingleReport.TabIndex = 16;
+            this.btnSingleReport.Text = "Pokaż raport";
+            this.btnSingleReport.UseVisualStyleBackColor = true;
+            this.btnSingleReport.Click += new System.EventHandler(this.btnSingleReport_Click);
+            // 
+            // buttonBack
+            // 
+            this.buttonBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonBack.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonBack.Location = new System.Drawing.Point(11, 25);
+            this.buttonBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonBack.Name = "buttonBack";
+            this.buttonBack.Size = new System.Drawing.Size(69, 65);
+            this.buttonBack.TabIndex = 3;
+            this.buttonBack.Text = "⬅";
+            this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
+            // 
+            // panelParameters
+            // 
+            this.panelParameters.AutoScroll = true;
+            this.panelParameters.Location = new System.Drawing.Point(85, 108);
+            this.panelParameters.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.panelParameters.Name = "panelParameters";
+            this.panelParameters.Size = new System.Drawing.Size(1191, 581);
+            this.panelParameters.TabIndex = 9;
+            // 
+            // btnSolve
+            // 
+            this.btnSolve.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSolve.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnSolve.Location = new System.Drawing.Point(1410, 349);
+            this.btnSolve.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSolve.Name = "btnSolve";
+            this.btnSolve.Size = new System.Drawing.Size(112, 42);
+            this.btnSolve.TabIndex = 8;
+            this.btnSolve.Text = "Testuj";
+            this.btnSolve.UseVisualStyleBackColor = true;
+            this.btnSolve.Click += new System.EventHandler(this.btnSolve_Click);
+            // 
+            // labelConfiguration
+            // 
+            this.labelConfiguration.AutoSize = true;
+            this.labelConfiguration.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelConfiguration.Location = new System.Drawing.Point(81, 46);
+            this.labelConfiguration.Name = "labelConfiguration";
+            this.labelConfiguration.Size = new System.Drawing.Size(0, 32);
+            this.labelConfiguration.TabIndex = 7;
+            this.labelConfiguration.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblResult
+            // 
+            this.lblResult.AutoSize = true;
+            this.lblResult.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblResult.Location = new System.Drawing.Point(91, 703);
+            this.lblResult.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblResult.Name = "lblResult";
+            this.lblResult.Size = new System.Drawing.Size(0, 23);
+            this.lblResult.TabIndex = 15;
+            // 
+            // comboBoxTestFunctions1
+            // 
+            this.comboBoxTestFunctions1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTestFunctions1.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxTestFunctions1.FormattingEnabled = true;
+            this.comboBoxTestFunctions1.Items.AddRange(new object[] {
+            "Sphere",
+            "Rastrigin",
+            "Rosenbrock",
+            "Beale",
+            "TSFDE",
+            "OF"});
+            this.comboBoxTestFunctions1.Location = new System.Drawing.Point(872, 129);
+            this.comboBoxTestFunctions1.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.comboBoxTestFunctions1.Name = "comboBoxTestFunctions1";
+            this.comboBoxTestFunctions1.Size = new System.Drawing.Size(315, 35);
+            this.comboBoxTestFunctions1.TabIndex = 9;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.panelAlgorithmSelection);
+            this.panel1.Controls.Add(this.panelAlgorithmConfiguration);
+            this.panel1.Location = new System.Drawing.Point(15, 78);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1723, 878);
+            this.panel1.TabIndex = 16;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Consolas", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.Location = new System.Drawing.Point(377, 9);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(611, 38);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Testowanie pojedynczego algorytmu";
+            // 
             // checkBox1
             // 
             this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
@@ -331,7 +327,7 @@ namespace AplikacjaZMSI
             this.checkBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.checkBox1.Font = new System.Drawing.Font("Consolas", 8F);
             this.checkBox1.Location = new System.Drawing.Point(95, 15);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(234, 27);
             this.checkBox1.TabIndex = 17;
@@ -352,6 +348,7 @@ namespace AplikacjaZMSI
             // 
             // panel2
             // 
+            
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.multiTestLabel);
@@ -362,7 +359,7 @@ namespace AplikacjaZMSI
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.comboBoxTestFunctions1);
             this.panel2.Location = new System.Drawing.Point(25, 96);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1343, 636);
             this.panel2.TabIndex = 19;
@@ -382,7 +379,7 @@ namespace AplikacjaZMSI
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Consolas", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(443, 13);
+            this.label5.Location = new System.Drawing.Point(443, 14);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(503, 38);
@@ -392,7 +389,7 @@ namespace AplikacjaZMSI
             // multiTestLabel
             // 
             this.multiTestLabel.AutoSize = true;
-            this.multiTestLabel.Location = new System.Drawing.Point(182, 392);
+            this.multiTestLabel.Location = new System.Drawing.Point(181, 391);
             this.multiTestLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.multiTestLabel.Name = "multiTestLabel";
             this.multiTestLabel.Size = new System.Drawing.Size(44, 16);
@@ -403,16 +400,16 @@ namespace AplikacjaZMSI
             // 
             this.progressBar1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.progressBar1.Location = new System.Drawing.Point(185, 284);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(5);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1002, 59);
+            this.progressBar1.Size = new System.Drawing.Size(1003, 59);
             this.progressBar1.TabIndex = 11;
             // 
             // btnMultiSolve
             // 
             this.btnMultiSolve.Font = new System.Drawing.Font("Consolas", 13.8F);
-            this.btnMultiSolve.Location = new System.Drawing.Point(1032, 189);
-            this.btnMultiSolve.Margin = new System.Windows.Forms.Padding(5);
+            this.btnMultiSolve.Location = new System.Drawing.Point(1032, 190);
+            this.btnMultiSolve.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnMultiSolve.Name = "btnMultiSolve";
             this.btnMultiSolve.Size = new System.Drawing.Size(155, 52);
             this.btnMultiSolve.TabIndex = 10;
@@ -424,7 +421,7 @@ namespace AplikacjaZMSI
             // 
             this.btnMultiReport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMultiReport.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnMultiReport.Location = new System.Drawing.Point(1008, 392);
+            this.btnMultiReport.Location = new System.Drawing.Point(1008, 391);
             this.btnMultiReport.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.btnMultiReport.Name = "btnMultiReport";
             this.btnMultiReport.Size = new System.Drawing.Size(179, 80);
@@ -439,9 +436,9 @@ namespace AplikacjaZMSI
             this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(185, 129);
-            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(5);
+            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(347, 102);
+            this.checkedListBox1.Size = new System.Drawing.Size(347, 85);
             this.checkedListBox1.TabIndex = 12;
             // 
             // label2
@@ -457,10 +454,10 @@ namespace AplikacjaZMSI
             // 
             // MainForm
             // 
+            this.Controls.Add(this.panelInstruction);
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1372, 754);
-            this.Controls.Add(this.panelInstruction);
+            this.ClientSize = new System.Drawing.Size(1829, 990);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBox1);
@@ -473,10 +470,10 @@ namespace AplikacjaZMSI
             this.panelAlgorithmSelection.PerformLayout();
             this.panelAlgorithmConfiguration.ResumeLayout(false);
             this.panelAlgorithmConfiguration.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panelInstruction.ResumeLayout(false);
             this.panelInstruction.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -495,7 +492,6 @@ namespace AplikacjaZMSI
         private System.Windows.Forms.Label lblResult;
         private System.Windows.Forms.FlowLayoutPanel panelParameters;
         private System.Windows.Forms.Label labelConfiguration;
-        private System.Windows.Forms.ComboBox comboBoxTestFunctions;
         private System.Windows.Forms.ComboBox comboBoxTestFunctions1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBox1;
@@ -517,6 +513,7 @@ namespace AplikacjaZMSI
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private CheckedListBox checkedListBoxFunctions;
     }
 }
 

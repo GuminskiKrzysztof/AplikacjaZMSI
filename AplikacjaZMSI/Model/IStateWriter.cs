@@ -77,7 +77,8 @@ namespace AplikacjaZMSI
         void setPopNull();
         void setJson(TestData d);
         void Solve_restart(int i, double[,] pop, double f, double[] x);
-        
+        void setFuncName(string functionName);
+
 
 
         // Lista informacji o kolejnych parametrach algorytmu

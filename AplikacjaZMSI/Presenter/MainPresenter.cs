@@ -64,71 +64,93 @@ namespace AplikacjaZMSI.Presenter
   
 
             view.ClearResults();
-            foreach (var functionName in selectedTestFunctions)
-    {
-                double[,] domain = new double[,] { { -10, 10 }, { -10, 10 } }; // Przykładowy zakres
-                Func<double[], double> fitnessFunction;
-                Console.WriteLine(functionName);
-
-                switch (functionName)
+            IOptimizationAlgorithm selected = selectedAlgorithm;
+            if(this.view.thread  != null)
+                if (this.view.thread.IsAlive)
                 {
-                    case "Sphere":
-                        fitnessFunction = TestFunction.Sphere;
-                        break;
-                    case "Rastrigin":
-                        fitnessFunction = TestFunction.Rastrigin;
-                        break;
-                    case "Rosenbrock":
-                        fitnessFunction = TestFunction.Rosenbrock;
-                        break;
-                    case "Beale":
-                        fitnessFunction = TestFunction.Beale;
-                        break;
-                    case "TSFDE":
-                        TSFDE_fractional_boundary tsfde_inv = new TSFDE_fractional_boundary();
-                        fitnessFunction = tsfde_inv.fintnessFunction;
-                        double[] a = { 0.1, 1.1, 1.0, -70.0, 250.0, -30.0, 50.0 };
-                        double[] b = { 0.9, 1.9, 5.0, -20.0, 450.0, -10.0, 250.0 };
-                        domain = new double[7, 2];
-                        for (int j = 0; j < 7; j++)
-                        {
-                            domain[j, 0] = a[j];
-                            domain[j, 1] = b[j];
-                        }
-                        break;
-                    case "OF":
-                        ObjectiveFunction of = new ObjectiveFunction();
-                        fitnessFunction = of.FunkcjaCelu.Wartosc;
-                        break;
-                    default:
-                        throw new InvalidOperationException($"Nieznana funkcja testowa: {functionName}");
+                    this.view.thread.Abort();
                 }
+            this.view.thread = new Thread(() =>
+            {
+                foreach (var functionName in selectedTestFunctions)
+                {
+                    double[,] domain = new double[,] { { -10, 10 }, { -10, 10 } }; // Przykładowy zakres
+                    Func<double[], double> fitnessFunction;
+                    Console.WriteLine(functionName);
 
-                try
-        {
-                    // Uruchomienie algorytmu dla danej funkcji testowej
-                   
-                    this.view.thread = new Thread(() =>
+                    switch (functionName)
                     {
-                        selectedAlgorithm.init(fitnessFunction, domain, parameters);
-                        selectedAlgorithm.Solve();
-                        Console.WriteLine($"Algorytm: {selectedAlgorithm.Name}, Funkcja: {functionName}");
-                        Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {selectedAlgorithm.FBest}, X = [{string.Join(", ", selectedAlgorithm.XBest)}]");
+                        case "Sphere":
+                            fitnessFunction = TestFunction.Sphere;
+                            break;
+                        case "Rastrigin":
+                            fitnessFunction = TestFunction.Rastrigin;
+                            break;
+                        case "Rosenbrock":
+                            fitnessFunction = TestFunction.Rosenbrock;
+                            break;
+                        case "Beale":
+                            fitnessFunction = TestFunction.Beale;
+                            break;
+                        case "TSFDE":
+                            TSFDE_fractional_boundary tsfde_inv = new TSFDE_fractional_boundary();
+                            fitnessFunction = tsfde_inv.fintnessFunction;
+                            double[] a = { 0.1, 1.1, 1.0, -70.0, 250.0, -30.0, 50.0 };
+                            double[] b = { 0.9, 1.9, 5.0, -20.0, 450.0, -10.0, 250.0 };
+                            domain = new double[7, 2];
+                            for (int j = 0; j < 7; j++)
+                            {
+                                domain[j, 0] = a[j];
+                                domain[j, 1] = b[j];
+                            }
+                            break;
+                        case "OF":
+                            double[] c = { 0.1, 1.1, 1.0, -70.0, 250.0, -30.0, 50.0 };
+                            double[] d = { 0.9, 1.9, 5.0, -20.0, 450.0, -10.0, 250.0 };
+                            domain = new double[7, 2];
+                            for (int j = 0; j < 7; j++)
+                            {
+                                domain[j, 0] = c[j];
+                                domain[j, 1] = d[j];
+                            }
+                            ObjectiveFunction of = new ObjectiveFunction();
+                            fitnessFunction = of.FunkcjaCelu.Wartosc;
+                            break;
+                        default:
+                            throw new InvalidOperationException($"Nieznana funkcja testowa: {functionName}");
+                    }
+
+                    try
+                    {
+                        // Uruchomienie algorytmu dla danej funkcji testowej
+
+
+                        selected.init(fitnessFunction, domain, parameters);
+                        selected.setFuncName(functionName);
+                        selected.Solve();
+
+                        Console.WriteLine($"Algorytm: {selected.Name}, Funkcja: {functionName}");
+                        Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {selected.FBest}, X = [{string.Join(", ", selected.XBest)}]");
                         // Przekazanie wyników do widoku
-                        view.DisplayResults(selectedAlgorithm.FBest, selectedAlgorithm.XBest, functionName);
-                    });
+                        view.UpdateDisplayResults($"Funkcja: {functionName} Najlepsze f(X): {selected.FBest}\n");
+                        //view.DisplayResults(selected.FBest, selected.XBest, functionName);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Błąd podczas obliczeń dla {functionName}: {ex.Message}", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            });
 
-            
+                    this.view.thread.Start();
 
-            
-           
+
+
+
+
+
         }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Błąd podczas obliczeń dla {functionName}: {ex.Message}", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+       
     }
 }
 
-    }
-}

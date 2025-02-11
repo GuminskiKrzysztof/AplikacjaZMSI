@@ -105,6 +105,7 @@ namespace AplikacjaZMSI.Model
 
             for (int u = (int)i; u < testList.Count; u++)
             {
+                
                 testList[u].Solve();
                 string key = $"Data{u + 1}";
                 testList[u].setPopNull();

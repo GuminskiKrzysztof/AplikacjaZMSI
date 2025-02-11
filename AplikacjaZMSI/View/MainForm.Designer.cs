@@ -151,7 +151,7 @@ namespace AplikacjaZMSI
             this.panelInstruction.Controls.Add(this.richTextBoxInstructions);
             this.panelInstruction.Controls.Add(this.btnCloseInst);
             this.panelInstruction.Controls.Add(this.label3);
-            this.panelInstruction.Location = new System.Drawing.Point(1721, 726);
+            this.panelInstruction.Location = new System.Drawing.Point(15, 78);
             this.panelInstruction.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.panelInstruction.Name = "panelInstruction";
             this.panelInstruction.Size = new System.Drawing.Size(1309, 626);
@@ -348,7 +348,7 @@ namespace AplikacjaZMSI
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.panelInstruction);
+            
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.multiTestLabel);
@@ -454,6 +454,7 @@ namespace AplikacjaZMSI
             // 
             // MainForm
             // 
+            this.Controls.Add(this.panelInstruction);
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1829, 990);

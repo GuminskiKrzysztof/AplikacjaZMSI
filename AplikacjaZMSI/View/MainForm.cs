@@ -23,6 +23,7 @@ namespace AplikacjaZMSI
         private List<IOptimizationAlgorithm> algorithms;
         private List<TrackBar> dynamicTrackBars = new List<TrackBar>();
         public Thread thread;
+        private IAsyncResult inv;
 
         // public string SelectedTestFunction => comboBoxTestFunctions.SelectedItem?.ToString();
         public string SelectedTestFunctionMulti => comboBoxTestFunctions1.SelectedItem?.ToString();
@@ -43,7 +44,18 @@ namespace AplikacjaZMSI
                 panel2.Enabled = true;
                 Func<int, bool> update = UpdateProgressBar;
                 string json = File.ReadAllText("multitest.json");
-                testMulti = new MultiTest(update, json);
+                if (thread != null)
+                    if (thread.IsAlive)
+                    {
+                        thread.Abort();
+                    }
+
+                thread = new Thread(() =>
+                {
+                    testMulti = new MultiTest(update, json);
+                });
+                thread.Start();
+                
 
             }
             else if (File.Exists("test.json"))
@@ -84,22 +96,32 @@ namespace AplikacjaZMSI
                     TestFunc = of.FunkcjaCelu.Wartosc;
                 }
 
+                if (thread != null)
+                    if (thread.IsAlive)
+                    {
+                        thread.Abort();
+                    }
 
+                thread = new Thread(() =>
+                {
+                    if (t.name == "AO")
+                    {
+                        AquilaOptimizer aquilaOptimizer = new AquilaOptimizer();
+                        aquilaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits), new double[] { t.param1, t.param2, t.param3, t.popSize, t.iter });
+                        aquilaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
+                        this.DisplayResults(aquilaOptimizer.FBest, aquilaOptimizer.XBest, t.func);
+                    }
+                    else
+                    {
+                        BOAAlgorithm boaOptimizer = new BOAAlgorithm();
+                        boaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits), new double[] { t.param1, t.param2, t.param3, t.popSize, t.iter });
+                        boaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
+                        this.DisplayResults(boaOptimizer.FBest, boaOptimizer.XBest, t.func);
+                    }
+                });
+                thread.Start();
 
-                if (t.name == "AO")
-                {
-                    AquilaOptimizer aquilaOptimizer = new AquilaOptimizer();
-                    aquilaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits),new double[] { t.param1, t.param2, t.param3});
-                    aquilaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
-                    this.DisplayResults(aquilaOptimizer.FBest, aquilaOptimizer.XBest, t.func);
-                }
-                else
-                {
-                    BOAAlgorithm boaOptimizer = new BOAAlgorithm();
-                    boaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits),new double[] { t.param1, t.param2, t.param3 });
-                    boaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
-                    this.DisplayResults(boaOptimizer.FBest, boaOptimizer.XBest, t.func);
-                }
+                
 
 
                
@@ -121,6 +143,7 @@ namespace AplikacjaZMSI
             }
             else
             {
+                progressBar1.EndInvoke(inv);
                 if (thread != null)
                 {
                     thread.Abort();
@@ -153,7 +176,7 @@ namespace AplikacjaZMSI
         public MainForm()
         {
             InitializeComponent();
-            
+
             algorithms = new List<IOptimizationAlgorithm>
             {
                 new AquilaOptimizer(),
@@ -196,10 +219,10 @@ namespace AplikacjaZMSI
             checkedListBoxFunctions.Items.Add("Rosenbrock");
             checkedListBoxFunctions.Items.Add("Beale");
             checkedListBoxFunctions.Items.Add("TSFDE");
-            checkedListBoxFunctions.Items.Add("OF"); 
+            checkedListBoxFunctions.Items.Add("OF");
 
             LoadInstructions();
-
+            IsStoped();
            
         }
 
@@ -259,7 +282,7 @@ namespace AplikacjaZMSI
         {
             if (progressBar1.InvokeRequired)
             {
-                progressBar1.Invoke(new Action(() => progressBar1.Value = value));
+                 inv = progressBar1.BeginInvoke(new Action(() => progressBar1.Value = value));
             }
             else
             {
@@ -456,6 +479,19 @@ namespace AplikacjaZMSI
             lblResult.Text = "";
         }
 
+        public bool UpdateDisplayResults(string value)
+        {
+            if (lblResult.InvokeRequired)
+            {
+                lblResult.Invoke(new Action(() => lblResult.Text += value));
+            }
+            else
+            {
+                lblResult.Text += value;
+            }
+            return true;
+        }
+
         public void DisplayResults(double fBest, double[] xBest, string functionName)
         {
             lblResult.Text += $"Funkcja: {functionName} Najlepsze f(X): {fBest}\n";
@@ -464,7 +500,12 @@ namespace AplikacjaZMSI
         private void btnMultiSolve_Click(object sender, EventArgs e)
         {
             string sss = SelectedTestFunctionMulti;
-
+            if(thread != null)
+            if (thread.IsAlive)
+            {
+                thread.Abort();
+                    }
+          
             thread = new Thread(() =>
             {
                 Func<int, bool> update = UpdateProgressBar;
@@ -580,13 +621,16 @@ namespace AplikacjaZMSI
 
         private void btnSingleReport_Click(object sender, EventArgs e)
         {
-            try
+            foreach (string uuu in SelectedTestFunctions)
             {
-                Process.Start("raport.pdf");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
+                try
+                {
+                    Process.Start("rapor_"+uuu+".pdf");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
             }
         }
 

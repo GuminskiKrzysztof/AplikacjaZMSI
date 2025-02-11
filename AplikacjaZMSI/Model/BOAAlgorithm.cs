@@ -47,6 +47,7 @@ namespace AplikacjaZMSI.Model
         public void setJson(TestData d)
         {
             data = d;
+            data.resIn = new double[(int)(iterations / 5)];
         }
 
         public void setFuncName(string name)
@@ -180,7 +181,7 @@ namespace AplikacjaZMSI.Model
             Console.WriteLine($"a = {a}, c = {c},p = {p}");
             PDFReportGenerator pDFReportGenerator = new PDFReportGenerator();
             pDFReportGenerator.raportData(data);
-            pDFReportGenerator.GenerateReport("Raport.pdf");
+            pDFReportGenerator.GenerateReport("Rapor_" + data.func + ".pdf");
         }
 
         private void InitializePopulation(double[,] domain)

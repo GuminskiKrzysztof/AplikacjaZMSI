@@ -13,9 +13,11 @@ namespace AplikacjaZMSI.Model
 
         public ParamInfo[] ParamsInfo { get; set; } = new ParamInfo[]
         {
-            new ParamInfo { Name = "a", Description = "Parametr a (współczynnik w BOA)", LowerBoundary = 0.1, UpperBoundary = 1.0 },
-            new ParamInfo { Name = "c", Description = "Parametr c (intensywność zapachu)", LowerBoundary = 0.1, UpperBoundary = 2.0 },
-            new ParamInfo { Name = "p", Description = "Prawdopodobieństwo globalnej eksploracji", LowerBoundary = 0.1, UpperBoundary = 1.0 }
+            new ParamInfo { Name = "a", Description = "Parametr a (współczynnik w BOA)", LowerBoundary = 0.1, UpperBoundary = 1.0, IsInteger = false },
+            new ParamInfo { Name = "c", Description = "Parametr c (intensywność zapachu)", LowerBoundary = 0.1, UpperBoundary = 2.0, IsInteger = false },
+            new ParamInfo { Name = "p", Description = "Prawdopodobieństwo globalnej eksploracji", LowerBoundary = 0.1, UpperBoundary = 1.0, IsInteger = false },
+            new ParamInfo { Name = "pop", Description = "Wielkość populacji", LowerBoundary = 10, UpperBoundary = 150, IsInteger = true },
+            new ParamInfo { Name = "itr", Description = "Liczba iteracji", LowerBoundary = 5, UpperBoundary = 100, IsInteger = true }
         };
 
         public IStateWriter writer { get; set; } = new StateWriter();
@@ -113,8 +115,8 @@ namespace AplikacjaZMSI.Model
             c = parameters[1];
             p = parameters[2];
             dimensions = domain.GetLength(0);
-            populationSize = 50; // Można ustawić dynamicznie
-            iterations = 100; // Można ustawić dynamicznie
+            populationSize = (int)parameters[3];
+            iterations = (int)parameters[4];
             data = new TestData();
             data.name = Name;
             data.param1 = a;

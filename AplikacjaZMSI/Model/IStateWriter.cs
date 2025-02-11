@@ -56,6 +56,7 @@ namespace AplikacjaZMSI
         public string Description { get; set; }
         public double UpperBoundary { get; set; }
         public double LowerBoundary { get; set; }
+        public bool IsInteger { get; set; }
     }
 
     public interface IOptimizationAlgorithm

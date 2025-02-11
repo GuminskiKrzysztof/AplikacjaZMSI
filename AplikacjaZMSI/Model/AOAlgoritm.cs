@@ -12,9 +12,11 @@ namespace AplikacjaZMSI.Model
         public string Name { get; set; } = "Aquila Optimizer (AO)";
         public ParamInfo[] ParamsInfo { get; set; } = new ParamInfo[]
         {
-            new ParamInfo { Name = "alpha", Description = "Parametr alpha", LowerBoundary = 0.1, UpperBoundary = 1.0 },
-            new ParamInfo { Name = "delta", Description = "Parametr delta", LowerBoundary = 0.1, UpperBoundary = 2.0 },
-            new ParamInfo { Name = "beta", Description = "Parametr beta (dla dystrybucji Lévy'ego)", LowerBoundary = 1.0, UpperBoundary = 3.0 }
+            new ParamInfo { Name = "alpha", Description = "Parametr alpha", LowerBoundary = 0.1, UpperBoundary = 1.0, IsInteger = false },
+            new ParamInfo { Name = "delta", Description = "Parametr delta", LowerBoundary = 0.1, UpperBoundary = 2.0, IsInteger = false },
+            new ParamInfo { Name = "beta", Description = "Parametr beta (dla dystrybucji Lévy'ego)", LowerBoundary = 1.0, UpperBoundary = 3.0, IsInteger = false },
+            new ParamInfo { Name = "pop", Description = "Wielkość populacji", LowerBoundary = 10, UpperBoundary = 150, IsInteger = true },
+            new ParamInfo { Name = "itr", Description = "Liczba iteracji", LowerBoundary = 5, UpperBoundary = 100, IsInteger = true }
         };
         public IStateWriter writer { get; set; } = new StateWriter();
         public IStateReader reader { get; set; } = new StateReader();
@@ -62,8 +64,8 @@ namespace AplikacjaZMSI.Model
             delta = parameters[1];
             beta = parameters[2];
             dimensions = domain.GetLength(0);
-            populationSize = 50; // Domyślna wielkość populacji
-            iterations = 100; // Domyślna liczba iteracji
+            populationSize = (int)parameters[3];
+            iterations = (int)parameters[4];
             data = new TestData();
             data.name = Name;
             data.param1 = alpha;

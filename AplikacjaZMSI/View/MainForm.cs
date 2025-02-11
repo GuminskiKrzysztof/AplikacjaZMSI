@@ -155,6 +155,7 @@ namespace AplikacjaZMSI
 
             LoadInstructions();
 
+           
         }
 
 
@@ -259,7 +260,7 @@ namespace AplikacjaZMSI
                 };
 
                 // Nazwa parametru (szerokość ustawiona na sztywno)
-                var label = new Label
+                var nameLabel = new Label
                 {
                     Text = param.Name,
                     AutoSize = false,
@@ -269,69 +270,101 @@ namespace AplikacjaZMSI
                     Font = new Font("Consolas", 12, FontStyle.Bold),
                     TextAlign = ContentAlignment.MiddleLeft
                 };
-                paramPanel.Controls.Add(label);
+                paramPanel.Controls.Add(nameLabel);
 
                 // Suwak
-                var trackBar = new TrackBar
+                TrackBar trackBar = new TrackBar();
+                if (param.IsInteger)
                 {
-                    Minimum = (int)(param.LowerBoundary * 10),
-                    Maximum = (int)(param.UpperBoundary * 10),
-                    Value = (int)(param.LowerBoundary * 10),
-                    TickFrequency = 10,
-                    Tag = param,
-                    Width = paramPanel.Width - 170, // Dopasowanie szerokości do panelu
-                    Location = new Point(label.Right + 20, 30) // Suwak zaraz obok etykiety
-                };
+                    trackBar.Minimum = (int)param.LowerBoundary;
+                    trackBar.Maximum = (int)param.UpperBoundary;
+                    trackBar.Value = (int)param.LowerBoundary;
+                    trackBar.TickFrequency = 1;
+                }    
+                else
+                {
+                    trackBar.Minimum = (int)(param.LowerBoundary * 10);
+                    trackBar.Maximum = (int)(param.UpperBoundary * 10);
+                    trackBar.Value = (int)(param.LowerBoundary * 10);
+                    trackBar.TickFrequency = 10;
+                }
+                trackBar.Tag = param;
+                trackBar.Width = paramPanel.Width - 170; // Dopasowanie szerokości do panelu
+                trackBar.Location = new Point(nameLabel.Right + 20, 30); // Suwak zaraz obok etykiety
                 paramPanel.Controls.Add(trackBar);
 
                 // Min wartość (z lewej strony suwaka)
                 var minLabel = new Label
                 {
-                    Text = $"{param.LowerBoundary:F1}",
                     AutoSize = true,
                     Location = new Point(trackBar.Left - 35, trackBar.Top + 25),
                     Font = new Font("Consolas", 10)
                 };
-                paramPanel.Controls.Add(minLabel);
 
                 // Max wartość (z prawej strony suwaka)
                 var maxLabel = new Label
                 {
-                    Text = $"{param.UpperBoundary:F1}",
                     AutoSize = true,
                     Location = new Point(trackBar.Right + 2, trackBar.Top + 25), // Przesunięcie w prawo
                     Font = new Font("Consolas", 10)
                 };
+
+                if (param.IsInteger)
+                {
+                    minLabel.Text = ((int)param.LowerBoundary).ToString();
+                    maxLabel.Text = ((int)param.UpperBoundary).ToString();
+                }
+                else
+                {
+                    minLabel.Text = $"{param.LowerBoundary:F1}";
+                    maxLabel.Text = $"{param.UpperBoundary:F1}";
+                }
+                paramPanel.Controls.Add(minLabel);
                 paramPanel.Controls.Add(maxLabel);
+
 
                 // Aktualna wartość (nad suwakiem)
                 var valueLabel = new Label
                 {
-                    Text = $"{param.LowerBoundary:F1}",
+                    // Text = $"{param.LowerBoundary:F1}",
                     AutoSize = true,
                     Location = new Point(trackBar.Left, trackBar.Top - 20),
                     Font = new Font("Consolas", 10),
                     BackColor = Color.LightYellow // Opcjonalnie dla lepszej widoczności
                 };
+
+
+                if (param.IsInteger)
+                    valueLabel.Text = trackBar.Value.ToString();
+                else
+                    valueLabel.Text = (trackBar.Value / 10.0).ToString("F1");
+
                 paramPanel.Controls.Add(valueLabel);
 
                 // Dynamiczne przesuwanie etykiety wartości
                 trackBar.Scroll += (sender, e) =>
                 {
                     var tb = sender as TrackBar;
-                    double currentValue = tb.Value / 10.0;
-                    valueLabel.Text = currentValue.ToString("F1");
-
-                    // Pobranie szerokości suwaka i jego przesunięcia wewnętrznego
-                    int trackBarRange = tb.Maximum - tb.Minimum;
-                    int trackBarWidth = tb.Width - 10; // Odejmujemy marginesy po bokach
-
-                    // Obliczenie dokładnej pozycji
-                    int relativePosition = (int)((tb.Value - tb.Minimum) / (double)trackBarRange * trackBarWidth);
-
-                    // Wyśrodkowanie wartości nad suwakiem
-                    int labelCenterX = tb.Left + relativePosition - (valueLabel.Width / 2) + 5; // Dodajemy małą korektę
-                    valueLabel.Location = new Point(labelCenterX, tb.Top - 20);
+                    if (tb.Tag is ParamInfo p)
+                    {
+                        if (p.IsInteger)
+                        {
+                            valueLabel.Text = tb.Value.ToString();
+                            int relPos = (int)(((tb.Value - tb.Minimum) / (double)(tb.Maximum - tb.Minimum)) * (tb.Width - 10));
+                            int labelCenterX = tb.Left + relPos - (valueLabel.Width / 2);
+                            valueLabel.Location = new Point(labelCenterX, tb.Top - 20);
+                        }
+                        else
+                        {
+                            double currentValue = tb.Value / 10.0;
+                            valueLabel.Text = currentValue.ToString("F1");
+                            int trackBarRange = tb.Maximum - tb.Minimum;
+                            int trackBarWidth = tb.Width - 10;
+                            int relPos = (int)(((tb.Value - tb.Minimum) / (double)trackBarRange) * trackBarWidth);
+                            int labelCenterX = tb.Left + relPos - (valueLabel.Width / 2) + 5;
+                            valueLabel.Location = new Point(labelCenterX, tb.Top - 20);
+                        }
+                    }
                 };
 
                 // Dodaj do głównego kontenera
@@ -356,7 +389,12 @@ namespace AplikacjaZMSI
                 return;
             }
 
-            var parameterValues = dynamicTrackBars.Select(tb => tb.Value / 10.0).ToArray();
+            var parameterValues = dynamicTrackBars.Select(tb =>
+            {
+                var p = tb.Tag as ParamInfo;
+                return p.IsInteger ? (double)tb.Value : tb.Value / 10.0;
+            }).ToArray();
+
             OnSolve?.Invoke(parameterValues);
         }
 

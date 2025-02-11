@@ -22,5 +22,6 @@ namespace AplikacjaZMSI.Model
         public double[][] population { get; set; }
         public double[][] limits;
         public int curIter { get; set; } = 0;
+        public double[] resIn;
     }
 }

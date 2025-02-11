@@ -89,14 +89,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\alglibinternal.cs" />
     <Compile Include="Model\AOAlgoritm.cs" />
+    <Compile Include="Model\ap.cs" />
     <Compile Include="Model\BOAAlgorithm.cs" />
+    <Compile Include="Model\FunkcjaCelu12.cs" />
     <Compile Include="Model\GeneratePDFReport.cs" />
     <Compile Include="Model\MultiTest.cs" />
-    <Compile Include="Model\SingleTestForMulti.cs" />
+    <Compile Include="Model\ObjectiveFunction.cs" />
+    <Compile Include="Model\specialfunctions.cs" />
     <Compile Include="Model\StateWriter.cs" />
     <Compile Include="Model\TestData.cs" />
     <Compile Include="Model\TestFunction.cs" />
+    <Compile Include="Model\Transformator12.cs" />
+    <Compile Include="Model\TSFDE_fractional_boundary.cs" />
     <Compile Include="Presenter\MainPresenter.cs" />
     <Compile Include="View\IMainView.cs" />
     <Compile Include="View\MainForm.cs">

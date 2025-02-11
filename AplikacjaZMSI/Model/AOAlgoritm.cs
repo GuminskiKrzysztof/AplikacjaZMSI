@@ -72,7 +72,8 @@ namespace AplikacjaZMSI.Model
             data.param2 = delta;
             data.param3 = beta;
             data.iter = iterations;
-            data.dim = dimensions;  
+            data.dim = dimensions;
+            data.resIn = new double[(int)(iterations / 5)];
             data.limits = ConvertToJaggedArray(domain);
             data.popSize = populationSize;
 
@@ -123,6 +124,10 @@ namespace AplikacjaZMSI.Model
                     File.WriteAllText("test_.json", jsonString);
                     File.Copy("test_.json", "test.json", true);
                 }
+                if (iter % 5 == 0)
+                {
+                    data.resIn[iter / 5] = FBest;
+                }
 
             }
             File.Delete("test.json");
@@ -151,6 +156,10 @@ namespace AplikacjaZMSI.Model
                     string jsonString = JsonSerializer.Serialize(data);
                     File.WriteAllText("test_.json", jsonString);
                     File.Copy("test_.json", "test.json", true);
+                }
+                if (iter % 5 == 0)
+                {
+                    data.resIn[iter / 5] = FBest;
                 }
             }
             data.state = "DONE";

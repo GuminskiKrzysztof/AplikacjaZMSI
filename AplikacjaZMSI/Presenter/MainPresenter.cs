@@ -43,56 +43,67 @@ namespace AplikacjaZMSI.Presenter
 
 
         private void RunAlgorithm(double[] parameters)
+{
+    if (selectedAlgorithm == null)
+    {
+        MessageBox.Show("Nie wybrano algorytmu!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return;
+    }
+
+    // Pobranie listy wybranych funkcji testowych
+    List<string> selectedTestFunctions = view.SelectedTestFunctions;
+
+    if (selectedTestFunctions.Count == 0)
+    {
+        MessageBox.Show("Nie wybrano żadnej funkcji testowej!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return;
+    }
+
+    double[,] domain = new double[,] { { -10, 10 }, { -10, 10 } }; // Przykładowy zakres
+
+            view.ClearResults();
+            foreach (var functionName in selectedTestFunctions)
+    {
+                Func<double[], double> fitnessFunction;
+                Console.WriteLine(functionName);
+
+                switch (functionName)
+                {
+                    case "Sphere":
+                        fitnessFunction = TestFunction.Sphere;
+                        break;
+                    case "Rastrigin":
+                        fitnessFunction = TestFunction.Rastrigin;
+                        break;
+                    case "Rosenbrock":
+                        fitnessFunction = TestFunction.Rosenbrock;
+                        break;
+                    case "Beale":
+                        fitnessFunction = TestFunction.Beale;
+                        break;
+                    default:
+                        throw new InvalidOperationException($"Nieznana funkcja testowa: {functionName}");
+                }
+
+                try
         {
-            if (selectedAlgorithm == null)
-            {
-                MessageBox.Show("Nie wybrano algorytmu!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            // Uruchomienie algorytmu dla danej funkcji testowej
+            selectedAlgorithm.init(fitnessFunction, domain, parameters);
+            selectedAlgorithm.Solve();
 
-            // Pobranie wybranej funkcji testowej z widoku
-            string selectedTestFunctionName = view.SelectedTestFunction;
-            Func<double[], double> fitnessFunction;
+            Console.WriteLine($"Algorytm: {selectedAlgorithm.Name}, Funkcja: {functionName}");
+            Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {selectedAlgorithm.FBest}, X = [{string.Join(", ", selectedAlgorithm.XBest)}]");
 
-            switch (selectedTestFunctionName)
-            {
-                case "Sphere":
-                    fitnessFunction = TestFunction.Sphere;
-                    break;
-                case "Rastrigin":
-                    fitnessFunction = TestFunction.Rastrigin;
-                    break;
-                case "Rosenbrock":
-                    fitnessFunction = TestFunction.Rosenbrock;
-                    break;
-                case "Beale":
-                    fitnessFunction = TestFunction.Beale;
-                    break;
-                default:
-                    throw new InvalidOperationException("Nieznana funkcja testowa.");
-            }
-
-
-            Console.WriteLine($"Uruchamiam algorytm {selectedAlgorithm} z funkcją {selectedTestFunctionName} i parametrami: {string.Join(", ", parameters)}");
-
-            // Ustawienie parametrów algorytmu
-            double[,] domain = new double[,] { { -10, 10 }, { -10, 10 } }; // Przykładowy zakres
-            try
-            {
-                // Uruchom algorytm
-                selectedAlgorithm.init(fitnessFunction, domain, parameters);
-                selectedAlgorithm.Solve();
-                Console.WriteLine($"Najlepsze rozwiązanie: f(X) = {selectedAlgorithm.FBest}, X = [{string.Join(", ", selectedAlgorithm.XBest)}]");
-                // Przekaż wyniki do widoku
-                view.DisplayResults(selectedAlgorithm.FBest, selectedAlgorithm.XBest);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Wystąpił błąd: {ex.Message}", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }   
             
+            // Przekazanie wyników do widoku
+            view.DisplayResults(selectedAlgorithm.FBest, selectedAlgorithm.XBest, functionName);
         }
-
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Błąd podczas obliczeń dla {functionName}: {ex.Message}", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+}
 
     }
 }

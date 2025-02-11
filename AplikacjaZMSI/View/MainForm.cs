@@ -22,7 +22,7 @@ namespace AplikacjaZMSI
         private List<IOptimizationAlgorithm> algorithms;
         private List<TrackBar> dynamicTrackBars = new List<TrackBar>();
 
-        public string SelectedTestFunction => comboBoxTestFunctions.SelectedItem?.ToString();
+// public string SelectedTestFunction => comboBoxTestFunctions.SelectedItem?.ToString();
         public string SelectedTestFunctionMulti => comboBoxTestFunctions1.SelectedItem?.ToString();
         public MultiTest testMulti;
         public event Action<double[]> OnSolve;
@@ -52,7 +52,7 @@ namespace AplikacjaZMSI
                 panel2.Visible = false;
                 panel2.Enabled = false;
 
-                string json = File.ReadAllText("test.json"); 
+                string json = File.ReadAllText("test.json");
                 TestData t = new TestData();
                 Func<double[], double> TestFunc = null;
                 if (t.func == "Sphere")
@@ -71,19 +71,22 @@ namespace AplikacjaZMSI
                 {
                     TestFunc = TestFunction.Beale;
                 }
+
+
+
                 if (t.name == "AO")
                 {
                     AquilaOptimizer aquilaOptimizer = new AquilaOptimizer();
                     aquilaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits),new double[] { t.param1, t.param2, t.param3});
                     aquilaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
-                    this.DisplayResults(aquilaOptimizer.FBest, aquilaOptimizer.XBest);
+                    this.DisplayResults(aquilaOptimizer.FBest, aquilaOptimizer.XBest, t.func);
                 }
                 else
                 {
                     BOAAlgorithm boaOptimizer = new BOAAlgorithm();
                     boaOptimizer.init(TestFunc, ConvertJaggedToRectangular(t.limits),new double[] { t.param1, t.param2, t.param3 });
                     boaOptimizer.Solve_restart(t.curIter, ConvertJaggedToRectangular(t.population), t.FBest, t.XBest);
-                    this.DisplayResults(boaOptimizer.FBest, boaOptimizer.XBest);
+                    this.DisplayResults(boaOptimizer.FBest, boaOptimizer.XBest, t.func);
                 }
 
 
@@ -130,22 +133,22 @@ namespace AplikacjaZMSI
             comboBoxAlgorithms.SelectedIndex = -1;
 
             buttonNextConfiguration.Enabled = false;
-            btnSolve.Enabled = false;
+            btnSolve.Enabled = true;
             btnMultiSolve.Enabled = false;
 
             multiTestLabel.Text = "";
 
             comboBoxAlgorithms.SelectedIndexChanged += comboBoxAlgorithms_SelectedIndexChanged;
-            comboBoxTestFunctions.SelectedIndexChanged += comboBoxTestFunctions_SelectedIndexChanged;
+            //comboBoxTestFunctions.SelectedIndexChanged += comboBoxTestFunctions_SelectedIndexChanged;
             comboBoxTestFunctions1.SelectedIndexChanged += comboBoxTestFunctions1_SelectedIndexChanged;
             checkedListBox1.ItemCheck += checkedListBox1_ItemCheck;
 
 
             // Zdarzenie na zmianę funkcji testowej
-            comboBoxTestFunctions.SelectedIndexChanged += (sender, e) =>
-            {
-                Console.WriteLine($"Wybrano funkcję testową: {SelectedTestFunction}");
-            };
+            //comboBoxTestFunctions.SelectedIndexChanged += (sender, e) =>
+            //{
+            //    Console.WriteLine($"Wybrano funkcję testową: {SelectedTestFunction}");
+            //};
             comboBoxTestFunctions1.SelectedIndexChanged += (sender, e) =>
             {
                 Console.WriteLine($"Wybrano funkcję testową1: {SelectedTestFunctionMulti}");
@@ -153,12 +156,23 @@ namespace AplikacjaZMSI
             checkedListBox1.Items.Add("AO");
             checkedListBox1.Items.Add("BOA");
 
+            checkedListBoxFunctions.Items.Add("Sphere");
+            checkedListBoxFunctions.Items.Add("Rastrigin");
+            checkedListBoxFunctions.Items.Add("Rosenbrock");
+            checkedListBoxFunctions.Items.Add("Beale");
+
             LoadInstructions();
 
            
         }
 
-
+        public List<string> SelectedTestFunctions
+        {
+            get
+            {
+                return checkedListBoxFunctions.CheckedItems.Cast<string>().ToList();
+            }
+        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -375,7 +389,7 @@ namespace AplikacjaZMSI
 
         private void comboBoxTestFunctions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnSolve.Enabled = comboBoxTestFunctions.SelectedItem != null;
+            //btnSolve.Enabled = comboBoxTestFunctions.SelectedItem != null;
         }
 
 
@@ -399,9 +413,15 @@ namespace AplikacjaZMSI
         }
 
         // Metoda do wyświetlania wyników
-        public void DisplayResults(double fBest, double[] xBest)
+
+        public void ClearResults()
         {
-            lblResult.Text = $"Najlepsze f(X): {fBest}\nX = [{string.Join(", ", xBest)}]";
+            lblResult.Text = "";
+        }
+
+        public void DisplayResults(double fBest, double[] xBest, string functionName)
+        {
+            lblResult.Text += $"Funkcja: {functionName} Najlepsze f(X): {fBest}\n";
         }
 
         private void btnMultiSolve_Click(object sender, EventArgs e)
